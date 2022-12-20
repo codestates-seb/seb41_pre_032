@@ -1,4 +1,4 @@
-package seb41_pre_32.back.tag;
+package seb41_pre_32.back.tag.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
