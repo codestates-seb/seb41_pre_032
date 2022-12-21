@@ -1,4 +1,4 @@
-package seb41_pre_32.back.question.domain;
+package seb41_pre_32.back.question.domain.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +26,7 @@ public class Question extends BaseEntity {
     private String contents;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    private String addContents;
+    private String attempt;
 
     private int likeCount = 0;
     private int disLikeCount = 0;
