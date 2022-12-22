@@ -6,7 +6,7 @@ import Loading from "./Loading";
 const ListWrap = styled.div`
   width: 100%;
   padding: 2.4rem;
-
+  border-left: 1px solid hsl(210,8%,85%);
   .question-top-box {
     display: flex;
     justify-content: space-between;
@@ -15,22 +15,6 @@ const ListWrap = styled.div`
 
   .all-question-title {
     display: inline-block;
-  }
-
-  .button-ask-question {
-    background-color: hsl(206, 100%, 52%);
-    border: 1px solid transparent;
-    border-radius: 3px;
-    box-shadow: inset 0 1px 0 0hsla (0, 0%, 100%, 0.4);
-    color: white;
-    font-size: 13px;
-    padding: 0.8em;
-    cursor: pointer;
-    display: inline-block;
-    font-weight: normal;
-    line-height: calc((13+2) / 13);
-    position: relative;
-    outline: none;
   }
 `;
 
