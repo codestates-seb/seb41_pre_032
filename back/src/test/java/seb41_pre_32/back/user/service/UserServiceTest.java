@@ -1,15 +1,19 @@
 package seb41_pre_32.back.user.service;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.transaction.annotation.Transactional;
 import seb41_pre_32.back.exception.user.DuplicateUserEmailException;
 import seb41_pre_32.back.exception.user.DuplicateUserIdException;
+import seb41_pre_32.back.exception.user.UserNotFoundException;
 import seb41_pre_32.back.user.domain.User;
-import seb41_pre_32.back.user.dto.UserPostDto;
+import seb41_pre_32.back.user.dto.UserPatchRequest;
+import seb41_pre_32.back.user.dto.UserPostRequest;
+import seb41_pre_32.back.user.repository.UserRepository;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
@@ -17,11 +21,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class UserServiceTest {
     @Autowired
     UserService userService;
+    @Autowired
+    UserRepository userRepository;
 
     @Test
     void createUser() {
         // given
-        UserPostDto userPostDto = UserPostDto.builder()
+        UserPostRequest userPostRequest = UserPostRequest.builder()
                 .loginId("testLoginId")
                 .username("testUserName")
                 .password("testPassWord")
@@ -31,16 +37,17 @@ class UserServiceTest {
                 .build();
 
         // when
-        User savedUser = userService.createUser(userPostDto);
+        User savedUser = userService.createUser(userPostRequest);
+        User findUser = userService.findUser(savedUser.getId());
 
         // then
-        Assertions.assertThat(userPostDto.getUsername()).isEqualTo(savedUser.getUsername());
+        assertThat(userPostRequest.getUsername()).isEqualTo(findUser.getUsername());
     }
 
     @Test
     void checkLoginIdDuplicateTest() {
         // given
-        UserPostDto userPostDto = UserPostDto.builder()
+        UserPostRequest userPostRequest = UserPostRequest.builder()
                 .loginId("testLoginId")
                 .username("testUserName")
                 .password("testPassWord")
@@ -49,28 +56,27 @@ class UserServiceTest {
                 .location("서울")
                 .build();
 
-        UserPostDto userPostDto2 = UserPostDto.builder()
+        UserPostRequest userPostRequest2 = UserPostRequest.builder()
                 .loginId("testLoginId")
-                .username("testUserName222")
-                .password("testPassWord222")
-                .email("teatEmail1234-222@naver.com")
+                .username("testUserName2")
+                .password("testPassWord2")
+                .email("teatEmail5678@naver.com")
                 .profileUrl("https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?shrink=500:500&_v=20220426173016")
                 .location("서울")
                 .build();
 
         // when
-        User savedUser1 = userService.createUser(userPostDto);
+        userService.createUser(userPostRequest);
 
         // then
         assertThrows(DuplicateUserIdException.class,
-                () -> userService.createUser(userPostDto2)
-        );
+                () -> userService.createUser(userPostRequest2));
     }
 
     @Test
     void checkEmailDuplicateTest() {
         // given
-        UserPostDto userPostDto = UserPostDto.builder()
+        UserPostRequest userPostRequest = UserPostRequest.builder()
                 .loginId("testLoginId")
                 .username("testUserName")
                 .password("testPassWord")
@@ -79,25 +85,128 @@ class UserServiceTest {
                 .location("서울")
                 .build();
 
-        UserPostDto userPostDto2 = UserPostDto.builder()
-                .loginId("testLoginId222")
-                .username("testUserName222")
-                .password("testPassWord222")
+        UserPostRequest userPostRequest2 = UserPostRequest.builder()
+                .loginId("testLoginId2")
+                .username("testUserName2")
+                .password("testPassWord2")
                 .email("teatEmail1234@naver.com")
                 .profileUrl("https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?shrink=500:500&_v=20220426173016")
                 .location("서울")
                 .build();
 
         // when
-        User savedUser1 = userService.createUser(userPostDto);
+        userService.createUser(userPostRequest);
 
         // then
         assertThrows(DuplicateUserEmailException.class,
-                () -> userService.createUser(userPostDto2)
-        );
+                () -> userService.createUser(userPostRequest2));
     }
 
+    @Test
+    void updateUserTest() {
+        // given
+        UserPostRequest userPostRequest = UserPostRequest.builder()
+                .loginId("testLoginId")
+                .username("testUserName")
+                .password("testPassWord")
+                .email("teatEmail1234@naver.com")
+                .profileUrl("https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?shrink=500:500&_v=20220426173016")
+                .location("서울")
+                .build();
 
+        User savedUser = userService.createUser(userPostRequest);
+        Long userId = savedUser.getId();
 
+        UserPatchRequest request = new UserPatchRequest(
+                "updateName",
+                "updateUrl",
+                "updateLocation");
 
+        //when
+        User updatedUser = userService.updateUser(userId, request);
+
+        //then
+        assertThat(updatedUser.getUsername()).isEqualTo(request.getUsername());
+        assertThat(updatedUser.getProfileUrl()).isEqualTo(request.getProfileUrl());
+        assertThat(updatedUser.getLocation()).isEqualTo(request.getLocation());
+    }
+
+    @Test
+    void findValidUserTest() {
+        // given
+        UserPostRequest userPostRequest = UserPostRequest.builder()
+                .loginId("testLoginId")
+                .username("testUserName")
+                .password("testPassWord")
+                .email("teatEmail1234@naver.com")
+                .profileUrl("https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?shrink=500:500&_v=20220426173016")
+                .location("서울")
+                .build();
+
+        User savedUser = userService.createUser(userPostRequest);
+        Long userId = savedUser.getId();
+
+        //when
+        User findUser = userService.findUser(userId);
+
+        //then
+        assertThat(findUser.getId()).isEqualTo(userId);
+    }
+
+    @Test
+    void findInvalidUserTest() {
+        // given
+        // when
+        Long userId = 2L;
+
+        // then
+        assertThrows(UserNotFoundException.class,
+                () -> userService.findUser(userId));
+    }
+
+    @Test
+    void findUsersTest() {
+        //given
+        for (int i = 0; i < 10; i++) {
+            UserPostRequest userPostRequest = UserPostRequest.builder()
+                    .loginId("testLoginId" + i)
+                    .username("testUserName" + i)
+                    .password("testPassWord")
+                    .email("teatEmail1234" + i + "@naver.com")
+                    .profileUrl("https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?shrink=500:500&_v=20220426173016")
+                    .location("서울")
+                    .build();
+            userService.createUser(userPostRequest);
+        }
+
+        //when
+        Page<User> users = userService.findUsers(1, 5);
+
+        //then
+        assertThat(users.getTotalPages()).isEqualTo(2);
+        assertThat(users.getTotalElements()).isEqualTo(10);
+    }
+
+    @Test
+    void deleteUserTest() {
+        //given
+        UserPostRequest userPostRequest = UserPostRequest.builder()
+                .loginId("testLoginId")
+                .username("testUserName")
+                .password("testPassWord")
+                .email("teatEmail1234@naver.com")
+                .profileUrl("https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?shrink=500:500&_v=20220426173016")
+                .location("서울")
+                .build();
+
+        User savedUser = userService.createUser(userPostRequest);
+
+        //when
+        Long userId = savedUser.getId();
+        userService.deleteUser(userId);
+
+        //then
+        assertThrows(UserNotFoundException.class,
+                () -> userService.findUser(userId));
+    }
 }
