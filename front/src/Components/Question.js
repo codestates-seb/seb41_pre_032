@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const QuestionWrap = styled.li`
   .question-container {
@@ -150,7 +151,7 @@ const QuestionWrap = styled.li`
   }
 `;
 
-const Question = () => {
+const Question = ({ data }) => {
   return (
     <QuestionWrap>
       <div className="question-container">
@@ -169,17 +170,20 @@ const Question = () => {
           </div>
         </div>
         <div className="right">
-          <a href="/" className="question-title">
-            Titleeeee
-          </a>
-          <div className="question-content">
-            질문 내용
-          </div>
+          <h3 className="question-title">
+            <Link to={`/question/${data.id}`}>{data.title}</Link>
+          </h3>
+          <div className="question-content">{data.contents}</div>
 
           <div className="content-meta">
             <ul className="tag-list">
-              <li className="tag">Tags1</li>
-              <li className="tag">Tags2</li>
+              {data.tags
+                ? data.tags.map((tag) => (
+                    <li key={tag.tagId} className="tag">
+                      {tag.tagName}
+                    </li>
+                  ))
+                : null}
             </ul>
 
             <div className="usercard-photo">
