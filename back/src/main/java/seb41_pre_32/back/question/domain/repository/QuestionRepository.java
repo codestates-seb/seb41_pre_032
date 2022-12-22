@@ -15,6 +15,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     Page<Question> findAll(Pageable pageable);
 
     @Override
-    @Query("select q from Question q left join fetch q.user")
+    @Query("select q from Question q left join fetch q.user where q.id =:id")
     Optional<Question> findById(Long id);
 }
