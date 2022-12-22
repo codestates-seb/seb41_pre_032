@@ -39,6 +39,6 @@ StackOverflow 클론코딩(개발자 질의응답 커뮤니티)
   - chore : 기타 작업
 
 ### 3. Branch 생성 규칙
-- 기본 형식 : [type]::[feature]
+- 기본 형식 : [type]/[feature]
 - 기능 구현이 완료되면 Main Branch PR 남기기
 - PR 후 Merge된 브랜치는 삭제하기

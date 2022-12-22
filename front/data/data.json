@@ -26,19 +26,7 @@
       "contents": "두번째 내용",
       "attempt": "질문 관련 시도한 내용",
       "vote": 0,
-      "tags": [
-        {
-          "tagId" : 1,
-          "tagName":"react"
-        },
-        {
-          "tagId" : 2,
-          "tagName":"js"
-        },
-        {
-          "tagId" : 3,
-          "tagName":"node.js"
-        }]
+      "tags": null
     }
   ],
   "comments": [
