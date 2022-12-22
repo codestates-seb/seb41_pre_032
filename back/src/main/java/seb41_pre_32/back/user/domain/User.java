@@ -67,4 +67,18 @@ public class User extends BaseEntity {
         this.location = location;
         this.role = role;
     }
+
+    public void changeUsername(final String username) {
+        this.username = username;
+    }
+
+    public void changeProfile(final String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
+    public void changeLocation(final String location) {
+        this.location = location;
+    }
+
+
 }

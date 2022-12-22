@@ -6,7 +6,8 @@ public enum ErrorCode {
 
     // USER
     DUPLICATED_USER_ID("1001"),
-    DUPLICATED_USER_EMAIL("1002");
+    DUPLICATED_USER_EMAIL("1002"),
+    USER_NOT_FOUND("1003");
 
     //QUESTION
 
