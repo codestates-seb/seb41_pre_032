@@ -4,6 +4,7 @@ import Header from "./Components/Header";
 import Home from './Pages/Home';
 import Login from "./Pages/Login";
 import QuestionCreate from './Pages/QuestionCreate';
+import QuestionView from './Pages/QuestionView';
 import styled from 'styled-components';
 import SignUp from './Pages/SignUp';
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/login" element={<Login />} />
             {/* 로그인이 되지 않으면 위 화면을 렌더링 */}
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/question/:id" element={<QuestionView />} />
             <Route path="/question/create" element={<QuestionCreate />} />
           </Routes>
         </Container>

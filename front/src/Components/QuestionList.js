@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import Question from './Question'
+import Loading from "./Loading";
 
 const ListWrap = styled.div`
   width:100%;
   padding:2.4rem;
 `
 
-const QuestionList = () => {
+const QuestionList = ({questions, isPending}) => {
   return (
     <ListWrap>
     <div className="">
@@ -18,7 +19,11 @@ const QuestionList = () => {
         </Link>
       </div>
       <ul>
-        <Question />
+        {isPending && <Loading />}
+        {questions ? questions.map(data => (
+          <Question key={data.id} data={data}/>
+        )) : null}
+        
       </ul>
     </div>
     </ListWrap>
