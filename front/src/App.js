@@ -5,14 +5,8 @@ import Home from './Pages/Home';
 import Login from "./Pages/Login";
 import QuestionCreate from './Pages/QuestionCreate';
 import QuestionView from './Pages/QuestionView';
-import styled from 'styled-components';
 import SignUp from './Pages/SignUp';
 
-const Container = styled.div`
-  width:100%;
-  max-width:1264px;
-  margin:0 auto ;
-`
 
 function App() {
   return (
@@ -20,7 +14,6 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Header />
-        <Container>
           <Routes>
             <Route path="/" element={<Home />} />
             {/* 로그인이 되면 위 화면을 렌더링 */}
@@ -30,7 +23,6 @@ function App() {
             <Route path="/question/:id" element={<QuestionView />} />
             <Route path="/question/create" element={<QuestionCreate />} />
           </Routes>
-        </Container>
       </BrowserRouter>
     </div>
   );

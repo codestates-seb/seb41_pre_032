@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const QuestionWrap = styled.li`
+  margin:0 -2.4rem;
   .question-container {
+    display: flex;
     background-color: white;
     position: relative;
     border: 0;
@@ -26,6 +28,7 @@ const QuestionWrap = styled.li`
     flex-wrap: wrap;
     align-items: flex-end;
     color: hsl(210, 8%, 45%);
+    font-size: 1.3rem;
   }
   .right {
     flex-grow: 1;
@@ -38,26 +41,24 @@ const QuestionWrap = styled.li`
     flex-direction: column;
   }
   .question-title {
-    font-weight: 400;
-    display: block;
-    font-size: 2rem;
-    margin-top: -0.15rem;
-    margin-bottom: 0.3846rem;
-    padding-right: calc(24px * 1);
-    line-height: calc((13+4) / 13);
-    font-weight: normal;
-    hyphens: auto;
-    word-break: break-all;
-    color: hsl(206, 100%, 40%);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    >a{
+      font-weight: 400;
+      display: block;
+      font-size: 1.7rem;
+      margin-top: -0.15rem;
+      margin-bottom: 0.3846rem;
+      padding-right: calc(24px * 1);
+      line-height: calc((13+4) / 13);
+      font-weight: normal;
+      hyphens: auto;
+      word-break: break-all;
+      color: hsl(206, 100%, 40%);
+    }
   }
 
   .question-content {
     margin-top: calc(2px * 1);
     margin-bottom: calc(8px * 1);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     color: hsl(210, 8%, 25%);
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -65,6 +66,7 @@ const QuestionWrap = styled.li`
     overflow: hidden;
     word-break: break-all;
     overflow-wrap: break-word;
+    font-size: 1.3rem;
   }
 
   .content-meta {
@@ -78,11 +80,9 @@ const QuestionWrap = styled.li`
   .tag-list {
     display: inline;
     list-style: none;
-    margin: 0;
+    margin: 0 0 1.3rem 0;
     padding: 0;
-    padding-inline-start: 0px;
-    padding-inline-end: 0px;
-    padding-inline-start: 40px;
+
   }
 
   .tag {
@@ -102,7 +102,9 @@ const QuestionWrap = styled.li`
     border-radius: 3px;
     cursor: pointer;
   }
-
+  .userWrap {
+    display:flex;
+  }
   .usercard-photo {
     flex-wrap: wrap;
     margin-left: auto;
@@ -124,7 +126,8 @@ const QuestionWrap = styled.li`
     align-items: center;
     flex-direction: row;
     display: flex;
-    gap: calc(4px * 1);
+    margin: 0 .4rem;
+    font-size: 1.2rem;
   }
 
   .username {
@@ -148,6 +151,10 @@ const QuestionWrap = styled.li`
     white-space: nowrap;
     font-size: 12px;
     box-sizing: inherit;
+  }
+
+  .votesWrap {
+    color: #0c0d0e;
   }
 `;
 
@@ -185,22 +192,23 @@ const Question = ({ data }) => {
                   ))
                 : null}
             </ul>
-
-            <div className="usercard-photo">
-              <a href="/">
-                <img alt="" src="../logo192.png" className="useravatar" />
-                {/* 프로필사진 예시 */}
-              </a>
-            </div>
-            <div className="usercard-name">
-              <a href="/" className="username">
-                Name
-              </a>
-            </div>
-            <div className="usercard-date">
-              <p href="/" className="date">
-                날짜
-              </p>
+            <div className="userWrap">
+              <div className="usercard-photo">
+                <a href="/">
+                  <img alt="" src="../logo192.png" className="useravatar" />
+                  {/* 프로필사진 예시 */}
+                </a>
+              </div>
+              <div className="usercard-name">
+                <a href="/" className="username">
+                  Name
+                </a>
+              </div>
+              <div className="usercard-date">
+                <p href="/" className="date">
+                  날짜
+                </p>
+              </div>
             </div>
           </div>
           {/* 제목/태그/글쓴이사진/ 글쓴이이름/날짜/조회수*/}

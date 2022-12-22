@@ -3,25 +3,25 @@ import SignupInfo from "../Components/SignInfo";
 import styled from "styled-components";
 
 const SignupWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
   background-color: hsl(210, 8%, 95%);
-
-.y{
-
-}
+  >.signUpContainer {
+    width:100%;
+    max-width:126.4rem;
+    height: calc(100vh - 50px);
+    margin:0 auto;
+    padding:2.4rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 const SignUp = () => {
   return (
     <SignupWrap>
-      <div className="signup-container">
-        <div className="y">
-          <SignIntro />
-          <SignupInfo />
-        </div>
+      <div className="signUpContainer">
+        <SignIntro />
+        <SignupInfo />
       </div>
     </SignupWrap>
   );

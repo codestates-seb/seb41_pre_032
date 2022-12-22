@@ -4,6 +4,9 @@ import useFetch from "../util/useFetch";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../Components/Loading";
 const ViewWrap = styled.div`
+  width:100%;
+  max-width:1264px;
+  margin:0 auto ;
   display: flex;
   justify-content: space-between;
   text-align: left;

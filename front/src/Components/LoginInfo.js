@@ -16,19 +16,20 @@ const Logininfowrap = styled.div`
     height: 18px;
   }
 
-  .form-container {
+  .form-wrap {
     box-shadow: 0 10px 24px hsla(0, 0%, 0%, 0.05),
       0 20px 48px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.1);
-    padding: calc(24px * 1);
-    margin-bottom: calc(24 * 1);
+    padding: 2.4rem;
+    margin-bottom: 2.4rem;
     margin-left: auto;
     margin-right: auto;
     background-color: white;
     border-radius: 7px;
     box-sizing: inherit;
+    width: 300px;
   }
 
-  .login-form {
+  .form-container {
     display: flex;
     flex-direction: column;
     margin-right: 0;
@@ -36,13 +37,29 @@ const Logininfowrap = styled.div`
     margin: calc(12px * 1) / 2 * -1;
     box-sizing: inherit;
   }
-  .email-container {
+  .input-container {
+    margin: .6rem;
     margin-right: 0;
     margin-left: 0;
-    margin: calc(12px * 1) / 2;
     display: flex;
     flex-direction: column;
     box-sizing: inherit;
+    
+    >label {
+      font-size:1.5rem;
+      font-weight:600;
+      padding:0 .2rem;
+      margin:.2rem 0;
+    }
+    >input {
+      width:100%;
+      margin:0;
+      padding:.7rem .6rem;
+      border: 1px solid hsl(210,8%,75%);
+      border-radius:3px;
+      color: hsl(210,8%,5%);
+      font-size:1.3rem;
+    }
   }
 
   .email-label {
@@ -54,24 +71,9 @@ const Logininfowrap = styled.div`
     padding-bottom: 0.5rem;
   }
 
-  .login-input-box {
-    margin-left: 0;
-    margin-right: 0;
-    margin: 4px * 1 / 2;
-    position: relative;
-    display: flex;
-    box-sizing: inherit;
-    padding-top: 0.5em;
-    padding-right: 0.7em;
-    padding-bottom: 0.6em;
-    padding-left: 0.7em;
-    margin-bottom: 1em;
-    border: 1px solid hsl(210, 8%, 75%);
-    border-radius: 3px;
-    background-color: white;
-  }
 
   .login-button {
+    margin:.6rem 0;
     background-color: hsl(206, 100%, 52%);
     color: white;
     border-radius: 3px;
@@ -95,6 +97,7 @@ const Logininfowrap = styled.div`
     border-radius: 3px;
     background-color: white;
     width: 100%;
+    justify-content: center;
   }
 
   .googlelogo {
@@ -107,31 +110,27 @@ const Logininfowrap = styled.div`
 const LoginInfo = () => {
   return (
     <Logininfowrap>
-        <div>
       <button className="googlelogin-button">
-          <img src="../images/googlebutton.png" className="googlelogo" />
+          <img alt="" src="../images/googlebutton.png" className="googlelogo" />
           Log in with Google
         </button>
 
 
-        <div className="form-container">
-          <form className="login-form">
-            <div className="email-container">
-              <div className="email-label">Email</div>
-              <input type="Email" className="login-input-box" />
+        <div className="form-wrap">
+          <form className="form-container">
+            <div className="input-container">
+              <label htmlFor="email" className="email-label">Email</label>
+              <input type="Email" id="email" />
             </div>
-            <div className="">
-              <div className="">
-                <div className="email-label">Password</div>
-              </div>
-              <input type="password" className="login-input-box" />
+            <div className="input-container">
+                <label htmlFor="password">Password</label>
+              <input type="password" id="password" />
             </div>
             <button type="submit" className="login-button">
               Log in
             </button>
           </form>
         </div>
-      </div>
     </Logininfowrap>
   );
 };
