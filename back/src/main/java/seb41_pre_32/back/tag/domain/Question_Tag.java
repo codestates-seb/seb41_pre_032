@@ -2,7 +2,8 @@ package seb41_pre_32.back.tag.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import seb41_pre_32.back.question.domain.Question;
+import lombok.Setter;
+import seb41_pre_32.back.question.domain.entity.Question;
 
 import javax.persistence.*;
 

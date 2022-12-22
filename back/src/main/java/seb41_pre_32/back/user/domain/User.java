@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import seb41_pre_32.back.answer.domain.Answer;
 import seb41_pre_32.back.audit.BaseEntity;
-import seb41_pre_32.back.question.domain.Question;
+import seb41_pre_32.back.question.domain.entity.Question;
 
 import javax.persistence.*;
 import java.util.ArrayList;
