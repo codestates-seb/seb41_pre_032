@@ -17,5 +17,8 @@ public class QuestionPostDto {
     private String attempt;
 
     @NotBlank
-    private Tag tags;
+    private String tagName;
+
+    @NotBlank
+    private String name;
 }

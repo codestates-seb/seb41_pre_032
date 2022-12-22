@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 public class QuestionPatchDto {
     @NotBlank
-    private Long questionId;
+    private Long id;
 
     @NotBlank
     private String title;

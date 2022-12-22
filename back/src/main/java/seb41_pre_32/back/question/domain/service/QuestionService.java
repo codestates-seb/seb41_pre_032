@@ -16,11 +16,12 @@ public class QuestionService {
     }
 
     public Question createQuestion(Question question) {
+
         return questionRepository.save(question);
     }
 
     public Question editQuestion(Question question) {
-        Question findQuestion = findVerifiedQuestion(question.getQuestionId());
+        Question findQuestion = findVerifiedQuestion(question.getId());
 
         Optional.ofNullable(question.getTitle())
                 .ifPresent(title -> findQuestion.setTitle(title));

@@ -32,7 +32,7 @@ public class QuestionController {
     @PatchMapping("/{questionId}")
     public ResponseEntity editQuestion(@PathVariable("questionId") Long questionId,
                                        @RequestBody QuestionPatchDto questionPatchDto) {
-        questionPatchDto.setQuestionId(questionId);
+        questionPatchDto.setId(questionId);
         Question question = questionService.editQuestion(mapper.questionPatchDtoToQuestion(questionPatchDto));
         return new ResponseEntity<>(mapper.questionToQuestionResponseDto(question), HttpStatus.OK);
     }
