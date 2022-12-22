@@ -1,15 +1,32 @@
+import styled from "styled-components";
 import LoginInfo from "../Components/LoginInfo";
 
+const Loginwrap = styled.div`
+  .login-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+
+`;
 
 const Login = () => {
   return (
-    <div className="">
+    <Loginwrap>
+      <div className="login-form">
         <div>
-            [스택오버플로우 아이콘]
+          <img src="../images/64px-Stack_Overflow_icon.png" alt="logo_image" />
         </div>
-         <LoginInfo />
+
+        <LoginInfo />
         {/* 아이디와 비밀번호를 입력하는 컴포넌트 */}
-    </div>
+      </div>
+    </Loginwrap>
   );
 };
 export default Login;
