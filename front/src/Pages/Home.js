@@ -13,8 +13,7 @@ function Home() {
   return (
     <HomeWrap>
       <Sidebar />
-      {error && <div>{error}</div>}
-      <QuestionList questions={data} isPending={isPending}/>
+      <QuestionList questions={data} isPending={isPending} error={error}/>
     </HomeWrap>
   );
 }

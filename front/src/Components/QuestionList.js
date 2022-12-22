@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
-import styled from 'styled-components';
-import Question from './Question'
+import styled from "styled-components";
+import Question from "./Question";
 import Loading from "./Loading";
 
 const ListWrap = styled.div`
   width: 100%;
   padding: 2.4rem;
 
-  .question-top-box{
+  .question-top-box {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
@@ -34,7 +34,7 @@ const ListWrap = styled.div`
   }
 `;
 
-const QuestionList = ({questions, isPending}) => {
+const QuestionList = ({ questions, isPending, error }) => {
   return (
     <ListWrap>
       <div>
@@ -44,13 +44,14 @@ const QuestionList = ({questions, isPending}) => {
             Ask Question
           </Link>
         </div>
-      <ul>
-        {isPending && <Loading />}
-        {questions ? questions.map(data => (
-          <Question key={data.id} data={data}/>
-        )) : null}
-      </ul>
-    </div>
+        <ul>
+          {error && <div>{error}</div>}
+          {isPending && <Loading />}
+          {questions
+            ? questions.map((data) => <Question key={data.id} data={data} />)
+            : null}
+        </ul>
+      </div>
     </ListWrap>
   );
 };
