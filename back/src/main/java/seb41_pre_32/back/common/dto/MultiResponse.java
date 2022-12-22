@@ -1,4 +1,4 @@
-package seb41_pre_32.back.user.dto;
+package seb41_pre_32.back.common.dto;
 
 import lombok.Getter;
 import org.springframework.data.domain.Page;
@@ -6,18 +6,16 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 @Getter
-public class UserPagingResponseDto<T> {
-    private String status;
+public class MultiResponse<T> {
+
     private List<T> data;
     private PageInfo pageInfo;
 
-    private UserPagingResponseDto() {
+    private MultiResponse() {
     }
 
-    public UserPagingResponseDto(final String status,
-                                 final List<T> data,
-                                 final Page page) {
-        this.status = status;
+    public MultiResponse(final List<T> data,
+                         final Page page) {
         this.data = data;
         this.pageInfo = PageInfo.builder()
                 .page(page.getNumber() + 1)
