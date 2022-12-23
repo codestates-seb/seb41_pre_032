@@ -1,21 +1,23 @@
 language: java
 jdk:
-  - openjdk11
+  - openjdk8
 
 branches:
   only:
     - main
 
-before_install:
-  - chmod +x gradlew
-
+# Travis CI 서버의 Home
 cache:
   directories:
     - '$HOME/.m2/repository'
     - '$HOME/.gradle'
 
+before_install:
+  - chmod +x gradlew
+
 script: "./gradlew clean build"
 
+# CI 실행 완료 시 메일로 알람
 notifications:
   email:
     recipients:
