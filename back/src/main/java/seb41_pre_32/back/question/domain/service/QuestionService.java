@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import seb41_pre_32.back.exception.question.QuestionNotFoundException;
+import seb41_pre_32.back.question.domain.dto.QuestionPatchDto;
 import seb41_pre_32.back.question.domain.dto.QuestionPostDto;
 import seb41_pre_32.back.question.domain.entity.Question;
 import seb41_pre_32.back.question.domain.repository.QuestionRepository;
@@ -28,17 +29,19 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-    public Question editQuestion(Question question) {
-        Question findQuestion = findVerifiedQuestion(question.getId());
+    public Question editQuestion(QuestionPatchDto questionPatchDto, Long questionId) {
+        Question findQuestion = findVerifiedQuestion(questionId);
 
-        Optional.ofNullable(question.getTitle())
+        Optional.ofNullable(questionPatchDto.getTitle())
                 .ifPresent(title -> findQuestion.setTitle(title));
-        Optional.ofNullable(question.getContents())
+        Optional.ofNullable(questionPatchDto.getContents())
                 .ifPresent(contents -> findQuestion.setContents(contents));
-        Optional.ofNullable(question.getAttempt())
+        Optional.ofNullable(questionPatchDto.getAttempt())
                 .ifPresent(attempt -> findQuestion.setAttempt(attempt));
         //태그
-        return questionRepository.save(findQuestion);
+        // 수정한 후에는 다시 저장하지 않아도 자동으로 변경됩니다.
+
+        return findQuestion;
     }
 
     public Question findQuestion(Long questionId) {
