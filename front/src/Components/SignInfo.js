@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
 const SignupInfoWrap = styled.div`
   width: 32rem;
@@ -70,31 +72,40 @@ const SignupInfoWrap = styled.div`
   }
 
   .input-container {
-    margin: .6rem;
+    margin: 0.6rem;
     margin-right: 0;
     margin-left: 0;
     display: flex;
     flex-direction: column;
     box-sizing: inherit;
-    
-    >label {
-      font-size:1.5rem;
-      font-weight:600;
-      padding:0 .2rem;
-      margin:.2rem 0;
+
+    > label {
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 0 0.2rem;
+      margin: 0.2rem 0;
     }
-    >input {
-      width:100%;
-      margin:0;
-      padding:.7rem .6rem;
-      border: 1px solid hsl(210,8%,75%);
-      border-radius:3px;
-      color: hsl(210,8%,5%);
-      font-size:1.3rem;
+    > input {
+      width: 100%;
+      margin: 0;
+      padding: 0.7rem 0.6rem;
+      border: 1px solid hsl(210, 8%, 75%);
+      border-radius: 3px;
+      color: hsl(210, 8%, 5%);
+      font-size: 1.3rem;
     }
   }
 
-  .ps-container{
+  .error {
+    color: red;
+    font-size: 13px;
+    vertical-align: baseline;
+    text-align: left;
+    margin-bottom: 0.4rem;
+    margin-top: 0.4rem;
+  }
+
+  .ps-container {
     width: 100%;
     text-align: center;
     font-size: 1.3rem;
@@ -107,6 +118,31 @@ const SignupInfoWrap = styled.div`
 `;
 
 const SignupInfo = () => {
+  const formik = useFormik({
+    initialValues: {
+      displayName: "",
+      email: "",
+      password: "",
+    },
+
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email cannot be empty."),
+
+      password: Yup.string()
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+          "Passwords must contain at least eight characters, including at least 1 letter and 1 number."
+        )
+        .required("Password cannot be empty."),
+    }),
+
+    onSubmit: (values) => {
+      console.log(values);
+    },
+  });
+
   return (
     <SignupInfoWrap>
       <div className="sns-container">
@@ -115,22 +151,39 @@ const SignupInfo = () => {
           Log in with Google
         </button>
       </div>
-      <form className="sign-form-container">
+      <form className="sign-form-container" onSubmit={formik.handleSubmit}>
         <div className="input-container">
           <label htmlFor="display-name">Display name</label>
-          <input type="text" id="display-name"></input>
+          <input
+            type="text"
+            id="display-name"
+            name="display-name"
+            onChange={formik.handleChange}
+          />
         </div>
         <div className="input-container">
           <label htmlFor="email">Email</label>
-          <input type="Email" id="email"></input>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            onChange={formik.handleChange}
+          />
+          {formik.touched.email && formik.errors.email ? (
+            <p className="error">{formik.errors.email}</p>
+          ) : null}
         </div>
         <div className="input-container">
           <label htmlFor="password">Password</label>
-          <input type="password" id="password"></input>
-          <p className="font-etc">
-            Passwords must contain at least eight characters, including at least
-            1 letter and 1 number.
-          </p>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            onChange={formik.handleChange}
+          />
+          {formik.touched.password && formik.errors.password ? (
+            <p className="font-etc error">{formik.errors.password}</p>
+          ) : null}
         </div>
         <button type="submit" className="signup-button">
           Sign up
