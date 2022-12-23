@@ -1,4 +1,4 @@
-package seb41_pre_32.back.answer.domain;
+package seb41_pre_32.back.answer.domain.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

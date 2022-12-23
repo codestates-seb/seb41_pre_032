@@ -2,7 +2,7 @@ package seb41_pre_32.back.question.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import seb41_pre_32.back.answer.domain.Answer;
+import seb41_pre_32.back.answer.domain.entity.Answer;
 import seb41_pre_32.back.audit.BaseEntity;
 import seb41_pre_32.back.user.domain.User;
 
