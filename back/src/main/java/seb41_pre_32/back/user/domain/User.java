@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import seb41_pre_32.back.answer.domain.entity.Answer;
 import seb41_pre_32.back.audit.BaseEntity;
-import seb41_pre_32.back.question.domain.Question;
+import seb41_pre_32.back.question.domain.entity.Question;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -67,4 +67,18 @@ public class User extends BaseEntity {
         this.location = location;
         this.role = role;
     }
+
+    public void changeUsername(final String username) {
+        this.username = username;
+    }
+
+    public void changeProfile(final String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
+    public void changeLocation(final String location) {
+        this.location = location;
+    }
+
+
 }

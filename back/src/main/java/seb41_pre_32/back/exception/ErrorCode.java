@@ -5,22 +5,23 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum ErrorCode {
 
     // USER
-    DUPLICATED_USER_ID("1001"),
-    DUPLICATED_USER_EMAIL("1002");
+    DUPLICATED_USER_ID("DUPLICATED_USER_ID"),
+    DUPLICATED_USER_EMAIL("DUPLICATED_USER_EMAIL"),
+    USER_NOT_FOUND("USER_NOT_FOUND"),
 
     //QUESTION
-
+    QUESTION_NOT_FOUND("QUESTION_NOT_FOUND");
 
     //ANSWER
 
-    private final String code;
+    private final String value;
 
-    ErrorCode(String code) {
-        this.code = code;
+    ErrorCode(String value) {
+        this.value = value;
     }
 
     @JsonValue
-    public String getCode() {
-        return code;
+    public String getValue() {
+        return value;
     }
 }

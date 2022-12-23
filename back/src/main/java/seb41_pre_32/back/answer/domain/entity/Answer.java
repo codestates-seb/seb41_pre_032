@@ -3,7 +3,7 @@ package seb41_pre_32.back.answer.domain.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import seb41_pre_32.back.audit.BaseEntity;
-import seb41_pre_32.back.question.domain.Question;
+import seb41_pre_32.back.question.domain.entity.Question;
 import seb41_pre_32.back.user.domain.User;
 
 import javax.persistence.*;
