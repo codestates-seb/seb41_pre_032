@@ -165,29 +165,6 @@ class UserServiceTest {
     }
 
     @Test
-    void findUsersTest() {
-        //given
-        for (int i = 0; i < 10; i++) {
-            UserPostRequest userPostRequest = UserPostRequest.builder()
-                    .loginId("testLoginId" + i)
-                    .username("testUserName" + i)
-                    .password("testPassWord")
-                    .email("teatEmail1234" + i + "@naver.com")
-                    .profileUrl("https://img.danawa.com/prod_img/500000/147/615/img/14615147_1.jpg?shrink=500:500&_v=20220426173016")
-                    .location("서울")
-                    .build();
-            userService.createUser(userPostRequest);
-        }
-
-        //when
-        Page<User> users = userService.findUsers(1, 5);
-
-        //then
-        assertThat(users.getTotalPages()).isEqualTo(2);
-        assertThat(users.getTotalElements()).isEqualTo(10);
-    }
-
-    @Test
     void deleteUserTest() {
         //given
         UserPostRequest userPostRequest = UserPostRequest.builder()
