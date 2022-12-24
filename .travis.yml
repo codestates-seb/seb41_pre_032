@@ -30,7 +30,7 @@ deploy:
     bucket: pre-project-32 # 생성한 S3 버킷
     region: ap-northeast-2
     skip_cleanup: true
-    acl: public_read
+    acl: private
     local_dir: deploy
     wait-until-deployed: true
     on:
