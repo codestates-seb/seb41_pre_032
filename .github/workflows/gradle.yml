@@ -5,14 +5,20 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Java CI with Gradle
+name: StackOverFlow 클론코딩 백엔드 CI 자동화
 
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    paths : 'back/**'
 
+permissions:
+  contents: read
+    
+defaults:
+  run:
+    working-directory: back
+    
 env:
   S3_BUCKET_NAME: pre-project-32
 
@@ -22,35 +28,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    
+    - uses: actions/checkout@v3
     - name: Set up JDK 11
-      uses: actions/setup-java@v2
+      uses: actions/setup-java@v3
       with:
         java-version: '11'
         distribution: 'temurin'
         
-    - name: cd back directory
-      run: cd back
-        
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
-    
     - name: Build with Gradle
-      run: ./gradlew clean build
+      run: ./gradlew build
       
-    # 디렉토리 생성
-    - name: Make Directory
-      run: mkdir -p deploy
-        
-    # Jar 파일 복사
-    - name: Copy Jar
-      run: cp ./build/libs/*.jar ./deploy
-
+    # build한 후 프로젝트를 압축합니다.
     - name: Make zip file
-      run: zip -r ./back.zip ./deploy
+      run: zip -r ./back.zip .
       shell: bash
-
+ 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
@@ -59,4 +53,12 @@ jobs:
         aws-region: ap-northeast-2
 
     - name: Upload to S3
-      run: aws s3 cp --region ap-northeast-2 ./back.zip s3://$S3_BUCKET_NAME/
+      run: aws s3 cp --region ap-northeast-2 ./back.zip s3://$S3_BUCKET_NAME/back.zip
+      
+    # CodeDeploy에게 배포 명령을 내립니다.
+    - name: Code Deploy
+      run: >
+        aws deploy create-deployment --application-name stack-over-flow
+        --deployment-config-name CodeDeployDefault.AllAtOnce
+        --deployment-group-name stack-over-flow-group
+        --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=back.zip
