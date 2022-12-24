@@ -5,20 +5,20 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: StackOverFlow 클론코딩 백엔드 CI 자동화
+name: 스택오버플로우 백엔드 CI 자동화
 
 on:
   push:
-    branches: [ main ]
+    branches: [ "main" ]
     paths: 'back/**'
 
-permissions:
-  contents: read
-    
 defaults:
   run:
     working-directory: back
-    
+
+permissions:
+  contents: read
+  
 env:
   S3_BUCKET_NAME: pre-project-32
 
@@ -28,38 +28,31 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: 리포지토리를 가져오다.
     - uses: actions/checkout@v3
-    
-    - name: JDK 11 설치
+    - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
         java-version: '11'
         distribution: 'temurin'
-        
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      
     - name: Build with Gradle
-      run: ./gradlew build
-      
+      uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
+      with:
+        arguments: build
+    
+    # build한 후 프로젝트를 압축합니다.
     - name: Make zip file
       run: zip -r ./back.zip .
       shell: bash
- 
+    
+    # Access Key와 Secret Access Key를 통해 권한을 확인합니다.
+    # 아래 코드에 Access Key와 Secret Key를 직접 작성하지 않습니다.
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }} # 등록한 Github Secret이 자동으로 불려옵니다.
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # 등록한 Github Secret이 자동으로 불려옵니다.
         aws-region: ap-northeast-2
-
+    
+    # 압축한 프로젝트를 S3로 전송합니다.
     - name: Upload to S3
       run: aws s3 cp --region ap-northeast-2 ./back.zip s3://$S3_BUCKET_NAME/back.zip
-      
-    - name: Code Deploy
-      run: >
-        aws deploy create-deployment --application-name stack-over-flow
-        --deployment-config-name CodeDeployDefault.AllAtOnce
-        --deployment-group-name stack-over-flow-group
-        --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=back.zip
