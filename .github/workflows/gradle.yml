@@ -10,7 +10,6 @@ name: 백엔드 CI 자동화 구축하기
 on:
   push:
     branches: [ "main" ]
-    paths: 'back/**'
 
 permissions:
   contents: read
