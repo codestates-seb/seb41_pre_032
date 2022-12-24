@@ -10,7 +10,7 @@ name: StackOverFlow 클론코딩 백엔드 CI 자동화
 on:
   push:
     branches: [ main ]
-    paths : 'back/**'
+    paths: 'back/**'
 
 permissions:
   contents: read
@@ -28,8 +28,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: 리포지토리를 가져오다.
     - uses: actions/checkout@v3
-    - name: Set up JDK 11
+    
+    - name: JDK 11 설치
       uses: actions/setup-java@v3
       with:
         java-version: '11'
@@ -37,10 +39,10 @@ jobs:
         
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+      
     - name: Build with Gradle
       run: ./gradlew build
       
-    # build한 후 프로젝트를 압축합니다.
     - name: Make zip file
       run: zip -r ./back.zip .
       shell: bash
@@ -55,7 +57,6 @@ jobs:
     - name: Upload to S3
       run: aws s3 cp --region ap-northeast-2 ./back.zip s3://$S3_BUCKET_NAME/back.zip
       
-    # CodeDeploy에게 배포 명령을 내립니다.
     - name: Code Deploy
       run: >
         aws deploy create-deployment --application-name stack-over-flow
