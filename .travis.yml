@@ -18,6 +18,25 @@ before_install:
 
 script: "./gradlew clean build"
 
+before_deploy:
+  - zip -r seb_pre_032 *
+  - mkdir -p deploy
+  - mv seb_pre_032.zip deploy/seb_pre_032.zip
+
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
+    bucket: pre-project-32 # 생성한 S3 버킷
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: public_read
+    local_dir: deploy
+    wait-until-deployed: true
+    on:
+      repo: sojeongLee0125/seb41_pre_032 #Github 주소
+      branch: main
+
 # CI 실행 완료 시 메일로 알람
 notifications:
   email:
