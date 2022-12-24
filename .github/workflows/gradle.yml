@@ -30,6 +30,9 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         
+    - name: cd back directory
+      run: cd back
+        
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     
