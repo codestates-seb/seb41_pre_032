@@ -37,7 +37,6 @@ deploy:
       repo: sojeongLee0125/seb41_pre_032 #Github 주소
       branch: main
 
-# CI 실행 완료 시 메일로 알람
 notifications:
   email:
     recipients:
