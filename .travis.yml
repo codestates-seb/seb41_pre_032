@@ -37,20 +37,6 @@ deploy:
       repo: sojeongLee0125/seb41_pre_032 #Github 주소
       branch: main
 
-  - provider: codedeploy
-    access_key_id: $AWS_ACCESS_KEY # Travis repo settings에 설정된 값
-    secret_access_key: $AWS_SECRET_KEY # Travis repo settings에 설정된 값
-    bucket: pre-project-32 # S3 버킷
-    key: seb_pre_032.zip # S3 버킷에 저장된 .zip 파일을 EC2로 배포
-    bundle_type: zip
-    application: stack-over-flow # 웹 콘솔에서 등록한 CodeDeploy 어플리케이션
-    deployment_group: stack-over-flow-group # 웹 콘솔에서 등록한 CodeDeploy 배포 그룹
-    region: ap-northeast-2
-    wait-until-deployed: true
-    on:
-      repo: sojeongLee0125/seb41_pre_032
-      branch: main
-
 notifications:
   email:
     recipients:
