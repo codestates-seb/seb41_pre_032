@@ -8,6 +8,6 @@ public class HomeController {
 
     @GetMapping("/")
     public String home() {
-        return "서버 정상 작동 확인";
+        return "서버 정상 작동 확인 수정 확인";
     }
 }
