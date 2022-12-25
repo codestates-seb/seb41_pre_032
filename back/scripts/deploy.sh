@@ -1,19 +1,28 @@
-PROJECT_ROOT="/home/ubuntu/action"
-JAR_FILE="$PROJECT_ROOT/back-0.0.1-SNAPSHOT.jar"
+REPOSITORY=/home/ec2-user/actions
+PROJECT_NAME=back
 
-APP_LOG="$PROJECT_ROOT/application.log"
-ERROR_LOG="$PROJECT_ROOT/error.log"
-DEPLOY_LOG="$PROJECT_ROOT/deploy.log"
+echo "> Build 파일 복사"
+cp $REPOSITORY/zip/*.jar $REPOSITORY/
 
-TIME_NOW=$(date +%c)
+echo "> 현재 구동 중인 애플리케이션 pid 확인"
+CURRENT_PID=$(pgrep -f $PROJECT_NAME)
 
-# build 파일 복사
-echo "$TIME_NOW > $JAR_FILE 파일 복사" >> $DEPLOY_LOG
-cp $PROJECT_ROOT/build/libs/*.jar $JAR_FILE
+echo "현재 구동 중인 애플리케이션 pid: $CURRENT_PID"
 
-# jar 파일 실행
-echo "$TIME_NOW > $JAR_FILE 파일 실행" >> $DEPLOY_LOG
-nohup java -jar $JAR_FILE > $APP_LOG 2> $ERROR_LOG &
+if [ -z "$CURRENT_PID" ]; then
+  echo "> 현재 구동 중인 애플리케이션이 없으므로 종료하지 않습니다"
+else
+  echo "> kill -15 $CURRENT_PID"
+  kill -15 $CURRENT_PID
+  sleep 5
+fi
 
-CURRENT_PID=$(pgrep -f $JAR_FILE)
-echo "$TIME_NOW > 실행된 프로세스 아이디 $CURRENT_PID 입니다." >> $DEPLOY_LOG
+echo "> 새 애플리케이션 배포"
+JAR_NAME=$(ls -tr $REPOSITORY/*.jar | tail -n 1)
+
+echo "> JAR_NAME: $JAR_NAME"
+echo "> $JAR_NAME 에 실행권한 추가"
+chmod +x $JAR_NAME
+
+echo "> $JAR_NAME 실행"
+nohup java -jar $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &

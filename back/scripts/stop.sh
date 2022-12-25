@@ -1,4 +1,4 @@
-if [ -d /home/ubuntu/action ]; then
-    sudo rm -rf /home/ubuntu/action/
+if [ -d /home/ec2-user/actions ]; then
+    sudo rm -rf /home/ec2-user/actions/
 fi
-sudo mkdir -vp /home/ubuntu/build/
+sudo mkdir -vp /home/ec2-user/actions/
