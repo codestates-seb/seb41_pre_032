@@ -15,18 +15,23 @@ defaults:
   run:
     working-directory: back
 
+env:
+  AWS_REGION: ap-northeast-2
+  S3_BUCKET_NAME: pre-project-32
+  CODE_DEPLOY_APPLICATION_NAME: stack-over-flow
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: stack-over-flow-group
+
 permissions:
   contents: read
 
-env:
-  S3_BUCKET_NAME: pre-project-32
-
 jobs:
-  build:
-
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
+      - name: Checkout
       - uses: actions/checkout@v3
 
       - name: Set up JDK 11
@@ -39,8 +44,11 @@ jobs:
         run: chmod +x gradlew
         shell: bash
 
-      # Access Key와 Secret Access Key를 통해 권한을 확인합니다.
-      # 아래 코드에 Access Key와 Secret Key를 직접 작성하지 않습니다.
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@0d13054264b0bb894ded474f08ebb30921341cee
+        with:
+          arguments: clean build -x test
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -48,13 +56,18 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
-      # 압축한 프로젝트를 S3로 전송합니다.
       - name: Upload to S3
-        run: aws s3 cp --region ap-northeast-2 ./back.zip s3://$S3_BUCKET_NAME
+        run: |
+          aws deploy push \
+            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+            --ignore-hidden-files \
+            --s3-location s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip \
+            --source .
 
-      - name: Code Deploy
-        run: >
-          aws deploy create-deployment --application-name stack-over-flow
-          --deployment-config-name CodeDeployDefault.AllAtOnce
-          --deployment-group-name stack-over-flow-group
-          --s3-location bucket=$S3_BUCKET_NAME,bundleType=zip,key=back.zip
+      - name: Deploy to AWS EC2 from S3
+        run: |
+          aws deploy create-deployment \
+            --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+            --deployment-config-name CodeDeployDefault.AllAtOnce \
+            --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+            --s3-location bucket=$S3_BUCKET_NAME,key=$GITHUB_SHA.zip,bundleType=zip
