@@ -3,7 +3,7 @@ os: linux
 
 files:
   - source: /
-    destination: /home/ubuntu/action
+    destination: /home/ubuntu/action/
     overwrite: yes
 
 permissions:
@@ -14,10 +14,10 @@ permissions:
 
 hooks:
   AfterInstall:
-    - location: /back/scripts/stop.sh
+    - location: /scripts/stop.sh
       timeout: 60
       runas: ubuntu
   ApplicationStart:
-    - location: /back/scripts/deploy.sh
+    - location: /scripts/deploy.sh
       timeout: 60
       runas: ubuntu
