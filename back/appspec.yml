@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ec2-user/actions
+    destination: /home/ec2-user/actions/zip
     overwrite: yes
 
 permissions:
@@ -12,7 +12,7 @@ permissions:
     group: ec2-user
 
 hooks:
-  AfterInstall:
+  ApplicationStart:
     - location: /scripts/deploy.sh
       timeout: 60
       runas: ec2-user
