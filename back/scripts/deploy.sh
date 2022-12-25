@@ -1,5 +1,5 @@
 REPOSITORY=/home/ec2-user/actions
-PROJECT_NAME=backend
+PROJECT_NAME=back-0.0.1-SNAPSHOT.jar
 
 echo "> Build 파일 복사"
 cp $REPOSITORY/build/libs/*.jar $REPOSITORY/
