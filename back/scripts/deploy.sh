@@ -1,8 +1,8 @@
 REPOSITORY=/home/ec2-user/actions
-PROJECT_NAME=back
+PROJECT_NAME=backend
 
 echo "> Build 파일 복사"
-cp $REPOSITORY/deploy/*.jar $REPOSITORY/
+cp $REPOSITORY/build/libs/*.jar $REPOSITORY/
 
 echo "> 현재 구동 중인 애플리케이션 pid 확인"
 CURRENT_PID=$(pgrep -f $PROJECT_NAME)

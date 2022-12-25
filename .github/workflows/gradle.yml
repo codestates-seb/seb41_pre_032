@@ -18,7 +18,7 @@ defaults:
 env:
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: pre-project-32
-  PROJECT_NAME: back
+  PROJECT_NAME: backend
   CODE_DEPLOY_APPLICATION_NAME: stack-over-flow
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: stack-over-flow-group
 
@@ -44,17 +44,6 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew clean build -x test
-        shell: bash
-
-      - name: Generate deployment package # (final)
-        run: |
-          mkdir -p before-deploy
-          cp scripts/*.sh before-deploy/
-          cp appspec.yml before-deploy/
-          cp build/libs/*.jar before-deploy/
-          cd before-deploy && zip -r before-deploy *
-          cd ../ && mkdir -p deploy
-          mv before-deploy/before-deploy.zip deploy/$PROJECT_NAME.zip
         shell: bash
 
       - name: Make zip file

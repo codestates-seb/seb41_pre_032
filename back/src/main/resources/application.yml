@@ -8,4 +8,4 @@ spring:
       hibernate:
         default_batch_fetch_size: 1000
   pid:
-    file: /home/ec2-user/actions/back.pid
+    file: /home/ec2-user/actions/backend.pid
