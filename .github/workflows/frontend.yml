@@ -15,43 +15,38 @@ defaults:
   run:
     working-directory: front
 
-env:
-  AWS_REGION: ap-northeast-2
-  S3_BUCKET_NAME: pre-project-32-front
-  PROJECT_NAME: frontend
-
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
       working-directory: ./front
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
     steps:
-      - name: Checkout source code.
-        uses: actions/checkout@master
+      - uses: actions/checkout@v1
 
-      - name: Cache node modules
-        uses: actions/cache@v1
+      - name: Use Node.js
+        uses: actions/setup-node@v1
         with:
-          path: node_modules
-          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.OS }}-build-
-            ${{ runner.OS }}-
+          node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
+      - name: install npm
         run: npm install
-        working-directory: ${{ env.working-directory }}
+        working-directory: ./front
 
       - name: build
         run: npm run build
-        working-directory: ${{ env.working-directory }}
+        working-directory: ./front
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_FRONT }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_FRONT }}
-          aws-region: ap-northeast-2
-
-      - name: Upload to S3
-        run: aws s3 cp --region ap-northeast-2 . s3://$S3_BUCKET_NAME/$PROJECT_NAME/
+      - name: Deploy to S3
+        uses: jakejarvis/s3-sync-action@master
+        env:
+          AWS_S3_BUCKET: pre-project-32-front
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_FRONT }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_FRONT }}
+          AWS_REGION: ap-northeast-2
+          SOURCE_DIR: "./front/build"
+          REACT_APP_REST_API: ${{ secrets.REACT_APP_REST_API }}
