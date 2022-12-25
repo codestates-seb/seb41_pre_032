@@ -26,10 +26,10 @@ jobs:
     env:
       working-directory: ./front
     steps:
-      - name: Checkout source code.   # 레포지토리 체크아웃
+      - name: Checkout source code.
         uses: actions/checkout@master
 
-      - name: Cache node modules      # node modules 캐싱
+      - name: Cache node modules
         uses: actions/cache@v1
         with:
           path: node_modules
