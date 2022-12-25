@@ -18,7 +18,7 @@ defaults:
 env:
   AWS_REGION: ap-northeast-2
   S3_BUCKET_NAME: pre-project-front
-  PROJECT_NAME: frontend
+  PROJECT_NAME: front
 
 jobs:
   build:
