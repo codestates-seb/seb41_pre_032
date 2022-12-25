@@ -1,16 +1,25 @@
 spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    url: jdbc:h2:mem:test
   jpa:
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: create
+    show-sql: true
     properties:
       hibernate:
-        default_batch_fetch_size: 1000
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url:
-    username:
-    password:
-
-config:
-  domain:
-
+        format_sql: true
+        default_batch_fetch_size: 100
+logging:
+  level:
+    org:
+      springframework:
+        orm:
+          jpa: DEBUG
+server:
+  servlet:
+    encoding:
+      force-response: true
