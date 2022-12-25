@@ -1,5 +1,6 @@
 version: 0.0
 os: linux
+
 files:
   - source: /
     destination: /home/ubuntu/action
@@ -12,7 +13,11 @@ permissions:
     group: ubuntu
 
 hooks:
+  AfterInstall:
+    - location: /back/scripts/stop.sh
+      timeout: 60
+      runas: ubuntu
   ApplicationStart:
-    - location: scripts/deploy.sh
+    - location: /back/scripts/deploy.sh
       timeout: 60
       runas: ubuntu
