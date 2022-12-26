@@ -38,27 +38,27 @@ const Logininfowrap = styled.div`
     box-sizing: inherit;
   }
   .input-container {
-    margin: .6rem;
+    margin: 0.6rem;
     margin-right: 0;
     margin-left: 0;
     display: flex;
     flex-direction: column;
     box-sizing: inherit;
-    
-    >label {
-      font-size:1.5rem;
-      font-weight:600;
-      padding:0 .2rem;
-      margin:.2rem 0;
+
+    > label {
+      font-size: 1.5rem;
+      font-weight: 600;
+      padding: 0 0.2rem;
+      margin: 0.2rem 0;
     }
-    >input {
-      width:100%;
-      margin:0;
-      padding:.7rem .6rem;
-      border: 1px solid hsl(210,8%,75%);
-      border-radius:3px;
-      color: hsl(210,8%,5%);
-      font-size:1.3rem;
+    > input {
+      width: 100%;
+      margin: 0;
+      padding: 0.7rem 0.6rem;
+      border: 1px solid hsl(210, 8%, 75%);
+      border-radius: 3px;
+      color: hsl(210, 8%, 5%);
+      font-size: 1.3rem;
     }
   }
 
@@ -71,9 +71,8 @@ const Logininfowrap = styled.div`
     padding-bottom: 0.5rem;
   }
 
-
   .login-button {
-    margin:.6rem 0;
+    margin: 0.6rem 0;
     background-color: hsl(206, 100%, 52%);
     color: white;
     border-radius: 3px;
@@ -98,6 +97,9 @@ const Logininfowrap = styled.div`
     background-color: white;
     width: 100%;
     justify-content: center;
+    align-items: center;
+    gap: 3px;
+    font-size: 12px;
   }
 
   .googlelogo {
@@ -110,27 +112,28 @@ const Logininfowrap = styled.div`
 const LoginInfo = () => {
   return (
     <Logininfowrap>
-      <button className="googlelogin-button">
-          <img alt="" src="../images/googlebutton.png" className="googlelogo" />
-          Log in with Google
-        </button>
+      <a className="googlelogin-button" href="/oauth2/authorization/google">
+        <img alt="" src="../images/googlebutton.png" className="googlelogo" />
+        Log in with Google
+      </a>
 
-
-        <div className="form-wrap">
-          <form className="form-container">
-            <div className="input-container">
-              <label htmlFor="email" className="email-label">Email</label>
-              <input type="Email" id="email" />
-            </div>
-            <div className="input-container">
-                <label htmlFor="password">Password</label>
-              <input type="password" id="password" />
-            </div>
-            <button type="submit" className="login-button">
-              Log in
-            </button>
-          </form>
-        </div>
+      <div className="form-wrap">
+        <form className="form-container">
+          <div className="input-container">
+            <label htmlFor="email" className="email-label">
+              Email
+            </label>
+            <input type="Email" id="email" />
+          </div>
+          <div className="input-container">
+            <label htmlFor="password">Password</label>
+            <input type="password" id="password" />
+          </div>
+          <button type="submit" className="login-button">
+            Log in
+          </button>
+        </form>
+      </div>
     </Logininfowrap>
   );
 };

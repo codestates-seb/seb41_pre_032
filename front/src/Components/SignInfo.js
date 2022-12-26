@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import useLocalState from "../util/useLocalStorage";
+import { useState } from "react";
 
 const SignupInfoWrap = styled.div`
   width: 32rem;
@@ -64,6 +66,9 @@ const SignupInfoWrap = styled.div`
     background-color: white;
     width: 100%;
     justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    gap: 3px;
     > .googlelogo {
       width: 18px;
       height: 18px;
@@ -118,6 +123,9 @@ const SignupInfoWrap = styled.div`
 `;
 
 const SignupInfo = () => {
+  const [jwt, setJwt] = useLocalState("", "jwt");
+  const [errMsg, setErrMsg] = useState("");
+
   const formik = useFormik({
     initialValues: {
       displayName: "",
@@ -139,13 +147,6 @@ const SignupInfo = () => {
     }),
 
     onSubmit: (values) => {
-      console.log(values);
-      const newValues = {
-        loginId: "test",
-        username: values.displayName,
-        email: values.email,
-        password: values.password,
-      };
       fetch(
         "http://ec2-3-35-204-189.ap-northeast-2.compute.amazonaws.com:8080/api/users",
         {
@@ -153,19 +154,29 @@ const SignupInfo = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(newValues),
+          body: JSON.stringify(values),
         }
-      ).then((res) => console.log(res.json()));
+      )
+        .then((res) => Promise.all([res.json(), res.headers]))
+        .then(([body, headers]) => {
+          if (body.errorCode) {
+            setErrMsg(body.message);
+          } else {
+            // setJwt(headers.get("authorization"));
+            setJwt("asdfasdfasdfasdf");
+            window.location.href = "/";
+          }
+        });
     },
   });
 
   return (
     <SignupInfoWrap>
       <div className="sns-container">
-        <button className="googlelogin-button">
+        <a href="/oauth2/authorization/google" className="googlelogin-button">
           <img alt="" src="../images/googlebutton.png" className="googlelogo" />
-          Log in with Google
-        </button>
+          Sign up with Google
+        </a>
       </div>
       <form className="sign-form-container" onSubmit={formik.handleSubmit}>
         <div className="input-container">
@@ -188,6 +199,7 @@ const SignupInfo = () => {
           {formik.touched.email && formik.errors.email ? (
             <p className="error">{formik.errors.email}</p>
           ) : null}
+          <p className="error">{errMsg}</p>
         </div>
         <div className="input-container">
           <label htmlFor="password">Password</label>
