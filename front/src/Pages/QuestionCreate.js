@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import Notice from "../Components/QuestionCreate/Notice";
-import Title from '../Components/QuestionCreate/Title'
-import Problem from '../Components/QuestionCreate/Problem'
-import Expecting from '../Components/QuestionCreate/Expecting'
-import Tags from '../Components/QuestionCreate/Tags'
+import Title from "../Components/QuestionCreate/Title";
+import Problem from "../Components/QuestionCreate/Problem";
+import Expecting from "../Components/QuestionCreate/Expecting";
+import Tags from "../Components/QuestionCreate/Tags";
+import { useState } from "react";
 
 const CreateWrap = styled.section`
   background-color: hsl(210, 8%, 95%);
@@ -19,15 +20,15 @@ const CreateWrap = styled.section`
   }
 `;
 const QuestionCreate = () => {
-  // const [isFocus, setIsFocus] = useState(0)
+  const [isFocus, setIsFocus] = useState(0);
   return (
     <CreateWrap>
       <div className="createContainer">
         <Notice />
-        <Title />
-        <Problem />
-        <Expecting />
-        <Tags />
+        <Title isFocus={isFocus} setIsFocus={setIsFocus} />
+        <Problem isFocus={isFocus} setIsFocus={setIsFocus} />
+        <Expecting isFocus={isFocus} setIsFocus={setIsFocus} />
+        <Tags isFocus={isFocus} setIsFocus={setIsFocus}  />
         <div className="">
           <button className="" type="button" autoComplete="off">
             Review your question

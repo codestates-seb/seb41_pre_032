@@ -32,41 +32,44 @@ const AskWrap = styled.div`
       resize:none;
     }
   }
-  > .ask-sub {
-    flex-basis: calc(30% - 25px);
-    position: relative;
-    > .sub-desc {
-      right: 0;
-      position: absolute;
-      box-shadow: 0 1px 2px hsla(0,0%,0%,0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05), 0 2px 8px hsla(0, 0%, 0%, 0.05);
-      border:1px solid hsl(210, 8%, 85%);
-      border-radius:3px;
-      background-color:#fff;
-      >p {
-        padding:1.2rem;
-        font-size:1.5rem;
-        background-color: hsl(210, 8%, 97.5%);
-        border-bottom:1px solid hsl(210, 8%, 85%);
-      }
-      >.sub-desc-flex {
-        display:flex;
-        margin:1.6rem;
-        >.flex-item {
-          margin:0 .8rem;
-          font-size:1.2rem;
-          >p {
-            margin-bottom:1.2rem;
-          }
-          >p:last-child{
-            margin-bottom:0;
-          }
+`;
+
+const AskSub = styled.div`
+  flex-basis: calc(30% - 25px);
+  position: relative;
+  display: ${props => props.isFocus === 2 ? "block" : "none"};
+  > .sub-desc {
+    right: 0;
+    position: absolute;
+    box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+      0 2px 8px hsla(0, 0%, 0%, 0.05);
+    border: 1px solid hsl(210, 8%, 85%);
+    border-radius: 3px;
+    background-color: #fff;
+    > p {
+      padding: 1.2rem;
+      font-size: 1.5rem;
+      background-color: hsl(210, 8%, 97.5%);
+      border-bottom: 1px solid hsl(210, 8%, 85%);
+    }
+    > .sub-desc-flex {
+      display: flex;
+      margin: 1.6rem;
+      > .flex-item {
+        margin: 0 0.8rem;
+        font-size: 1.2rem;
+        > p {
+          margin-bottom: 1.2rem;
+        }
+        > p:last-child {
+          margin-bottom: 0;
         }
       }
     }
   }
 `;
 
-const Expecting = () => {
+const Expecting = ({ isFocus, setIsFocus }) => {
   return (
     <AskWrap>
       <div className="ask-main">
@@ -77,9 +80,10 @@ const Expecting = () => {
         <textarea
           id="expecting"
           name="expecting"
+          onClick={() => {setIsFocus(2)}}
         />
       </div>
-      <div className="ask-sub">
+      <AskSub isFocus={isFocus}>
         <div className="sub-desc">
           <p>Expand on the problem</p>
           <div className="sub-desc-flex">
@@ -95,7 +99,7 @@ const Expecting = () => {
             </div>
           </div>
         </div>
-      </div>
+      </AskSub>
     </AskWrap>
   );
 };
