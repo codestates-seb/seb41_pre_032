@@ -1,4 +1,9 @@
-import styled from "styled-components";
+import styled from 'styled-components';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import axios from '../util/axios';
+import { useContext } from 'react';
+import { AuthContext } from '../util/AuthProvider';
 
 const Logininfowrap = styled.div`
   .login-container {
@@ -107,29 +112,94 @@ const Logininfowrap = styled.div`
     height: 18px;
     object-fit: cover;
   }
+
+  .error {
+    color: red;
+    font-size: 13px;
+    vertical-align: baseline;
+    text-align: left;
+    margin-bottom: 0.4rem;
+    margin-top: 0.4rem;
+  }
 `;
 
+const LOGIN_URL = '/auth';
+
 const LoginInfo = () => {
+  const { setAuth } = useContext(AuthContext);
+
+  const formik = useFormik({
+    initialValues: {
+      email: '',
+      password: '',
+    },
+
+    validationSchema: Yup.object({
+      email: Yup.string().required('Email cannot be empty.'),
+
+      password: Yup.string().required('Password cannot be empty.'),
+    }),
+
+    onSubmit: async (values) => {
+      try {
+        const res = await axios.post(LOGIN_URL, JSON.stringify(values), {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
+        });
+
+        console.log(res.data);
+
+        const accessToken = res.data.accessToken;
+        const role = res.data.role;
+        const displayName = res.data.displayName;
+
+        setAuth({ ...values, displayName, role, accessToken });
+      } catch (error) {
+        console.log(error.response);
+      }
+    },
+  });
+
   return (
     <Logininfowrap>
-      <a className="googlelogin-button" href="/oauth2/authorization/google">
-        <img alt="" src="../images/googlebutton.png" className="googlelogo" />
+      <a className='googlelogin-button' href='/oauth2/authorization/google'>
+        <img
+          alt='google logo'
+          src='../images/googlebutton.png'
+          className='googlelogo'
+        />
         Log in with Google
       </a>
 
-      <div className="form-wrap">
-        <form className="form-container">
-          <div className="input-container">
-            <label htmlFor="email" className="email-label">
+      <div className='form-wrap'>
+        <form className='form-container' onSubmit={formik.handleSubmit}>
+          <div className='input-container'>
+            <label htmlFor='email' className='email-label'>
               Email
             </label>
-            <input type="Email" id="email" />
+            <input
+              type='email'
+              id='email'
+              name='email'
+              onChange={formik.handleChange}
+            />
+            {formik.touched.email && formik.errors.email ? (
+              <p className='error'>{formik.errors.email}</p>
+            ) : null}
           </div>
-          <div className="input-container">
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" />
+          <div className='input-container'>
+            <label htmlFor='password'>Password</label>
+            <input
+              type='password'
+              id='password'
+              name='password'
+              onChange={formik.handleChange}
+            />
+            {formik.touched.password && formik.errors.password ? (
+              <p className='font-etc error'>{formik.errors.password}</p>
+            ) : null}
           </div>
-          <button type="submit" className="login-button">
+          <button type='submit' className='login-button'>
             Log in
           </button>
         </form>
