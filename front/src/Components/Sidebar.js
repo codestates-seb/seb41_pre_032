@@ -53,13 +53,13 @@ const Sidebar = () => {
                             <Link to='/' className='nav-link nav-link-link '>Questions</Link>
                         </li>
                         <li>
-                            <Link to='/' className='nav-link nav-link-link'>tags</Link>
+                            <Link to='/tags' className='nav-link nav-link-link'>Tags</Link>
                         </li>
                         <li>
-                            <Link to='/' className='nav-link nav-link-link'>users</Link>
+                            <Link to='/users' className='nav-link nav-link-link'>Users</Link>
                         </li>
                         <li>
-                            <Link to='/' className='nav-link nav-link-link'>Companies</Link>
+                            <Link to='/companies' className='nav-link nav-link-link'>Companies</Link>
                         </li>
                         {/* list-style:none, padding-left로 불릿과 들여쓰기 없애기 */}
                     </ul>
