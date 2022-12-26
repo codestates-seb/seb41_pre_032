@@ -18,7 +18,7 @@ const ListWrap = styled.div`
   }
 `;
 
-const QuestionList = ({ data, isPending, error }) => {
+const QuestionList = ({ title, data, isPending, error }) => {
   let questions = [];
   if(data) {
     questions = data.data;
@@ -28,7 +28,7 @@ const QuestionList = ({ data, isPending, error }) => {
     <ListWrap>
       <div>
         <div className="question-top-box">
-          <h2 className="all-question-title">All Questions</h2>
+          <h2 className="all-question-title">{title}</h2>
           <Link to="/question/create" className="button-ask-question">
             Ask Question
           </Link>

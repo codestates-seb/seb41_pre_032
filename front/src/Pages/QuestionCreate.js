@@ -81,7 +81,6 @@ const QuestionCreate = () => {
 
   const handleSubmit = () => {
     const data = { userId:"1", title, contents, attempt, tags, vote: 0 };
-    console.log(data)
     fetchCreate(`${process.env.REACT_APP_API_URL}/api/questions`, data);
   };
 
