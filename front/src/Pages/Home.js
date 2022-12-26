@@ -18,7 +18,7 @@ function Home() {
   return (
     <HomeWrap>
       <Sidebar />
-      <QuestionList data={data} isPending={isPending} error={error}/>
+      <QuestionList title="Top Questions"data={data} isPending={isPending} error={error}/>
     </HomeWrap>
   );
 }
