@@ -5,15 +5,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 public enum ErrorCode {
 
     // USER
-    DUPLICATED_USER_ID("DUPLICATED_USER_ID"),
     DUPLICATED_USER_EMAIL("DUPLICATED_USER_EMAIL"),
     USER_NOT_FOUND("USER_NOT_FOUND"),
 
-    // LOGIN
-    EXPIRED_TOKEN("EXPIRED_TOKEN");
-
-
     //QUESTION
+    QUESTION_NOT_FOUND("QUESTION_NOT_FOUND");
 
     //ANSWER
 

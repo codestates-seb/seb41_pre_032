@@ -9,8 +9,7 @@ import seb41_pre_32.back.user.domain.User;
 public class UserResponseDto {
 
     private Long id;
-    private String loginId;
-    private String username;
+    private String displayName;
     private String email;
     private String profileUrl;
     private int reputation;
@@ -22,16 +21,14 @@ public class UserResponseDto {
 
     @Builder
     public UserResponseDto(final Long id,
-                           final String loginId,
-                           final String username,
+                           final String displayName,
                            final String email,
                            final String profileUrl,
                            final int reputation,
                            final String location,
                            final Role role) {
         this.id = id;
-        this.loginId = loginId;
-        this.username = username;
+        this.displayName = displayName;
         this.email = email;
         this.profileUrl = profileUrl;
         this.reputation = reputation;
@@ -39,11 +36,10 @@ public class UserResponseDto {
         this.role = role;
     }
 
-    public static UserResponseDto of(final User user){
+    public static UserResponseDto of(final User user) {
         return UserResponseDto.builder()
                 .id(user.getId())
-                .loginId(user.getLoginId())
-                .username(user.getUsername())
+                .displayName(user.getUsername())
                 .email(user.getEmail())
                 .profileUrl(user.getProfileUrl())
                 .reputation(user.getReputation())

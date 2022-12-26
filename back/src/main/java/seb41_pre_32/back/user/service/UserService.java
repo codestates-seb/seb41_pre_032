@@ -7,7 +7,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb41_pre_32.back.exception.user.DuplicateUserEmailException;
-import seb41_pre_32.back.exception.user.DuplicateUserIdException;
 import seb41_pre_32.back.exception.user.UserNotFoundException;
 import seb41_pre_32.back.user.domain.User;
 import seb41_pre_32.back.user.dto.UserPatchRequest;
@@ -25,17 +24,9 @@ public class UserService {
     @Transactional
     public User createUser(final UserPostRequest userPostRequest) {
         User user = userPostRequest.toUser();
-        checkLoginIdDuplicate(user.getLoginId());
         checkEmailDuplicate(user.getEmail());
         User savedUser = userRepository.save(user);
         return savedUser;
-    }
-
-    private void checkLoginIdDuplicate(String loginId) {
-        boolean isLoginIdDuplicated = userRepository.existsUserByLoginId(loginId);
-        if (isLoginIdDuplicated) {
-            throw new DuplicateUserIdException();
-        }
     }
 
     private void checkEmailDuplicate(String email) {
@@ -49,7 +40,7 @@ public class UserService {
     public User updateUser(Long userId, UserPatchRequest userPatchRequest) {
         User findUser = findValidUser(userId);
 
-        Optional.ofNullable(userPatchRequest.getUsername())
+        Optional.ofNullable(userPatchRequest.getDisplayName())
                 .ifPresent(username -> findUser.changeUsername(username));
         Optional.ofNullable(userPatchRequest.getProfileUrl())
                 .ifPresent(url -> findUser.changeProfile(url));

@@ -1,4 +1,4 @@
-package seb41_pre_32.back.user.dto;
+package seb41_pre_32.back.common.dto;
 
 import lombok.Builder;
 import lombok.Getter;
