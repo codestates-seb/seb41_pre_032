@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import useLocalState from "../util/useLocalStorage";
-import { useState } from "react";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { useState } from 'react';
+import axios from '../util/axios';
 
 const SignupInfoWrap = styled.div`
   width: 32rem;
@@ -121,115 +121,110 @@ const SignupInfoWrap = styled.div`
     }
   }
 `;
+const REGISTER_URL = '/api/users';
 
 const SignupInfo = () => {
-  const [jwt, setJwt] = useLocalState("", "jwt");
-  const [errMsg, setErrMsg] = useState("");
+  const [errMsg, setErrMsg] = useState('');
 
   const formik = useFormik({
     initialValues: {
-      displayName: "",
-      email: "",
-      password: "",
+      displayName: '',
+      email: '',
+      password: '',
     },
 
     validationSchema: Yup.object({
       email: Yup.string()
-        .email("Invalid email address")
-        .required("Email cannot be empty."),
+        .email('Invalid email address')
+        .required('Email cannot be empty.'),
 
       password: Yup.string()
         .matches(
           /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
-          "Passwords must contain at least eight characters, including at least 1 letter and 1 number."
+          'Passwords must contain at least eight characters, including at least 1 letter and 1 number.'
         )
-        .required("Password cannot be empty."),
+        .required('Password cannot be empty.'),
     }),
 
-    onSubmit: (values) => {
-      fetch(
-        "http://ec2-3-35-204-189.ap-northeast-2.compute.amazonaws.com:8080/api/users",
-        {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(values),
-        }
-      )
-        .then((res) => Promise.all([res.json(), res.headers]))
-        .then(([body, headers]) => {
-          if (body.errorCode) {
-            setErrMsg(body.message);
-          } else {
-            // setJwt(headers.get("authorization"));
-            setJwt("testJwt");
-            window.location.href = "/";
-          }
+    onSubmit: async (values) => {
+      try {
+        const res = await axios.post(REGISTER_URL, JSON.stringify(values), {
+          headers: { 'Content-Type': 'application/json' },
+          withCredentials: true,
         });
-      console.log(jwt);
+
+        console.log(res.data);
+      } catch (error) {
+        if (!error.response) {
+          console.log('no server response');
+        } else setErrMsg(error.response.data.message);
+      }
     },
   });
 
   return (
     <SignupInfoWrap>
-      <div className="sns-container">
-        <a href="/oauth2/authorization/google" className="googlelogin-button">
-          <img alt="" src="../images/googlebutton.png" className="googlelogo" />
+      <div className='sns-container'>
+        <a href='/oauth2/authorization/google' className='googlelogin-button'>
+          <img
+            alt='google logo'
+            src='../images/googlebutton.png'
+            className='googlelogo'
+          />
           Sign up with Google
         </a>
       </div>
-      <form className="sign-form-container" onSubmit={formik.handleSubmit}>
-        <div className="input-container">
-          <label htmlFor="displayName">Display name</label>
+      <form className='sign-form-container' onSubmit={formik.handleSubmit}>
+        <div className='input-container'>
+          <label htmlFor='displayName'>Display name</label>
           <input
-            type="text"
-            id="displayName"
-            name="displayName"
+            type='text'
+            id='displayName'
+            name='displayName'
             onChange={formik.handleChange}
           />
         </div>
-        <div className="input-container">
-          <label htmlFor="email">Email</label>
+        <div className='input-container'>
+          <label htmlFor='email'>Email</label>
           <input
-            type="email"
-            id="email"
-            name="email"
+            type='email'
+            id='email'
+            name='email'
             onChange={formik.handleChange}
           />
           {formik.touched.email && formik.errors.email ? (
-            <p className="error">{formik.errors.email}</p>
+            <p className='error'>{formik.errors.email}</p>
           ) : null}
-          <p className="error">{errMsg}</p>
+          <p className='error'>{errMsg}</p>
         </div>
-        <div className="input-container">
-          <label htmlFor="password">Password</label>
+        <div className='input-container'>
+          <label htmlFor='password'>Password</label>
           <input
-            type="password"
-            id="password"
-            name="password"
+            type='password'
+            id='password'
+            name='password'
             onChange={formik.handleChange}
           />
           {formik.touched.password && formik.errors.password ? (
-            <p className="font-etc error">{formik.errors.password}</p>
+            <p className='font-etc error'>{formik.errors.password}</p>
           ) : null}
         </div>
-        <button type="submit" className="signup-button">
+        <button type='submit' className='signup-button'>
           Sign up
         </button>
-        <div className="hidden">
-          <label htmlFor="file-input"></label>
+        <div className='hidden'>
+          <label htmlFor='file-input'></label>
         </div>
-        <div className="caption">
-          <p className="font-etc">
+        <div className='caption'>
+          <p className='font-etc'>
             By clickigng "Sign up", you agree to our terms of service, privacy
             policy and cookie policy
           </p>
         </div>
       </form>
-      <div className="ps-container">
+      <div className='ps-container'>
         <span>Already have an account? </span>
-        <Link to="/login">Log in</Link>
+        <Link to='/login'>Log in</Link>
       </div>
     </SignupInfoWrap>
   );
