@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import seb41_pre_32.back.exception.question.QuestionNotFoundException;
+import seb41_pre_32.back.question.domain.dto.QuestionPatchDto;
 import seb41_pre_32.back.question.domain.dto.QuestionPostDto;
 import seb41_pre_32.back.question.domain.entity.Question;
 import seb41_pre_32.back.question.domain.repository.QuestionRepository;
@@ -16,11 +18,13 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class QuestionService {
 
     private final QuestionRepository questionRepository;
     private final UserService userService;
 
+    @Transactional
     public Question createQuestion(QuestionPostDto questionPostDto) {
         User user = userService.findUser(Long.parseLong(questionPostDto.getUserId()));
         Question question = questionPostDto.toQuestion();
@@ -28,17 +32,20 @@ public class QuestionService {
         return questionRepository.save(question);
     }
 
-    public Question editQuestion(Question question) {
-        Question findQuestion = findVerifiedQuestion(question.getId());
+    @Transactional
+    public Question editQuestion(QuestionPatchDto questionPatchDto, Long questionId) {
+        Question findQuestion = findVerifiedQuestion(questionId);
 
-        Optional.ofNullable(question.getTitle())
+        Optional.ofNullable(questionPatchDto.getTitle())
                 .ifPresent(title -> findQuestion.setTitle(title));
-        Optional.ofNullable(question.getContents())
+        Optional.ofNullable(questionPatchDto.getContents())
                 .ifPresent(contents -> findQuestion.setContents(contents));
-        Optional.ofNullable(question.getAttempt())
+        Optional.ofNullable(questionPatchDto.getAttempt())
                 .ifPresent(attempt -> findQuestion.setAttempt(attempt));
         //태그
-        return questionRepository.save(findQuestion);
+        // 수정한 후에는 다시 저장하지 않아도 자동으로 변경됩니다.
+
+        return findQuestion;
     }
 
     public Question findQuestion(Long questionId) {
@@ -49,6 +56,7 @@ public class QuestionService {
         return questionRepository.findAll(PageRequest.of(page, size, Sort.by("modifiedDate")));
     }
 
+    @Transactional
     public void deleteQuestion(Long questionId) {
         Question findQuestion = findVerifiedQuestion(questionId);
         questionRepository.delete(findQuestion);

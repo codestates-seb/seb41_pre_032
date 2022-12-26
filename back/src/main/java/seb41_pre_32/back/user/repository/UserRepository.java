@@ -6,8 +6,6 @@ import seb41_pre_32.back.user.domain.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-
-    boolean existsUserByLoginId(String loginId);
     boolean existsUserByEmail(String email);
 
 }

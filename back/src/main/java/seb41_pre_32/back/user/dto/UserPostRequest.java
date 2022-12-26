@@ -11,45 +11,33 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 public class UserPostRequest {
-
-    @NotBlank(message = "로그인 아이디를 입력해 주세요.")
-    private String loginId;
     @NotBlank(message = "사용자 이름을 입력해 주세요.")
-    private String username;
-    @NotBlank(message = "비밀번호를 입력해 주세요.")
-    private String password;
+    private String displayName;
+
     @NotNull(message = "이메일을 입력해 주세요.")
     @Email
     private String email;
-    private String profileUrl;
-    private String location;
+
+    @NotBlank(message = "비밀번호를 입력해 주세요.")
+    private String password;
 
     private UserPostRequest() {
     }
 
     @Builder
-    public UserPostRequest(final String loginId,
-                           final String username,
-                           final String password,
+    public UserPostRequest(final String displayName,
                            final String email,
-                           final String profileUrl,
-                           final String location) {
-        this.loginId = loginId;
-        this.username = username;
+                           final String password) {
+        this.displayName = displayName;
         this.password = password;
         this.email = email;
-        this.profileUrl = profileUrl;
-        this.location = location;
     }
 
     public User toUser() {
         return User.builder()
-                .loginId(loginId)
-                .username(username)
+                .username(displayName)
                 .password(password)
                 .email(email)
-                .profileUrl(profileUrl)
-                .location(location)
                 .role(Role.USER)
                 .build();
     }

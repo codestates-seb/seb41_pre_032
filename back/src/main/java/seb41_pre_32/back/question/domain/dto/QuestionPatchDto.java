@@ -10,14 +10,9 @@ import java.util.List;
 @Setter
 public class QuestionPatchDto {
     @NotBlank
-    private Long id;
-
-    @NotBlank
     private String title;
-
     @NotBlank
     private String contents;
-
     private String attempt;
 
     // todo : 태그를 수정할 땐 태그 pk인 태그 id들을 받아와야 하므로 Long 리스트로 받아야 합니다.
