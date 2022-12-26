@@ -17,14 +17,10 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "users")
 public class User extends BaseEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Long id;
-
-    @Column(name = "login_id", nullable = false, unique = true, length = 20)
-    private String loginId;
 
     @Column(name = "user_name", nullable = false, length = 50)
     private String username;
@@ -55,10 +51,9 @@ public class User extends BaseEntity {
     private List<Question> questions = new ArrayList<>();
 
     @Builder
-    public User(final String loginId, final String username, final String password,
+    public User(final String username, final String password,
                 final String email, final String profileUrl, final int reputation,
                 final String location, final Role role) {
-        this.loginId = loginId;
         this.username = username;
         this.password = password;
         this.email = email;

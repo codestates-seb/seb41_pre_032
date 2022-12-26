@@ -4,17 +4,17 @@ import lombok.Getter;
 
 @Getter
 public class UserPatchRequest {
-    private String username;
+    private String displayName;
     private String profileUrl;
     private String location;
 
     private UserPatchRequest() {
     }
 
-    public UserPatchRequest(final String username,
+    public UserPatchRequest(final String displayName,
                             final String profileUrl,
                             final String location) {
-        this.username = username;
+        this.displayName = displayName;
         this.profileUrl = profileUrl;
         this.location = location;
     }
