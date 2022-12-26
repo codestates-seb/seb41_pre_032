@@ -201,7 +201,7 @@ const Question = ({ data }) => {
               </div>
               <div className="usercard-name">
                 <a href="/" className="username">
-                  Name
+                  {data.username}
                 </a>
               </div>
               <div className="usercard-date">

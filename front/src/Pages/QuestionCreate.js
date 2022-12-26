@@ -33,10 +33,10 @@ const BtnArea = styled.div`
     font-size: 1.3rem;
     border: 1px solid transparent;
     cursor: pointer;
+    
   }
   > .submit {
     margin-left: 0;
-    background-color: #0a95ff;
     color: #fff;
   }
   > .submit:hover {
@@ -50,6 +50,10 @@ const BtnArea = styled.div`
     color: #ab262a;
   }
 `;
+const SubmitBtn = styled.button`
+  pointer-events: ${props => props.activebtn === 0 ? 'none' : 'unset'};
+  background-color:${props => props.activebtn === 0 ? '#aaa' : '#0a95ff'};
+`
 
 const QuestionCreate = () => {
   const [isFocus, setIsFocus] = useState(0);
@@ -59,6 +63,16 @@ const QuestionCreate = () => {
   const [attempt, attemptBind, attemptReset] = useInput("");
   const [tags, setTags] = useState([]);
   const [discardActive, setDiscardActive] = useState(0);
+  const [submitActive, setSubmitActive] = useState(0);
+
+  useEffect(() => {
+    if(title && contents && attempt && tags.length >= 1) {
+      setSubmitActive(1)
+    } else {
+      setSubmitActive(0)
+    }
+  },[attempt, contents, tags, title])
+
   useEffect(() => {
     let tagsData = questionShelf;
     questionShelf.tags = tags;
@@ -66,8 +80,9 @@ const QuestionCreate = () => {
   }, [questionShelf, tags]);
 
   const handleSubmit = () => {
-    const data = { title, contents, attempt, tags, vote: 0 };
-    fetchCreate("http://localhost:4000/question/", data);
+    const data = { userId:"1", title, contents, attempt, tags, vote: 0 };
+    console.log(data)
+    fetchCreate(`${process.env.REACT_APP_API_URL}/api/questions`, data);
   };
 
   const handleOnChangeDiscard = () => {
@@ -106,14 +121,16 @@ const QuestionCreate = () => {
           setTags={setTags}
         />
         <BtnArea>
-          <button
+          
+          <SubmitBtn
             className="submit"
             type="button"
             autoComplete="off"
             onClick={() => handleSubmit()}
+            activebtn={submitActive}
           >
             Review your question
-          </button>
+          </SubmitBtn>
           <div
             className="discard"
             type="button"

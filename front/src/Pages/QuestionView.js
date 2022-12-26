@@ -23,8 +23,9 @@ const Content = styled.section`
 const QuestionView = () => {
   const { id } = useParams();
   const [data, isPending, error] = useFetch(
-    `http://localhost:4000/question/${id}`
+    `${process.env.REACT_APP_API_URL}/api/questions/${id}`
   );
+  console.log(data)
   return (
     <ViewWrap>
       <Sidebar />
