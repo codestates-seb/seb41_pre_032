@@ -18,7 +18,12 @@ const ListWrap = styled.div`
   }
 `;
 
-const QuestionList = ({ questions, isPending, error }) => {
+const QuestionList = ({ data, isPending, error }) => {
+  let questions = [];
+  if(data) {
+    questions = data.data;
+  }
+
   return (
     <ListWrap>
       <div>

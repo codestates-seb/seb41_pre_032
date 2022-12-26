@@ -69,17 +69,18 @@ const AskSub = styled.div`
   }
 `;
 
-const Expecting = ({ isFocus, setIsFocus }) => {
+const Expecting = ({ isFocus, setIsFocus, attemptBind }) => {
   return (
     <AskWrap>
       <div className="ask-main">
-        <label htmlFor="expecting">What did you try and what were you expecting?</label>
+        <label htmlFor="attempt">What did you try and what were you expecting?</label>
         <p className="desc">
         Describe what you tried, what you expected to happen, and what actually resulted. Minimum 20 characters.
         </p>
         <textarea
-          id="expecting"
-          name="expecting"
+          id="attempt"
+          name="attempt"
+          {...attemptBind}
           onClick={() => {setIsFocus(2)}}
         />
       </div>
