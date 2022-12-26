@@ -163,10 +163,11 @@ const SignupInfo = () => {
             setErrMsg(body.message);
           } else {
             // setJwt(headers.get("authorization"));
-            setJwt("asdfasdfasdfasdf");
+            setJwt("testJwt");
             window.location.href = "/";
           }
         });
+      console.log(jwt);
     },
   });
 
