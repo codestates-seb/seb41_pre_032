@@ -101,17 +101,18 @@ const AskSub = styled.div`
   }
 `;
 
-const Problem = ({ isFocus, setIsFocus }) => {
+const Problem = ({ isFocus, setIsFocus, contentsBind }) => {
   return (
     <AskWrap>
       <div className="ask-main">
-        <label htmlFor="problem">What are the details of your problem?</label>
+        <label htmlFor="contents">What are the details of your problem?</label>
         <p className="desc">
         Introduce the problem and expand on what you put in the title. Minimum 20 characters.
         </p>
         <textarea
-          id="problem"
-          name="problem"
+          id="contents"
+          name="contents"
+          {...contentsBind}
           onClick={() => setIsFocus(1)}
         />
       </div>

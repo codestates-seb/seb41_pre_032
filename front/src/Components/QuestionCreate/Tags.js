@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 const AskWrap = styled.div`
@@ -63,7 +62,7 @@ const AskSub = styled.div`
 const TagInput = styled.div`
   width: 100%;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-wrap: wrap;
   border: 1px solid hsl(210,8%,75%);
   border-radius: 3px;
@@ -71,12 +70,10 @@ const TagInput = styled.div`
   > ul {
     display: flex;
     flex-wrap: wrap;
-    padding: 0;
-    margin: 8px 0 0 0;
 
     > .tag {
       width: auto;
-      height: 32px;
+      height: 26px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -84,8 +81,8 @@ const TagInput = styled.div`
       padding: 0 8px;
       font-size: 14px;
       list-style: none;
-      border-radius: 6px;
-      margin: 0 8px 8px 0;
+      border-radius: 3px;
+      margin: 0 4px;
       background: #E1ECF4;
       > .tag-title {color:#39739D;}
       > .tag-close-icon {
@@ -117,8 +114,7 @@ const TagInput = styled.div`
   }
 `;
 
-const Tags = ({ isFocus, setIsFocus }) => {
-  const [tags, setTags] = useState([]);
+const Tags = ({ isFocus, setIsFocus, tags, setTags }) => {
   const removeTags = (indexToRemove) => {
     setTags(
       tags.filter((tag) => {
@@ -132,7 +128,6 @@ const Tags = ({ isFocus, setIsFocus }) => {
       setTags([...tags, value]);
       e.target.value = "";
     }
-    console.log(tags)
   };
   return (
     <AskWrap>

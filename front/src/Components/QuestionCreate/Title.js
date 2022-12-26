@@ -66,7 +66,7 @@ const AskSub = styled.div`
     }
   }
 `;
-const Title = ({ isFocus, setIsFocus }) => {
+const Title = ({ isFocus, setIsFocus, titleBind }) => {
   return (
     <AskWrap>
       <div className="ask-main">
@@ -78,9 +78,9 @@ const Title = ({ isFocus, setIsFocus }) => {
           id="title"
           name="title"
           type="text"
+          {...titleBind}
           maxLength="300"
           placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-          className=""
           data-min-length="15"
           data-max-length="150"
           onClick={() => setIsFocus(0)}

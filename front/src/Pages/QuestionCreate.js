@@ -4,7 +4,10 @@ import Title from "../Components/QuestionCreate/Title";
 import Problem from "../Components/QuestionCreate/Problem";
 import Expecting from "../Components/QuestionCreate/Expecting";
 import Tags from "../Components/QuestionCreate/Tags";
-import { useState } from "react";
+import Discard from "../Components/QuestionCreate/Discard";
+import { useEffect, useState } from "react";
+import { fetchCreate } from "../util/api";
+import useInput from "../util/useInput";
 
 const CreateWrap = styled.section`
   background-color: hsl(210, 8%, 95%);
@@ -19,32 +22,110 @@ const CreateWrap = styled.section`
     text-align: left;
   }
 `;
+const BtnArea = styled.div`
+  display: flex;
+  margin: 1.2rem 0 4.8rem;
+  > button,
+  div {
+    padding: 1rem;
+    margin: 0 0.8rem;
+    border-radius: 3px;
+    font-size: 1.3rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  > .submit {
+    margin-left: 0;
+    background-color: #0a95ff;
+    color: #fff;
+  }
+  > .submit:hover {
+    background-color: #0074cc;
+  }
+  > .discard {
+    color: #c22e32;
+  }
+  > .discard:hover {
+    background-color: #fdf2f2;
+    color: #ab262a;
+  }
+`;
+
 const QuestionCreate = () => {
   const [isFocus, setIsFocus] = useState(0);
+  const [questionShelf, setQuestionShelf] = useState({ vote: 0 });
+  const [title, titleBind, titleReset] = useInput("");
+  const [contents, contentsBind, contentsReset] = useInput("");
+  const [attempt, attemptBind, attemptReset] = useInput("");
+  const [tags, setTags] = useState([]);
+  const [discardActive, setDiscardActive] = useState(0);
+  useEffect(() => {
+    let tagsData = questionShelf;
+    questionShelf.tags = tags;
+    setQuestionShelf(tagsData);
+  }, [questionShelf, tags]);
+
+  const handleSubmit = () => {
+    const data = { title, contents, attempt, tags, vote: 0 };
+    fetchCreate("http://localhost:4000/question/", data);
+  };
+
+  const handleOnChangeDiscard = () => {
+    discardActive === 0 ? setDiscardActive(1) : setDiscardActive(0);
+  };
+
+  const deleteContent = () => {
+    titleReset();
+    contentsReset();
+    attemptReset();
+    setTags([]);
+  };
   return (
     <CreateWrap>
       <div className="createContainer">
         <Notice />
-        <Title isFocus={isFocus} setIsFocus={setIsFocus} />
-        <Problem isFocus={isFocus} setIsFocus={setIsFocus} />
-        <Expecting isFocus={isFocus} setIsFocus={setIsFocus} />
-        <Tags isFocus={isFocus} setIsFocus={setIsFocus}  />
-        <div className="">
-          <button className="" type="button" autoComplete="off">
+        <Title
+          isFocus={isFocus}
+          setIsFocus={setIsFocus}
+          titleBind={titleBind}
+        />
+        <Problem
+          isFocus={isFocus}
+          setIsFocus={setIsFocus}
+          contentsBind={contentsBind}
+        />
+        <Expecting
+          isFocus={isFocus}
+          setIsFocus={setIsFocus}
+          attemptBind={attemptBind}
+        />
+        <Tags
+          isFocus={isFocus}
+          setIsFocus={setIsFocus}
+          tags={tags}
+          setTags={setTags}
+        />
+        <BtnArea>
+          <button
+            className="submit"
+            type="button"
+            autoComplete="off"
+            onClick={() => handleSubmit()}
+          >
             Review your question
           </button>
-          {/* 이 버튼을 누르면 데이터가 전송되서 홈화면 상단에 위치해야합니다. */}
-
-          <div className="">
-            <button className="" type="button">
-              Discard draft
-            </button>
-            {/* 이 버튼을 누르면 위에서부터 입력했던 모든 입력값이 초기화 되어야합니다 */}
-            {/* 정말 삭제할 것인지 확인하는 모달창이 떠야하지만 아직 구현하지 못했습니다. */}
+          <div
+            className="discard"
+            type="button"
+            onClick={() => handleOnChangeDiscard()}
+          >
+            Discard draft
           </div>
-        </div>
-
-        {/* 여기까지 버튼 섹션 */}
+        </BtnArea>
+        <Discard 
+        active={discardActive} 
+        deleteContent={deleteContent} 
+        handleDiscard={handleOnChangeDiscard}/>
       </div>
     </CreateWrap>
   );

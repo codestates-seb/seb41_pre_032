@@ -185,9 +185,9 @@ const Question = ({ data }) => {
           <div className="content-meta">
             <ul className="tag-list">
               {data.tags
-                ? data.tags.map((tag) => (
-                    <li key={tag.tagId} className="tag">
-                      {tag.tagName}
+                ? data.tags.map((tag, idx) => (
+                    <li key={idx} className="tag">
+                      {tag}
                     </li>
                   ))
                 : null}
