@@ -15,19 +15,29 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
-    private static final String ALLOWED_METHOD = "GET,POST,DELETE,PATCH";
-
+    private static final String ALLOWED_METHOD = "POST,GET,PATCH,DELETE";
+    private static final String DEPLOY_SERVER = "http://ec2-3-35-204-189.ap-northeast-2.compute.amazonaws.com:8080";
+    private static final String FRONTEND_SERVER = "http://pre-project-32-front.s3-website.ap-northeast-2.amazonaws.com";
     private final JwtTokenizer jwtTokenizer;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
+        registry.addMapping("/api/**")
                 .allowedOrigins("*")
                 .allowedHeaders("*")
                 .allowedMethods(ALLOWED_METHOD.split(","))
                 .allowCredentials(false)
                 .exposedHeaders(HttpHeaders.LOCATION, HttpHeaders.AUTHORIZATION, "Refresh");
     }
+
+    // todo : 최종 배포 전 적용
+//    @Override
+//    public void addCorsMappings(CorsRegistry registry) {
+//        registry.addMapping("/api/**")
+//                .allowedMethods(ALLOWED_METHOD.split(","))
+//                .allowedOrigins(DEPLOY_SERVER, FRONTEND_SERVER)
+//                .exposedHeaders(HttpHeaders.LOCATION, HttpHeaders.AUTHORIZATION, "Refresh");
+//    }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
