@@ -67,6 +67,7 @@ const AskSub = styled.div`
   }
 `;
 const Title = ({ isFocus, setIsFocus, titleBind }) => {
+
   return (
     <AskWrap>
       <div className="ask-main">

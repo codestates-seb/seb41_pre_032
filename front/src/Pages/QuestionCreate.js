@@ -57,7 +57,6 @@ const SubmitBtn = styled.button`
 
 const QuestionCreate = () => {
   const [isFocus, setIsFocus] = useState(0);
-  const [questionShelf, setQuestionShelf] = useState({ vote: 0 });
   const [title, titleBind, titleReset] = useInput("");
   const [contents, contentsBind, contentsReset] = useInput("");
   const [attempt, attemptBind, attemptReset] = useInput("");
@@ -72,12 +71,6 @@ const QuestionCreate = () => {
       setSubmitActive(0)
     }
   },[attempt, contents, tags, title])
-
-  useEffect(() => {
-    let tagsData = questionShelf;
-    questionShelf.tags = tags;
-    setQuestionShelf(tagsData);
-  }, [questionShelf, tags]);
 
   const handleSubmit = () => {
     const data = { userId:"1", title, contents, attempt, tags, vote: 0 };

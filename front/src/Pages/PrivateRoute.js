@@ -7,7 +7,7 @@ const PrivateRoute = ({ children }) => {
 
   useEffect(() => {
     setJwt("testJwt");
-  }, []);
+  }, [setJwt]);
 
   return jwt ? children : <Navigate to="/signup" />;
 };
