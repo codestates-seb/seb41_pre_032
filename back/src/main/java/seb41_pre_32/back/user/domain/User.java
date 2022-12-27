@@ -25,7 +25,7 @@ public class User extends BaseEntity {
     @Column(name = "user_name", nullable = false, length = 50)
     private String username;
 
-    @Column(name = "password", nullable = false, length = 50)
+    @Column(name = "password", nullable = false, length = 200)
     private String password;
 
     @Column(name = "email", nullable = false, length = 50)
@@ -42,7 +42,7 @@ public class User extends BaseEntity {
 
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false, length = 100)
-    private Role role = Role.GUEST;
+    private Role role;
 
     @OneToMany(mappedBy = "user")
     private List<Answer> answers = new ArrayList<>();
@@ -63,6 +63,18 @@ public class User extends BaseEntity {
         this.role = role;
     }
 
+    public void setUserServiceVal(final Long userId,
+                                  final String email,
+                                  final String password,
+                                  final String username,
+                                  final Role role) {
+        this.id = userId;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.role = role;
+    }
+
     public void changeUsername(final String username) {
         this.username = username;
     }
@@ -73,6 +85,14 @@ public class User extends BaseEntity {
 
     public void changeLocation(final String location) {
         this.location = location;
+    }
+
+    public void changePassword(final String password) {
+        this.password = password;
+    }
+
+    public void changeRole(final Role role) {
+        this.role = role;
     }
 
 

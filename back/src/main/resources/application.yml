@@ -23,3 +23,10 @@ server:
   servlet:
     encoding:
       force-response: true
+
+security:
+  jwt:
+    token:
+      secret-key: rutyweorituwyerotiuweyrtoiuweyrtoweiurtywoeighdfsojkghsdfgsdofiguwyertouw
+      access-expire-time: 300000
+      refresh-expire-time: 4200000

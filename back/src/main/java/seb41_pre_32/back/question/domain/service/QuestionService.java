@@ -6,6 +6,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import seb41_pre_32.back.auth.dto.AuthInfo;
+import seb41_pre_32.back.auth.utils.LoginUser;
 import seb41_pre_32.back.exception.question.QuestionNotFoundException;
 import seb41_pre_32.back.question.domain.dto.QuestionPatchDto;
 import seb41_pre_32.back.question.domain.dto.QuestionPostDto;
@@ -25,8 +27,8 @@ public class QuestionService {
     private final UserService userService;
 
     @Transactional
-    public Question createQuestion(QuestionPostDto questionPostDto) {
-        User user = userService.findUser(Long.parseLong(questionPostDto.getUserId()));
+    public Question createQuestion(QuestionPostDto questionPostDto, AuthInfo authInfo) {
+        User user = userService.findUser(Long.parseLong(questionPostDto.getUserId()), authInfo);
         Question question = questionPostDto.toQuestion();
         question.addUser(user);
         return questionRepository.save(question);
