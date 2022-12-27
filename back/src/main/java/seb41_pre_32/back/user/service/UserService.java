@@ -9,11 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb41_pre_32.back.auth.dto.AuthInfo;
 import seb41_pre_32.back.exception.user.DuplicateUserEmailException;
-import seb41_pre_32.back.exception.user.NotOwnInfoException;
+import seb41_pre_32.back.exception.user.NotAuthorizedBadException;
 import seb41_pre_32.back.exception.user.UserNotFoundException;
-import seb41_pre_32.back.user.entity.User;
 import seb41_pre_32.back.user.dto.UserPatchRequest;
 import seb41_pre_32.back.user.dto.UserPostRequest;
+import seb41_pre_32.back.user.entity.User;
 import seb41_pre_32.back.user.repository.UserRepository;
 
 import java.util.Optional;
@@ -78,7 +78,7 @@ public class UserService {
 
     private void validateOwnInfo(Long userId, AuthInfo authInfo) {
         if (userId != authInfo.getUserId()) {
-            throw new NotOwnInfoException();
+            throw new NotAuthorizedBadException();
         }
     }
 

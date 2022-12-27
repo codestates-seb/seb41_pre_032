@@ -9,7 +9,7 @@ import seb41_pre_32.back.answer.repository.AnswerRepository;
 import seb41_pre_32.back.auth.dto.AuthInfo;
 import seb41_pre_32.back.exception.answer.AnswerNotFoundException;
 import seb41_pre_32.back.exception.question.QuestionNotFoundException;
-import seb41_pre_32.back.exception.user.NotOwnInfoException;
+import seb41_pre_32.back.exception.user.NotAuthorizedBadException;
 import seb41_pre_32.back.exception.user.UserNotFoundException;
 import seb41_pre_32.back.question.entity.Question;
 import seb41_pre_32.back.question.repository.QuestionRepository;
@@ -65,7 +65,7 @@ public class AnswerService {
 
     private void checkValidateUser(final Long userId, final Long id) {
         if (userId != id) {
-            throw new NotOwnInfoException();
+            throw new NotAuthorizedBadException();
         }
     }
 

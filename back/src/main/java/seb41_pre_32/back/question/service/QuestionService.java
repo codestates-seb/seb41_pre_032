@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb41_pre_32.back.auth.dto.AuthInfo;
 import seb41_pre_32.back.exception.question.QuestionNotFoundException;
-import seb41_pre_32.back.exception.user.NotOwnInfoException;
+import seb41_pre_32.back.exception.user.NotAuthorizedBadException;
 import seb41_pre_32.back.exception.user.UserNotFoundException;
 import seb41_pre_32.back.question.dto.QuestionPatchDto;
 import seb41_pre_32.back.question.dto.QuestionPostDto;
 import seb41_pre_32.back.question.entity.Question;
 import seb41_pre_32.back.question.repository.QuestionRepository;
-import seb41_pre_32.back.tag.repository.TagRepository;
 import seb41_pre_32.back.tag.entity.Question_Tag;
 import seb41_pre_32.back.tag.entity.Tag;
+import seb41_pre_32.back.tag.repository.TagRepository;
 import seb41_pre_32.back.user.entity.User;
 import seb41_pre_32.back.user.repository.UserRepository;
 
@@ -80,7 +80,7 @@ public class QuestionService {
 
     private void checkValidateUser(final Long authId, final Long savedId) {
         if (authId != savedId) {
-            throw new NotOwnInfoException();
+            throw new NotAuthorizedBadException();
         }
     }
 
