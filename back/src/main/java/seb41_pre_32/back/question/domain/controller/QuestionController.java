@@ -5,6 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import seb41_pre_32.back.auth.dto.AuthInfo;
+import seb41_pre_32.back.auth.utils.LoginUser;
 import seb41_pre_32.back.common.dto.MultiResponse;
 import seb41_pre_32.back.question.domain.dto.QuestionPatchDto;
 import seb41_pre_32.back.question.domain.dto.QuestionPostDto;
@@ -27,8 +29,10 @@ public class QuestionController {
     private final QuestionMapper mapper;
 
     @PostMapping
-    public ResponseEntity postQuestion(@RequestBody @Valid QuestionPostDto questionPostDto) {
-        Question question = questionService.createQuestion(questionPostDto);
+    public ResponseEntity postQuestion(@RequestBody @Valid QuestionPostDto questionPostDto,
+                                       @LoginUser AuthInfo authInfo
+                                       ) {
+        Question question = questionService.createQuestion(questionPostDto, authInfo);
         return new ResponseEntity<>(mapper.questionToQuestionResponseDto(question), HttpStatus.CREATED);
     }
 
