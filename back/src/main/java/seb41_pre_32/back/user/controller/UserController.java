@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import seb41_pre_32.back.auth.dto.AuthInfo;
 import seb41_pre_32.back.auth.utils.LoginUser;
 import seb41_pre_32.back.common.dto.MultiResponse;
-import seb41_pre_32.back.user.domain.User;
+import seb41_pre_32.back.user.entity.User;
 import seb41_pre_32.back.user.dto.*;
 import seb41_pre_32.back.user.service.UserService;
 

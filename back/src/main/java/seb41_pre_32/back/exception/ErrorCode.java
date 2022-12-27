@@ -16,9 +16,10 @@ public enum ErrorCode {
     EXPIRED_TOKEN("EXPIRED_TOKEN"),
 
     //QUESTION
-    QUESTION_NOT_FOUND("QUESTION_NOT_FOUND");
+    QUESTION_NOT_FOUND("QUESTION_NOT_FOUND"),
 
     //ANSWER
+    ANSWER_NOT_FOUND("ANSWER_NOT_FOUND");
 
     private final String value;
 

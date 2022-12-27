@@ -2,7 +2,7 @@ package seb41_pre_32.back.user.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import seb41_pre_32.back.user.domain.User;
+import seb41_pre_32.back.user.entity.User;
 
 import java.util.Optional;
 

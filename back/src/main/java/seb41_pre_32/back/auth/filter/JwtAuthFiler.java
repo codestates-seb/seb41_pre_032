@@ -10,7 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import seb41_pre_32.back.auth.dto.LoginRequest;
 import seb41_pre_32.back.auth.jwt.JwtTokenizer;
-import seb41_pre_32.back.user.domain.User;
+import seb41_pre_32.back.user.entity.User;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -32,7 +32,7 @@ public class JwtAuthFiler extends UsernamePasswordAuthenticationFilter {
         ObjectMapper mapper = new ObjectMapper();
         LoginRequest loginRequest = mapper.readValue(request.getInputStream(), LoginRequest.class);
         UsernamePasswordAuthenticationToken authenticationToken
-                = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
+                = new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword());
 
         return authenticationManager.authenticate(authenticationToken);
     }

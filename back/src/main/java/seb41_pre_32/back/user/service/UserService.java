@@ -11,7 +11,7 @@ import seb41_pre_32.back.auth.dto.AuthInfo;
 import seb41_pre_32.back.exception.user.DuplicateUserEmailException;
 import seb41_pre_32.back.exception.user.NotOwnInfoException;
 import seb41_pre_32.back.exception.user.UserNotFoundException;
-import seb41_pre_32.back.user.domain.User;
+import seb41_pre_32.back.user.entity.User;
 import seb41_pre_32.back.user.dto.UserPatchRequest;
 import seb41_pre_32.back.user.dto.UserPostRequest;
 import seb41_pre_32.back.user.repository.UserRepository;
