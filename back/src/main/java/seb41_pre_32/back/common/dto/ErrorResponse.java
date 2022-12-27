@@ -1,4 +1,4 @@
-package seb41_pre_32.back.config.dto;
+package seb41_pre_32.back.common.dto;
 
 import lombok.Getter;
 import seb41_pre_32.back.exception.ErrorCode;
