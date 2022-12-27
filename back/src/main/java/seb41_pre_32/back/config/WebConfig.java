@@ -1,7 +1,6 @@
 package seb41_pre_32.back.config;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -32,13 +31,6 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-        resolvers.add(loginUserArgumentResolver());
+        resolvers.add(new LoginUserArgumentResolver(jwtTokenizer));
     }
-
-    @Bean
-    public LoginUserArgumentResolver loginUserArgumentResolver() {
-        return new LoginUserArgumentResolver(jwtTokenizer);
-    }
-
-
 }

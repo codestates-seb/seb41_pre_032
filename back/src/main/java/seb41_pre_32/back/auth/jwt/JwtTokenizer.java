@@ -13,6 +13,7 @@ import java.util.Map;
 
 @Component
 public class JwtTokenizer {
+
     private final SecretKey secretKey;
     private final long accessTokenExpirationMills;
     private final long refreshTokenExpirationMills;
@@ -57,23 +58,6 @@ public class JwtTokenizer {
                 .build()
                 .parseClaimsJws(jws);
     }
-
-    // payload 반환
-    public String getPayload(final String jws) {
-        return getClaims(jws)
-                .getBody()
-                .getSubject();
-    }
-
-    // jws 검증
-    public void verifySignature(final String jws) {
-        Jwts.parserBuilder()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(jws);
-    }
-
-    //
 
     public AuthInfo parseClaimsToAuthInfo(String token) {
         Claims claims;

@@ -17,12 +17,7 @@ public class AuthorizationExtractor {
         return extract(headers);
     }
 
-    public static String getRefreshToken(HttpServletRequest request) {
-        Enumeration<String> headers = request.getHeaders("Refresh");
-        return extract(headers);
-    }
-
-    private static String extract(Enumeration<String> headers) {
+    public static String extract(Enumeration<String> headers) {
         while (headers.hasMoreElements()) {
             String val = headers.nextElement();
             if ((val.toLowerCase().startsWith(PRE_FIX.toLowerCase()))) {
