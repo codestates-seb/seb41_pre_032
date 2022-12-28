@@ -1,6 +1,7 @@
 import Sidebar from "../Components/Sidebar";
 import styled from "styled-components";
 import PageListButton from "../Components/PageListButton";
+import { Link } from "react-router-dom";
 
 // 새로운 페이지에 아래 스타일 컴포넌트를 최상단에 깔아줘야함
 const HomeWrap = styled.div`
@@ -148,7 +149,9 @@ const Users = () => {
                   className="eachuser-profile-photo"></img>
               </div>
               <div className="eachuser-profile-detail">
-                <a href="/login">BMitch</a>
+                <Link to="/userinfo">
+                  <div className="to-userinfo-link">BMitch</div>
+                </Link>
                 <span>Virgina</span>
                 <div className="eachuser-reputation">8368</div>
               </div>

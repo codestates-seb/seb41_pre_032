@@ -8,7 +8,9 @@ import QuestionView from "./Pages/QuestionView";
 import SignUp from "./Pages/SignUp";
 import Tags from "./Pages/Tags";
 import Users from "./Pages/users";
-import Companies from "./Pages/Companies"
+import Companies from "./Pages/Companies";
+import UserInfo from "./Pages/UserInfo";
+import Footer from "./Components/footer";
 
 function App() {
   return (
@@ -27,7 +29,9 @@ function App() {
           <Route path="/tags" element={<Tags />} />
           <Route path="/users" element={<Users />} />
           <Route path="/companies" element={<Companies />} />
+          <Route path="userinfo" element={<UserInfo />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );
