@@ -25,11 +25,14 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
     @Override
     public AuthInfo resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
                                     NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
+
         String accessToken = AuthorizationExtractor.getAccessToken(Objects.requireNonNull(request));
         if (accessToken == null) {
             return new AuthInfo(null, null, null, null);
         }
+
         return jwtTokenizer.parseClaimsToAuthInfo(accessToken);
     }
 }

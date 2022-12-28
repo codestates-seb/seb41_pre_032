@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import seb41_pre_32.back.auth.utils.CustomAuthorityUtils;
 import seb41_pre_32.back.exception.user.UserNotFoundException;
-import seb41_pre_32.back.user.domain.User;
+import seb41_pre_32.back.user.entity.User;
 import seb41_pre_32.back.user.repository.UserRepository;
 
 import java.util.Collection;
@@ -28,7 +28,7 @@ public class UserAuthDetailsService implements UserDetailsService {
 
     private final class CustomUserDetails extends User implements UserDetails {
         CustomUserDetails(final User user) {
-            this.setUserServiceVal(user.getId(),
+            this.setCustomUserServiceVal(user.getId(),
                     user.getEmail(),
                     user.getPassword(),
                     user.getUsername(),
