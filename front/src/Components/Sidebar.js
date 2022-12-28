@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const SidebarWrap = styled.div`
   width: 16.4rem;
@@ -43,30 +43,30 @@ const NavWrap = styled.nav`
 const Sidebar = () => {
   return (
     <SidebarWrap>
-      <div className='sticySide'>
+      <div className="sticySide">
         <NavWrap>
-          <Link to='/' className='nav-link active'>
+          <Link to="/" className="nav-link active">
             Home
           </Link>
           <ul>
-            <span className='nav-link'>PUBLIC</span>
+            <span className="nav-link">PUBLIC</span>
             <li>
-              <Link to='/questions' className='nav-link nav-link-link '>
+              <Link to="/questions" className="nav-link nav-link-link ">
                 Questions
               </Link>
             </li>
             <li>
-              <Link to='/' className='nav-link nav-link-link'>
+              <Link to="/tags" className="nav-link nav-link-link">
                 tags
               </Link>
             </li>
             <li>
-              <Link to='/' className='nav-link nav-link-link'>
+              <Link to="/users" className="nav-link nav-link-link">
                 users
               </Link>
             </li>
             <li>
-              <Link to='/' className='nav-link nav-link-link'>
+              <Link to="/companies" className="nav-link nav-link-link">
                 Companies
               </Link>
             </li>
@@ -77,5 +77,4 @@ const Sidebar = () => {
     </SidebarWrap>
   );
 };
-
 export default Sidebar;
