@@ -7,6 +7,7 @@ import seb41_pre_32.back.tag.dto.TagResponseDto;
 import seb41_pre_32.back.tag.entity.QuestionTag;
 import seb41_pre_32.back.user.dto.UserResponseDto;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,7 +20,22 @@ public class QuestionResponseDto {
     private String attempt;
     private List<TagResponseDto> tags;
     private UserResponseDto user;
+    private LocalDateTime createdDate;
+    private LocalDateTime updatedDate;
 
+    public QuestionResponseDto(final Long id, final String title,
+                               final String contents, final String attempt,
+                               final List<TagResponseDto> tags, final UserResponseDto user,
+                               final LocalDateTime createdDate, final LocalDateTime updatedDate) {
+        this.id = id;
+        this.title = title;
+        this.contents = contents;
+        this.attempt = attempt;
+        this.tags = tags;
+        this.user = user;
+        this.createdDate = createdDate;
+        this.updatedDate = updatedDate;
+    }
 
     public static QuestionResponseDto of(final Question question) {
         List<QuestionTag> taglist = question.getTags();
@@ -34,11 +50,13 @@ public class QuestionResponseDto {
                 .contents(question.getContents())
                 .attempt(question.getAttempt())
                 .tags(tags)
+                .createdDate(question.getCreatedDate())
+                .updatedDate(question.getModifiedDate())
                 .user(UserResponseDto.of(question.getUser()))
                 .build();
     }
 
-    public void removeUser(){
+    public void removeUser() {
         this.user = null;
     }
 }
