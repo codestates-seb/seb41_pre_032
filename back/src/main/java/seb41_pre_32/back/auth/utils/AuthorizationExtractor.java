@@ -1,6 +1,7 @@
 package seb41_pre_32.back.auth.utils;
 
 import org.springframework.http.HttpHeaders;
+import seb41_pre_32.back.exception.auth.ExtractTokenFailedException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -29,6 +30,7 @@ public class AuthorizationExtractor {
                 return authHeader;
             }
         }
-        return null;
+
+        throw new ExtractTokenFailedException();
     }
 }
