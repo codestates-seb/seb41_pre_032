@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 const useFetch = (url) => {
   const [data, setData] = useState(null);
@@ -11,28 +11,33 @@ const useFetch = (url) => {
     const abortCont = new AbortController();
     setTimeout(() => {
       //요청과 통신하거나 중단하는 데에 사용하는 신호 역할
-      fetch(url, { signal: abortCont.signal })
-        .then(res => {
+      fetch(url, {
+        signal: abortCont.signal,
+        headers: {
+          Authorization: process.env.REACT_APP_AUTHORIZATION,
+          Refresh: process.env.REACT_APP_REFRESH,
+        },
+      })
+        .then((res) => {
           if (!res.ok) {
-            throw Error('could not fetch the data for that resource');
+            throw Error("could not fetch the data for that resource");
           }
           return res.json();
         })
-        .then(data => {
+        .then((data) => {
           setIsPending(false);
           setData(data);
           setError(null);
         })
-        .catch(err => {
+        .catch((err) => {
           setIsPending(false);
           setError(err.message);
-        })
+        });
     }, 1000);
 
     return () => abortCont.abort();
   }, [url]);
-  return [data, isPending, error]
-}
-
+  return [data, isPending, error];
+};
 
 export default useFetch;

@@ -11,6 +11,7 @@ const ListWrap = styled.div`
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
+    align-items: flex-start;
   }
 
   .all-question-title {
