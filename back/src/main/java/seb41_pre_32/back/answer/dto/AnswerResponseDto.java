@@ -15,7 +15,7 @@ public class AnswerResponseDto {
     private int dislikeCount;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
-    private UserResponseDto userResponseDto;
+    private UserResponseDto user;
 
     private AnswerResponseDto() {
     }
@@ -27,14 +27,14 @@ public class AnswerResponseDto {
                              final int dislikeCount,
                              final LocalDateTime createdDate,
                              final LocalDateTime updatedDate,
-                             final UserResponseDto userResponseDto) {
+                             final UserResponseDto user) {
         this.id = id;
         this.contents = contents;
         this.likeCount = likeCount;
         this.dislikeCount = dislikeCount;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
-        this.userResponseDto = userResponseDto;
+        this.user = user;
     }
 
     public static AnswerResponseDto of(final Answer answer) {
@@ -45,7 +45,7 @@ public class AnswerResponseDto {
                 .dislikeCount(answer.getLikeCount())
                 .createdDate(answer.getCreatedDate())
                 .updatedDate(answer.getModifiedDate())
-                .userResponseDto(UserResponseDto.of(answer.getUser()))
+                .user(UserResponseDto.of(answer.getUser()))
                 .build();
     }
 }
