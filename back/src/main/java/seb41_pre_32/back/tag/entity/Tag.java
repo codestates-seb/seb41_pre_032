@@ -20,7 +20,7 @@ public class Tag extends BaseEntity {
     private String tagName;
 
     @OneToMany(mappedBy = "tag", cascade = CascadeType.ALL)
-    private List<Question_Tag> questions = new ArrayList<>();
+    private List<QuestionTag> questions = new ArrayList<>();
 
     protected Tag() {
     }

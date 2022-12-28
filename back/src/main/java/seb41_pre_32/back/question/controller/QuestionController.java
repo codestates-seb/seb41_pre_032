@@ -22,14 +22,14 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @RequestMapping("/api/questions")
 public class QuestionController {
+
     private final QuestionService questionService;
 
     @PostMapping
     public ResponseEntity postQuestion(@RequestBody @Valid QuestionPostDto questionPostDto,
-                                       @LoginUser AuthInfo authInfo
-    ) {
-        Question question = questionService.createQuestion(questionPostDto, authInfo);
-        return new ResponseEntity<>(QuestionResponseDto.of(question),
+                                       @LoginUser AuthInfo authInfo) {
+        return new ResponseEntity<>(
+                QuestionResponseDto.of(questionService.createQuestion(questionPostDto, authInfo)),
                 HttpStatus.CREATED);
     }
 
@@ -37,15 +37,15 @@ public class QuestionController {
     public ResponseEntity editQuestion(@PathVariable("questionId") Long questionId,
                                        @RequestBody @Valid QuestionPatchDto questionPatchDto,
                                        @LoginUser AuthInfo authInfo) {
-        Question question = questionService.editQuestion(questionPatchDto, questionId, authInfo);
-        return new ResponseEntity<>(QuestionResponseDto.of(question),
+        return new ResponseEntity<>(
+                QuestionResponseDto.of(questionService.editQuestion(questionPatchDto, questionId, authInfo)),
                 HttpStatus.OK);
     }
 
     @GetMapping("/{questionId}")
     public ResponseEntity getQuestion(@PathVariable("questionId") Long questionId) {
-        Question response = questionService.findQuestion(questionId);
-        return new ResponseEntity<>(QuestionResponseDto.of(response),
+        return new ResponseEntity<>(
+                QuestionResponseDto.of(questionService.findQuestion(questionId)),
                 HttpStatus.OK);
     }
 
@@ -66,6 +66,7 @@ public class QuestionController {
     public ResponseEntity deleteQuestion(@PathVariable("questionId") Long questionId,
                                          @LoginUser AuthInfo authInfo) {
         questionService.deleteQuestion(questionId, authInfo);
+
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

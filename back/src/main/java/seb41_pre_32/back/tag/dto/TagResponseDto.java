@@ -2,7 +2,7 @@ package seb41_pre_32.back.tag.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import seb41_pre_32.back.tag.entity.Question_Tag;
+import seb41_pre_32.back.tag.entity.QuestionTag;
 
 @Getter
 public class TagResponseDto {
@@ -13,7 +13,7 @@ public class TagResponseDto {
         this.tagName = tagName;
     }
 
-    public static TagResponseDto of(final Question_Tag tag) {
+    public static TagResponseDto of(final QuestionTag tag) {
         return TagResponseDto.builder()
                 .tagName(tag.getTag().getTagName())
                 .build();

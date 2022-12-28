@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import seb41_pre_32.back.answer.entity.Answer;
 import seb41_pre_32.back.audit.BaseEntity;
-import seb41_pre_32.back.tag.entity.Question_Tag;
+import seb41_pre_32.back.tag.entity.QuestionTag;
 import seb41_pre_32.back.user.entity.User;
 
 import javax.persistence.*;
@@ -27,7 +27,7 @@ public class Question extends BaseEntity {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String contents;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String attempt;
 
     private int likeCount = 0;
@@ -41,7 +41,7 @@ public class Question extends BaseEntity {
     private List<Answer> answerList = new ArrayList<>();
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
-    private List<Question_Tag> tags = new ArrayList<>();
+    private List<QuestionTag> tags = new ArrayList<>();
 
     @Builder
     public Question(final String title, final String contents, final String attempt) {
@@ -55,7 +55,7 @@ public class Question extends BaseEntity {
         user.getQuestions().add(this);
     }
 
-    public void addTags(final List<Question_Tag> tags) {
+    public void addTags(final List<QuestionTag> tags) {
         this.tags = tags;
         tags.forEach(t -> t.changeQuestion(this));
     }

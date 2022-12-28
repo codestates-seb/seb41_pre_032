@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb41_pre_32.back.auth.dto.AuthInfo;
 import seb41_pre_32.back.exception.question.QuestionNotFoundException;
-import seb41_pre_32.back.exception.user.NotAuthorizedBadException;
+import seb41_pre_32.back.exception.user.NotAuthorizedUserAccessException;
 import seb41_pre_32.back.exception.user.UserNotFoundException;
 import seb41_pre_32.back.question.dto.QuestionPatchDto;
 import seb41_pre_32.back.question.dto.QuestionPostDto;
 import seb41_pre_32.back.question.entity.Question;
 import seb41_pre_32.back.question.repository.QuestionRepository;
-import seb41_pre_32.back.tag.entity.Question_Tag;
+import seb41_pre_32.back.tag.entity.QuestionTag;
 import seb41_pre_32.back.tag.entity.Tag;
 import seb41_pre_32.back.tag.repository.TagRepository;
 import seb41_pre_32.back.user.entity.User;
@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class QuestionService {
+
     private final QuestionRepository questionRepository;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
@@ -35,6 +36,7 @@ public class QuestionService {
     @Transactional
     public Question createQuestion(final QuestionPostDto questionPostDto,
                                    final AuthInfo authInfo) {
+
         User user = findUser(authInfo.getUserId());
 
         List<Tag> tags = questionPostDto.getTaglist().stream()
@@ -46,8 +48,8 @@ public class QuestionService {
         Question question = questionPostDto.toQuestion();
         question.addUser(user);
 
-        List<Question_Tag> question_tags = tags.stream()
-                .map(tag -> new Question_Tag(question, tag))
+        List<QuestionTag> question_tags = tags.stream()
+                .map(tag -> new QuestionTag(question, tag))
                 .collect(Collectors.toList());
 
         question.addTags(question_tags);
@@ -80,7 +82,7 @@ public class QuestionService {
 
     private void checkValidateUser(final Long authId, final Long savedId) {
         if (authId != savedId) {
-            throw new NotAuthorizedBadException();
+            throw new NotAuthorizedUserAccessException();
         }
     }
 

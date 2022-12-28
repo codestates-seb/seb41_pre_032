@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Table(name = "question_tag_rel")
-public class Question_Tag {
+public class QuestionTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionTagId;
@@ -25,7 +25,7 @@ public class Question_Tag {
     private Tag tag;
 
     @Builder
-    public Question_Tag(final Question question, final Tag tag) {
+    public QuestionTag(final Question question, final Tag tag) {
         this.question = question;
         this.tag = tag;
     }
