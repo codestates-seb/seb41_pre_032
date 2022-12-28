@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@Builder
 public class QuestionResponseDto {
     private Long id;
     private String title;
@@ -22,11 +21,14 @@ public class QuestionResponseDto {
     private UserResponseDto user;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+    private int answerCount;
 
+    @Builder
     public QuestionResponseDto(final Long id, final String title,
                                final String contents, final String attempt,
                                final List<TagResponseDto> tags, final UserResponseDto user,
-                               final LocalDateTime createdDate, final LocalDateTime updatedDate) {
+                               final LocalDateTime createdDate, final LocalDateTime updatedDate,
+                               final int answerCount) {
         this.id = id;
         this.title = title;
         this.contents = contents;
@@ -35,6 +37,7 @@ public class QuestionResponseDto {
         this.user = user;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
+        this.answerCount = answerCount;
     }
 
     public static QuestionResponseDto of(final Question question) {
@@ -53,6 +56,7 @@ public class QuestionResponseDto {
                 .createdDate(question.getCreatedDate())
                 .updatedDate(question.getModifiedDate())
                 .user(UserResponseDto.of(question.getUser()))
+                .answerCount(question.getAnswerList().size())
                 .build();
     }
 
