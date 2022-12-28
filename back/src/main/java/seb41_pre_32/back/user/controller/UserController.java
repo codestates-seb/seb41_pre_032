@@ -42,7 +42,7 @@ public class UserController {
     public ResponseEntity getUser(@PathVariable("userId") Long userId,
                                   @LoginUser AuthInfo authInfo) {
         return new ResponseEntity<>(
-                UserResponseDto.of(userService.findUser(userId, authInfo)),
+                UserResponseDto.toGetResponse(userService.findUser(userId, authInfo)),
                 HttpStatus.OK);
     }
 

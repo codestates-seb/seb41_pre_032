@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import seb41_pre_32.back.answer.entity.Answer;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,4 +19,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
 
     @Query("select a from Answer a where a.question.questionId =:questionId")
     Page<Answer> findAnswersByQuestion(Long questionId, Pageable pageable);
+
+    @Query("select a from Answer a where a.user.id =:userId")
+    List<Answer> findAnswersByUserId(Long userId);
 }

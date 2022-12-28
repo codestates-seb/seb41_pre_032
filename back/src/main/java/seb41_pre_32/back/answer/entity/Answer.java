@@ -50,6 +50,11 @@ public class Answer extends BaseEntity {
         this.question = question;
     }
 
+    public void addUser(final User user) {
+        this.user = user;
+        user.getAnswers().add(this);
+    }
+
     public void changeContents(final String contents) {
         this.contents = contents;
     }

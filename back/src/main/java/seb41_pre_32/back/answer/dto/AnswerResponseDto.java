@@ -48,4 +48,8 @@ public class AnswerResponseDto {
                 .user(UserResponseDto.of(answer.getUser()))
                 .build();
     }
+
+    public void removeUser(){
+        this.user = null;
+    }
 }

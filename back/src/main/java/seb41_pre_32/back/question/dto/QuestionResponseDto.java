@@ -37,4 +37,8 @@ public class QuestionResponseDto {
                 .user(UserResponseDto.of(question.getUser()))
                 .build();
     }
+
+    public void removeUser(){
+        this.user = null;
+    }
 }

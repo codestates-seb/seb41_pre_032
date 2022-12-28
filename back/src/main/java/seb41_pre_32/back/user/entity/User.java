@@ -35,7 +35,7 @@ public class User extends BaseEntity {
     private String profileUrl;
 
     @Column(name = "reputation")
-    private int reputation = 0;
+    private int reputation;
 
     @Column(name = "location", length = 2000)
     private String location;
@@ -63,16 +63,24 @@ public class User extends BaseEntity {
         this.role = role;
     }
 
-    public void setUserServiceVal(final Long userId,
-                                  final String email,
-                                  final String password,
-                                  final String username,
-                                  final Role role) {
+    public void setCustomUserServiceVal(final Long userId,
+                                        final String email,
+                                        final String password,
+                                        final String username,
+                                        final Role role) {
         this.id = userId;
         this.email = email;
         this.password = password;
         this.username = username;
         this.role = role;
+    }
+
+    public void addQuestions(final List<Question> questions) {
+        this.questions = questions;
+    }
+
+    public void addAnswers(final List<Answer> answers) {
+        this.answers = answers;
     }
 
     public void changeUsername(final String username) {
@@ -90,10 +98,4 @@ public class User extends BaseEntity {
     public void changePassword(final String password) {
         this.password = password;
     }
-
-    public void changeRole(final Role role) {
-        this.role = role;
-    }
-
-
 }
