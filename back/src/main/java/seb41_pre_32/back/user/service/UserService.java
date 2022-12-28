@@ -4,9 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import seb41_pre_32.back.auth.dto.AuthInfo;
 import seb41_pre_32.back.exception.user.DuplicateUserEmailException;
+import seb41_pre_32.back.exception.user.NotOwnInfoException;
 import seb41_pre_32.back.exception.user.UserNotFoundException;
 import seb41_pre_32.back.user.domain.User;
 import seb41_pre_32.back.user.dto.UserPatchRequest;
@@ -20,11 +23,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public User createUser(final UserPostRequest userPostRequest) {
         User user = userPostRequest.toUser();
         checkEmailDuplicate(user.getEmail());
+
+        String encryptedPassword = passwordEncoder.encode(userPostRequest.getPassword());
+        user.changePassword(encryptedPassword);
+
         User savedUser = userRepository.save(user);
         return savedUser;
     }
@@ -37,7 +45,8 @@ public class UserService {
     }
 
     @Transactional
-    public User updateUser(Long userId, UserPatchRequest userPatchRequest) {
+    public User updateUser(Long userId, UserPatchRequest userPatchRequest, AuthInfo authInfo) {
+        validateOwnInfo(userId, authInfo);
         User findUser = findValidUser(userId);
 
         Optional.ofNullable(userPatchRequest.getDisplayName())
@@ -52,17 +61,25 @@ public class UserService {
 
     private User findValidUser(Long userId) {
         return userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException(userId));
+                .orElseThrow(() -> new UserNotFoundException());
     }
 
     @Transactional
-    public void deleteUser(Long userId) {
+    public void deleteUser(Long userId, AuthInfo authInfo) {
+        validateOwnInfo(userId, authInfo);
         findValidUser(userId);
         userRepository.deleteById(userId);
     }
 
-    public User findUser(Long userId) {
+    public User findUser(Long userId, AuthInfo authInfo) {
+        validateOwnInfo(userId, authInfo);
         return findValidUser(userId);
+    }
+
+    private void validateOwnInfo(Long userId, AuthInfo authInfo) {
+        if (userId != authInfo.getUserId()) {
+            throw new NotOwnInfoException();
+        }
     }
 
     public Page<User> findUsers(int page, int size) {
