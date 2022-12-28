@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const QuestionWrap = styled.li`
-  margin:0 -2.4rem;
+  margin: 0 -2.4rem;
   .question-container {
     display: flex;
     background-color: white;
@@ -41,7 +41,7 @@ const QuestionWrap = styled.li`
     flex-direction: column;
   }
   .question-title {
-    >a{
+    > a {
       font-weight: 400;
       display: block;
       font-size: 1.7rem;
@@ -82,7 +82,6 @@ const QuestionWrap = styled.li`
     list-style: none;
     margin: 0 0 1.3rem 0;
     padding: 0;
-
   }
 
   .tag {
@@ -103,7 +102,7 @@ const QuestionWrap = styled.li`
     cursor: pointer;
   }
   .userWrap {
-    display:flex;
+    display: flex;
   }
   .usercard-photo {
     flex-wrap: wrap;
@@ -126,7 +125,7 @@ const QuestionWrap = styled.li`
     align-items: center;
     flex-direction: row;
     display: flex;
-    margin: 0 .4rem;
+    margin: 0 0.4rem;
     font-size: 1.2rem;
   }
 
