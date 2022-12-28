@@ -5,6 +5,7 @@ import { useState } from 'react';
 import axios from '../util/axios';
 import { useQuery } from 'react-query';
 import PageButton from '../Components/PageButton';
+import Loading from '../Components/Loading';
 
 const HomeWrap = styled.div`
   width: 100%;
@@ -19,7 +20,12 @@ const AllQuestions = () => {
   const [page, setPage] = useState(1);
 
   const getAllQuestions = async (pageParam = 1) => {
-    const res = await axios.get(`/api/questions?page=${pageParam}&size=15`);
+    const res = await axios.get(`/api/questions?page=${pageParam}&size=15`, {
+      headers: {
+        Authorization: process.env.REACT_APP_AUTHORIZATION,
+        Refresh: process.env.REACT_APP_REFRESH,
+      },
+    });
 
     return res.data;
   };
@@ -41,14 +47,13 @@ const AllQuestions = () => {
     .fill()
     .map((_, index) => index + 1);
 
-  if (isLoading) return <p>Loading All Questions...</p>;
-  if (isError) return <p>Error: {error.message}</p>;
-
   return (
     <HomeWrap>
       <Sidebar />
-      {isFetching && <span className='loading'>Loading...</span>}
       <QuestionList title='All Questions' data={allQuestions}>
+        {isLoading && <Loading />}
+        {isFetching && <Loading />}
+        {isError && <p>Error: {error.message}</p>}
         <nav>
           <button onClick={prevPage} disabled={isPreviousData || page === 1}>
             Prev
