@@ -28,7 +28,7 @@ public class JwtTokenizer {
 
     public String createAccessToken(final Map<String, Object> claims, final String subject) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + accessTokenExpirationMills);
+        Date expiration = new Date(now.getTime() + (accessTokenExpirationMills * 1000));
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -41,7 +41,7 @@ public class JwtTokenizer {
 
     public String createRefreshToken(final String subject) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + refreshTokenExpirationMills);
+        Date expiration = new Date(now.getTime() + (refreshTokenExpirationMills * 1000));
 
         return Jwts.builder()
                 .setSubject(subject)

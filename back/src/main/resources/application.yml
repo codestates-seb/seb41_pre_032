@@ -28,5 +28,5 @@ security:
   jwt:
     token:
       secret-key: rutyweorituwyerotiuweyrtoiuweyrtoweiurtywoeighdfsojkghsdfgsdofiguwyertouw
-      access-expire-time: 3600000
-      refresh-expire-time: 21600000
+      access-expire-time: 3600
+      refresh-expire-time: 2592000
