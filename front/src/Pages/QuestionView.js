@@ -158,7 +158,12 @@ const QuestionView = () => {
   const [data, isPending, error] = useFetch(
     `${process.env.REACT_APP_API_URL}/api/questions/${id}`
   );
-  console.log(data);
+  let createdDate
+  let updatedDate
+  if(data) {
+    createdDate = `${data.createdDate.slice(0, 10)} ${data.createdDate.slice(-8)}`;
+    updatedDate = `${data.updatedDate.slice(0, 10)} ${data.updatedDate.slice(-8)}`;
+  }
 
   const handleDelete = () => {
     fetchDelete(`${process.env.REACT_APP_API_URL}/api/questions/`, id);
@@ -186,11 +191,11 @@ const QuestionView = () => {
             <div className="fw-wrap">
               <div className="fw-item">
                 <span>Asked</span>
-                <time>today</time>
+                <time>{createdDate}</time>
               </div>
               <div className="fw-item">
                 <span>Modified</span>
-                <time>today</time>
+                <time>{updatedDate}</time>
               </div>
               <div className="fw-item">
                 <span>Viewed</span>
@@ -206,7 +211,14 @@ const QuestionView = () => {
                   className="vote-up-btn"
                   aria-label="Up vote"
                 >
-                  <img alt="Up vote" src={upVote === 0 ? "../images/upVote.png" : "../images/upVoteOrange.png"} />
+                  <img
+                    alt="Up vote"
+                    src={
+                      upVote === 0
+                        ? "../images/upVote.png"
+                        : "../images/upVoteOrange.png"
+                    }
+                  />
                 </button>
                 <div className="vote-count">0</div>
                 <button
@@ -216,7 +228,14 @@ const QuestionView = () => {
                   className="vote-up-btn"
                   aria-label="Up vote"
                 >
-                  <img alt="Up vote" src={downVote === 0 ? "../images/downVote.png" : "../images/downVoteOrange.png"}  />
+                  <img
+                    alt="Up vote"
+                    src={
+                      downVote === 0
+                        ? "../images/downVote.png"
+                        : "../images/downVoteOrange.png"
+                    }
+                  />
                 </button>
               </div>
               <div className="postcell">
@@ -229,13 +248,10 @@ const QuestionView = () => {
                     {data.tags
                       ? data.tags.map((tag, idx) => (
                           <li key={idx} className="tag">
-                            {tag}
+                            {tag.tagName}
                           </li>
                         ))
                       : null}
-                    <li className="tag">DummyTag</li>
-                    <li className="tag">DummyTag</li>
-                    <li className="tag">DummyTag</li>
                   </ul>
                 </div>
                 <div className="etc-wrap">
@@ -250,23 +266,17 @@ const QuestionView = () => {
                     </button>
                   </div>
                   <div className="action-time">
-                    <span>{`edited ${"5 mins"} ago`}</span>
+                    <span>{`edited ${createdDate}`}</span>
                   </div>
                   <div className="user-info">
                     <Link to="/" className="user-avatar">
-                      <img
-                        alt="editUserAvatar"
-                        src={
-                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQx1EDIAv7d29DP84WFCyWkxS0NHdNkcOKkA&usqp=CAU"
-                        }
-                      />
+                      <img alt="UserAvatar" src={data.user.profileUrl ? data.user.profileUrl : "../logo192.png"} />
                     </Link>
                     <div className="user-details">
-                      <Link to="/">{data.username}</Link>
+                      <Link to="/">{data.user.displayName}</Link>
                       <div className="flair">
-                        <span className="score">0</span>
                         <span className="bages">
-                          <span className="circle" /> 0
+                          <span className="circle" /> {data.user.reputation}
                         </span>
                       </div>
                     </div>

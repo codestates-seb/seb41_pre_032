@@ -60,20 +60,20 @@ const QuestionCreate = () => {
   const [title, titleBind, titleReset] = useInput("");
   const [contents, contentsBind, contentsReset] = useInput("");
   const [attempt, attemptBind, attemptReset] = useInput("");
-  const [tags, setTags] = useState([]);
+  const [taglist, setTaglist] = useState([]);
   const [discardActive, setDiscardActive] = useState(0);
   const [submitActive, setSubmitActive] = useState(0);
 
   useEffect(() => {
-    if(title && contents && attempt && tags.length >= 1) {
+    if(title && contents && attempt && taglist.length >= 1) {
       setSubmitActive(1)
     } else {
       setSubmitActive(0)
     }
-  },[attempt, contents, tags, title])
+  },[attempt, contents, taglist, title])
 
   const handleSubmit = () => {
-    const data = { userId:"1", title, contents, attempt, tags, vote: 0 };
+    const data = { title, contents, attempt, taglist, vote: 0 };
     fetchCreate(`${process.env.REACT_APP_API_URL}/api/questions`, data);
   };
 
@@ -85,7 +85,7 @@ const QuestionCreate = () => {
     titleReset();
     contentsReset();
     attemptReset();
-    setTags([]);
+    setTaglist([]);
   };
   return (
     <CreateWrap>
@@ -109,8 +109,8 @@ const QuestionCreate = () => {
         <Tags
           isFocus={isFocus}
           setIsFocus={setIsFocus}
-          tags={tags}
-          setTags={setTags}
+          tags={taglist}
+          setTags={setTaglist}
         />
         <BtnArea>
           

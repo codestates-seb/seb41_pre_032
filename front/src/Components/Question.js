@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 const QuestionWrap = styled.li`
-  margin:0 -2.4rem;
+  margin: 0 -2.4rem;
   .question-container {
     display: flex;
     background-color: white;
@@ -41,7 +41,7 @@ const QuestionWrap = styled.li`
     flex-direction: column;
   }
   .question-title {
-    >a{
+    > a {
       font-weight: 400;
       display: block;
       font-size: 1.7rem;
@@ -82,7 +82,6 @@ const QuestionWrap = styled.li`
     list-style: none;
     margin: 0 0 1.3rem 0;
     padding: 0;
-
   }
 
   .tag {
@@ -103,7 +102,7 @@ const QuestionWrap = styled.li`
     cursor: pointer;
   }
   .userWrap {
-    display:flex;
+    display: flex;
   }
   .usercard-photo {
     flex-wrap: wrap;
@@ -126,7 +125,7 @@ const QuestionWrap = styled.li`
     align-items: center;
     flex-direction: row;
     display: flex;
-    margin: 0 .4rem;
+    margin: 0 0.4rem;
     font-size: 1.2rem;
   }
 
@@ -159,6 +158,7 @@ const QuestionWrap = styled.li`
 `;
 
 const Question = ({ data }) => {
+  let date = `${data.updatedDate.slice(0, 10)} ${data.updatedDate.slice(-8)}`;
   return (
     <QuestionWrap>
       <div className="question-container">
@@ -187,7 +187,7 @@ const Question = ({ data }) => {
               {data.tags
                 ? data.tags.map((tag, idx) => (
                     <li key={idx} className="tag">
-                      {tag}
+                      {tag.tagName}
                     </li>
                   ))
                 : null}
@@ -195,19 +195,21 @@ const Question = ({ data }) => {
             <div className="userWrap">
               <div className="usercard-photo">
                 <a href="/">
-                  <img alt="" src="../logo192.png" className="useravatar" />
+                  <img
+                    alt="userAvatar"
+                    src={data.user.profileUrl ? data.user.profileUrl : "../logo192.png"}
+                    className="useravatar"
+                  />
                   {/* 프로필사진 예시 */}
                 </a>
               </div>
               <div className="usercard-name">
-                <a href="/" className="username">
-                  {data.username}
-                </a>
+                <Link href="/" className="username">
+                  {data.user.displayName}
+                </Link>
               </div>
               <div className="usercard-date">
-                <p href="/" className="date">
-                  날짜
-                </p>
+                <p className="date">{date}</p>
               </div>
             </div>
           </div>
