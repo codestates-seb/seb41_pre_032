@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
@@ -126,6 +126,10 @@ const REGISTER_URL = '/api/users';
 const SignupInfo = () => {
   const [errMsg, setErrMsg] = useState('');
 
+  const navigate = useNavigate();
+
+  const from = '/login';
+
   const formik = useFormik({
     initialValues: {
       displayName: '',
@@ -152,6 +156,8 @@ const SignupInfo = () => {
         await axios.post(REGISTER_URL, JSON.stringify(values), {
           headers: { 'Content-Type': 'application/json' },
         });
+
+        navigate(from, { replace: true });
       } catch (error) {
         if (!error.response) {
           console.log('no server response');
