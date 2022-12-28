@@ -2,8 +2,8 @@ package seb41_pre_32.back.user.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import seb41_pre_32.back.user.domain.Role;
-import seb41_pre_32.back.user.domain.User;
+import seb41_pre_32.back.user.entity.Role;
+import seb41_pre_32.back.user.entity.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;

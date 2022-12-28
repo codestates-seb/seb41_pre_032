@@ -46,11 +46,10 @@ public class SecurityConfig {
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/api/users").permitAll()
-                        .antMatchers(HttpMethod.GET, "/api/users").permitAll()
-                        .antMatchers(HttpMethod.GET, "/api/users/**", "/api/questions/**", "/api/answers/**").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/users/**", "/api/questions/**").hasRole("USER")
                         .antMatchers(HttpMethod.PATCH, "/api/users/**", "/api/questions/**", "/api/answers/**").hasRole("USER")
                         .antMatchers(HttpMethod.POST, "/api/questions", "/api/answers").hasRole("USER")
-                        .antMatchers(HttpMethod.GET, "/api/questions", "/api/answers").hasRole("USER")
+                        .antMatchers(HttpMethod.GET, "/api/users", "/api/questions", "/api/answers").hasRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/api/users/**", "/api/questions/**", "/api/answers/**").hasRole("USER")
                         .anyRequest().permitAll()
                 ).build();
@@ -60,7 +59,6 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
-
 
     public class CustomFilterConfig extends AbstractHttpConfigurer<CustomFilterConfig, HttpSecurity> {
         @Override

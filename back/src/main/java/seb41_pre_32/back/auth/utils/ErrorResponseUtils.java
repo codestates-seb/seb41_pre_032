@@ -10,12 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class ErrorResponseUtils {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
     public static void sendErrorResponse(ErrorCode errorCode, HttpServletResponse response, HttpStatus status) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(status.value());
 
         ErrorResponse errorResponse = new ErrorResponse(errorCode, errorCode.getValue());
-        ObjectMapper objectMapper = new ObjectMapper();
         String errorResponseString = objectMapper.writeValueAsString(errorResponse);
         response.getWriter().write(errorResponseString);
     }

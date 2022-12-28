@@ -6,14 +6,14 @@ import seb41_pre_32.back.exception.ErrorCode;
 @Getter
 public class ErrorResponse {
 
-    private ErrorCode errorCode;
+    private ErrorCode code;
     private String message;
 
     private ErrorResponse() {
     }
 
-    public ErrorResponse(ErrorCode errorCode, String message) {
-        this.errorCode = errorCode;
+    public ErrorResponse(final ErrorCode code, final String message) {
+        this.code = code;
         this.message = message;
     }
 }

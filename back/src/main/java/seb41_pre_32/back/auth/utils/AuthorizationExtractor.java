@@ -1,6 +1,7 @@
 package seb41_pre_32.back.auth.utils;
 
 import org.springframework.http.HttpHeaders;
+import seb41_pre_32.back.exception.auth.ExtractTokenFailedException;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -17,12 +18,7 @@ public class AuthorizationExtractor {
         return extract(headers);
     }
 
-    public static String getRefreshToken(HttpServletRequest request) {
-        Enumeration<String> headers = request.getHeaders("Refresh");
-        return extract(headers);
-    }
-
-    private static String extract(Enumeration<String> headers) {
+    public static String extract(Enumeration<String> headers) {
         while (headers.hasMoreElements()) {
             String val = headers.nextElement();
             if ((val.toLowerCase().startsWith(PRE_FIX.toLowerCase()))) {
@@ -34,6 +30,7 @@ public class AuthorizationExtractor {
                 return authHeader;
             }
         }
-        return null;
+
+        throw new ExtractTokenFailedException();
     }
 }

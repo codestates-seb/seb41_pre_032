@@ -14,6 +14,7 @@ import java.io.IOException;
 
 @Slf4j
 public class UserAuthenticationFailureHandler implements AuthenticationFailureHandler {
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request,
                                         HttpServletResponse response,

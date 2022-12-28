@@ -13,6 +13,7 @@ import java.util.Map;
 
 @Component
 public class JwtTokenizer {
+
     private final SecretKey secretKey;
     private final long accessTokenExpirationMills;
     private final long refreshTokenExpirationMills;
@@ -27,7 +28,7 @@ public class JwtTokenizer {
 
     public String createAccessToken(final Map<String, Object> claims, final String subject) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + accessTokenExpirationMills);
+        Date expiration = new Date(now.getTime() + (accessTokenExpirationMills * 1000));
 
         return Jwts.builder()
                 .setClaims(claims)
@@ -40,7 +41,7 @@ public class JwtTokenizer {
 
     public String createRefreshToken(final String subject) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + refreshTokenExpirationMills);
+        Date expiration = new Date(now.getTime() + (refreshTokenExpirationMills * 1000));
 
         return Jwts.builder()
                 .setSubject(subject)
@@ -57,23 +58,6 @@ public class JwtTokenizer {
                 .build()
                 .parseClaimsJws(jws);
     }
-
-    // payload 반환
-    public String getPayload(final String jws) {
-        return getClaims(jws)
-                .getBody()
-                .getSubject();
-    }
-
-    // jws 검증
-    public void verifySignature(final String jws) {
-        Jwts.parserBuilder()
-                .setSigningKey(secretKey)
-                .build()
-                .parseClaimsJws(jws);
-    }
-
-    //
 
     public AuthInfo parseClaimsToAuthInfo(String token) {
         Claims claims;
