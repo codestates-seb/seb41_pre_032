@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from '../util/axios';
-import { useContext } from 'react';
-import { AuthContext } from '../util/AuthProvider';
+import useAuth from '../util/useAuth';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Logininfowrap = styled.div`
   .login-container {
@@ -107,7 +107,7 @@ const Logininfowrap = styled.div`
     font-size: 12px;
   }
 
-  .googlelogo {
+  .googleLogo {
     width: 18px;
     height: 18px;
     object-fit: cover;
@@ -123,10 +123,14 @@ const Logininfowrap = styled.div`
   }
 `;
 
-const LOGIN_URL = '/auth';
+const LOGIN_URL = '/api/login';
 
 const LoginInfo = () => {
-  const { setAuth } = useContext(AuthContext);
+  const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || '/';
 
   const formik = useFormik({
     initialValues: {
@@ -144,16 +148,14 @@ const LoginInfo = () => {
       try {
         const res = await axios.post(LOGIN_URL, JSON.stringify(values), {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
         });
 
-        console.log(res.data);
+        const accessToken = res.headers.authorization;
+        const refreshToken = res.headers.refresh;
 
-        const accessToken = res.data.accessToken;
-        const role = res.data.role;
-        const displayName = res.data.displayName;
+        setAuth({ accessToken, refreshToken });
 
-        setAuth({ ...values, displayName, role, accessToken });
+        navigate(from, { replace: true });
       } catch (error) {
         console.log(error.response);
       }
@@ -166,7 +168,7 @@ const LoginInfo = () => {
         <img
           alt='google logo'
           src='../images/googlebutton.png'
-          className='googlelogo'
+          className='googleLogo'
         />
         Log in with Google
       </a>
