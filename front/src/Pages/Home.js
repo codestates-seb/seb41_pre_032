@@ -14,14 +14,20 @@ const HomeWrap = styled.div`
 `;
 
 function Home() {
-  const [data, isPending, error] = useFetch(`http://localhost:4000/question`);
+  const [data, isPending, error] = useFetch(
+    `${process.env.REACT_APP_API_URL}/api/questions?page=1&size=100`
+  );
+
   return (
     <HomeWrap>
       <Sidebar />
 
-      <QuestionList questions={data} isPending={isPending} error={error} />
-
-
+      <QuestionList
+        title="Top Questions"
+        data={data}
+        isPending={isPending}
+        error={error}
+      />
     </HomeWrap>
   );
 }

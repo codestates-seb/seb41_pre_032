@@ -12,6 +12,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+        default_batch_fetch_size: 100
 logging:
   level:
     org:
@@ -22,3 +23,10 @@ server:
   servlet:
     encoding:
       force-response: true
+
+security:
+  jwt:
+    token:
+      secret-key: rutyweorituwyerotiuweyrtoiuweyrtoweiurtywoeighdfsojkghsdfgsdofiguwyertouw
+      access-expire-time: 3600
+      refresh-expire-time: 2592000

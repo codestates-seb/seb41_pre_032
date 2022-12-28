@@ -1,118 +1,149 @@
+import styled from "styled-components";
+import Notice from "../Components/QuestionCreate/Notice";
+import Title from "../Components/QuestionCreate/Title";
+import Problem from "../Components/QuestionCreate/Problem";
+import Expecting from "../Components/QuestionCreate/Expecting";
+import Tags from "../Components/QuestionCreate/Tags";
+import Discard from "../Components/QuestionCreate/Discard";
+import { useEffect, useState } from "react";
+import { fetchCreate } from "../util/api";
+import useInput from "../util/useInput";
+
+const CreateWrap = styled.section`
+  background-color: hsl(210, 8%, 95%);
+  > .createContainer {
+    width: 100%;
+    max-width: 1264px;
+    margin: 0 auto;
+    padding: 0 2.4rem 2.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+  }
+`;
+const BtnArea = styled.div`
+  display: flex;
+  margin: 1.2rem 0 4.8rem;
+  > button,
+  div {
+    padding: 1rem;
+    margin: 0 0.8rem;
+    border-radius: 3px;
+    font-size: 1.3rem;
+    border: 1px solid transparent;
+    cursor: pointer;
+    
+  }
+  > .submit {
+    margin-left: 0;
+    color: #fff;
+  }
+  > .submit:hover {
+    background-color: #0074cc;
+  }
+  > .discard {
+    color: #c22e32;
+  }
+  > .discard:hover {
+    background-color: #fdf2f2;
+    color: #ab262a;
+  }
+`;
+const SubmitBtn = styled.button`
+  pointer-events: ${props => props.activebtn === 0 ? 'none' : 'unset'};
+  background-color:${props => props.activebtn === 0 ? '#aaa' : '#0a95ff'};
+`
+
 const QuestionCreate = () => {
+  const [isFocus, setIsFocus] = useState(0);
+  const [questionShelf, setQuestionShelf] = useState({ vote: 0 });
+  const [title, titleBind, titleReset] = useInput("");
+  const [contents, contentsBind, contentsReset] = useInput("");
+  const [attempt, attemptBind, attemptReset] = useInput("");
+  const [tags, setTags] = useState([]);
+  const [discardActive, setDiscardActive] = useState(0);
+  const [submitActive, setSubmitActive] = useState(0);
+
+  useEffect(() => {
+    if(title && contents && attempt && tags.length >= 1) {
+      setSubmitActive(1)
+    } else {
+      setSubmitActive(0)
+    }
+  },[attempt, contents, tags, title])
+
+  useEffect(() => {
+    let tagsData = questionShelf;
+    questionShelf.tags = tags;
+    setQuestionShelf(tagsData);
+  }, [questionShelf, tags]);
+
+  const handleSubmit = () => {
+    const data = { userId:"1", title, contents, attempt, tags, vote: 0 };
+    fetchCreate(`${process.env.REACT_APP_API_URL}/api/questions`, data);
+  };
+
+  const handleOnChangeDiscard = () => {
+    discardActive === 0 ? setDiscardActive(1) : setDiscardActive(0);
+  };
+
+  const deleteContent = () => {
+    titleReset();
+    contentsReset();
+    attemptReset();
+    setTags([]);
+  };
   return (
-    <div className="">
-      <h1 className="">Ask a question</h1>
-      <div className="">
-        <h2 className="">Writing a good question</h2>
-        <p className="">
-          You're ready to ask your first programming-related question and the
-          community is here to help!
-        </p>
-        <p className="">
-          Looking to ask a non-programming question? See all topics &nbsp;
-          <a
-            href="https://stackexchange.com/sites#technology-traffic"
-            className="">
-            here
-          </a>{" "}
-          to ask on a different site.
-        </p>
-
-        <ul className="">
-          <li>Step 1: Propose a question Write a question.</li>
-          <p>
-            Follow the step by step instructions on how to write a good,
-            detailed question. The more information you provide, the better
-            chances you have of it being answered.
-          </p>
-          <li>Step 2: In review</li>
-          <p>
-            Your question is locked and awaits review from experienced community
-            members. The quicker you act on any feedback, the quicker your
-            question will be posted to get answers.
-          </p>
-          <li>Step 3: Approved</li>
-          <p>
-            Your post question has been approved and published! It is now live
-            to the community and open for votes, answers and comments.
-          </p>
-        </ul>
-      </div>
-      {/* 여기까지 좋은 질문 만드는 섹션 */}
-      <div className="">
-        <h5 className="">Title</h5>
-        <p className="">
-          Be specific and imagine you’re asking a question to another person.
-        </p>
-        <div className="플렉스가 필요합니다">
-          <input
-            id="title"
-            name="title"
-            type="text"
-            maxLength="300"
-            placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-            className=""
-            data-min-length="15"
-            data-max-length="150"
-          />
-        </div>
-      </div>
-      {/* 여기까지 제목을 넣는 섹션입니다. */}
-      <div className="">
-        <h5 className="font-bold">What are the details of your problem?</h5>
-        <p className="">
-          Introduce the problem and expand on what you put in the title. Minimum
-          20 characters.
-        </p>
-        <input id="content" type="text" data-min-length="20" />
-      </div>
-      {/* 여기까지 문제점을 적는 섹션입니다. */}
-
-      <div className="">
-        <h5 className="font-bold">
-          What did you try and what were you expecting?
-        </h5>
-        <p className="">
-          Describe what you tried, what you expected to happen, and what
-          actually resulted. Minimum 20 characters.
-        </p>
-        <input id="content" type="text" data-min-length="20" />
-      </div>
-      {/* 해결했던 시도들을 적는 섹션 */}
-
-      <div className="">
-        <h5 className="font-bold">Tags</h5>
-        <p className="">
-          Add up to 5 tags to describe what your question is about. Start typing
-          to see suggestions.
-        </p>
-        <input
-          id="tags"
-          type="text"
-          placeholder="e.g. (objective-c typescript sql-server)"
-          data-min-length="20"
+    <CreateWrap>
+      <div className="createContainer">
+        <Notice />
+        <Title
+          isFocus={isFocus}
+          setIsFocus={setIsFocus}
+          titleBind={titleBind}
         />
-      </div>
-
-      {/* 태그를 적는 섹션 */}
-
-      <div className="">
-        <button className="" type="button" autoComplete="off">
-          Review your question
-        </button>
-        {/* 이 버튼을 누르면 데이터가 전송되서 홈화면 상단에 위치해야합니다. */}
-
-        <div className="">
-          <button className="" type="button">
+        <Problem
+          isFocus={isFocus}
+          setIsFocus={setIsFocus}
+          contentsBind={contentsBind}
+        />
+        <Expecting
+          isFocus={isFocus}
+          setIsFocus={setIsFocus}
+          attemptBind={attemptBind}
+        />
+        <Tags
+          isFocus={isFocus}
+          setIsFocus={setIsFocus}
+          tags={tags}
+          setTags={setTags}
+        />
+        <BtnArea>
+          
+          <SubmitBtn
+            className="submit"
+            type="button"
+            autoComplete="off"
+            onClick={() => handleSubmit()}
+            activebtn={submitActive}
+          >
+            Review your question
+          </SubmitBtn>
+          <div
+            className="discard"
+            type="button"
+            onClick={() => handleOnChangeDiscard()}
+          >
             Discard draft
-          </button>
-          {/* 이 버튼을 누르면 위에서부터 입력했던 모든 입력값이 초기화 되어야합니다 */}
-          {/* 정말 삭제할 것인지 확인하는 모달창이 떠야하지만 아직 구현하지 못했습니다. */}
-        </div>
+          </div>
+        </BtnArea>
+        <Discard 
+        active={discardActive} 
+        deleteContent={deleteContent} 
+        handleDiscard={handleOnChangeDiscard}/>
       </div>
-
-      {/* 여기까지 버튼 섹션 */}
-    </div>
+    </CreateWrap>
   );
 };
 
