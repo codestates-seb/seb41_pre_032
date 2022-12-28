@@ -57,12 +57,12 @@ const Sidebar = () => {
             </li>
             <li>
               <Link to="/tags" className="nav-link nav-link-link">
-                tags
+                Tags
               </Link>
             </li>
             <li>
               <Link to="/users" className="nav-link nav-link-link">
-                users
+                Users
               </Link>
             </li>
             <li>

@@ -78,7 +78,6 @@ const HomeWrap = styled.div`
     top: 0;
     flex-wrap: wrap;
     margin: -3px;
-    padding-left: 977.547px;
     padding-bottom: 108.969px;
   }
 
@@ -132,8 +131,7 @@ const HomeWrap = styled.div`
     display: grid;
   }
 
-  .stats-box {
-  }
+
 
   .stats-title {
     font-size: 21px;
@@ -149,7 +147,6 @@ const HomeWrap = styled.div`
       margin: -8px;
       display: grid;
       grid-template-columns: 100px 2fr;
-
     }
   }
 
@@ -253,7 +250,8 @@ const UserInfo = () => {
         <div className="setting-container">
           <ul className="setting-box">
             <li className="setting">Profile</li>
-            <li className="setting">Activity</li>
+            <li className="setting">Saves</li>
+            <li className="setting">Settings</li>
           </ul>
         </div>
         <div className="main-content-container">
