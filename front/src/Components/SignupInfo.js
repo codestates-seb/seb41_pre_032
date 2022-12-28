@@ -150,7 +150,7 @@ const SignupInfo = () => {
       try {
         const res = await axios.post(REGISTER_URL, JSON.stringify(values), {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
+          // withCredentials: true,
         });
 
         console.log(res.data);

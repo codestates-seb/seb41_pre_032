@@ -123,7 +123,7 @@ const Logininfowrap = styled.div`
   }
 `;
 
-const LOGIN_URL = '/auth';
+const LOGIN_URL = '/api/auth/login';
 
 const LoginInfo = () => {
   const { setAuth } = useContext(AuthContext);
@@ -144,16 +144,16 @@ const LoginInfo = () => {
       try {
         const res = await axios.post(LOGIN_URL, JSON.stringify(values), {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
+          // withCredentials: true,
         });
 
         console.log(res.data);
 
-        const accessToken = res.data.accessToken;
-        const role = res.data.role;
-        const displayName = res.data.displayName;
+        // const accessToken = res.data.accessToken;
+        // const role = res.data.role;
+        // const displayName = res.data.displayName;
 
-        setAuth({ ...values, displayName, role, accessToken });
+        // setAuth({ ...values, displayName, role, accessToken });
       } catch (error) {
         console.log(error.response);
       }
