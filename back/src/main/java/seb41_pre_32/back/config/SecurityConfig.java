@@ -24,6 +24,8 @@ import seb41_pre_32.back.auth.handler.UserAuthenticationSuccessHandler;
 import seb41_pre_32.back.auth.jwt.JwtTokenizer;
 import seb41_pre_32.back.auth.utils.CustomAuthorityUtils;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -68,6 +70,7 @@ public class SecurityConfig {
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);
+        configuration.setExposedHeaders(List.of("Authorization", "Refresh"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
