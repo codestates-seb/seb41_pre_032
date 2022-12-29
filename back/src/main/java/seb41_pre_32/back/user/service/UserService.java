@@ -40,6 +40,8 @@ public class UserService {
 
         String encryptedPassword = passwordEncoder.encode(userPostRequest.getPassword());
         user.changePassword(encryptedPassword);
+        user.changeLocation("서울");
+        user.changeProfile("http://file3.instiz.net/data/file3/2021/05/31/7/0/9/7091080ae49c76e54021c3c3e42c7469.png");
 
         User savedUser = userRepository.save(user);
         return savedUser;
