@@ -1,3 +1,4 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import GlobalStyle from './GlobalStyle';
 import Header from './Components/Header';
@@ -7,7 +8,6 @@ import QuestionCreate from './Pages/QuestionCreate';
 import QuestionView from './Pages/QuestionView';
 import SignUp from './Pages/SignUp';
 import AllQuestions from './Pages/AllQuestions';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Tags from './Pages/Tags';
 import Users from './Pages/users';
 import Companies from './Pages/Companies';
