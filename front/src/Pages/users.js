@@ -1,7 +1,7 @@
-import Sidebar from "../Components/Sidebar";
-import styled from "styled-components";
-import PageListButton from "../Components/PageListButton";
-import { Link } from "react-router-dom";
+import Sidebar from '../Components/Sidebar';
+import styled from 'styled-components';
+import PageListButton from '../Components/PageListButton';
+import { Link } from 'react-router-dom';
 
 // 새로운 페이지에 아래 스타일 컴포넌트를 최상단에 깔아줘야함
 const HomeWrap = styled.div`
@@ -62,6 +62,7 @@ const HomeWrap = styled.div`
   .users-list {
     display: grid;
     margin: 0;
+    margin-top: 32px;
     padding: 0;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: calc(1.2rem * 1) calc(1.2rem * 1);
@@ -114,8 +115,8 @@ const HomeWrap = styled.div`
     font-size: 12px;
     > a {
       color: #0074cc;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     }
   }
 `;
@@ -123,186 +124,179 @@ const Users = () => {
   return (
     <HomeWrap>
       <Sidebar />
-      <div className="users-page-container">
-        <div className="users-mainbar">
-          <h1 className="users-headline">Users</h1>
-          <div className="users-filter-container">
+      <div className='users-page-container'>
+        <div className='users-mainbar'>
+          <h1 className='users-headline'>Users</h1>
+          <div className='users-filter-container'>
             <input
-              type="text"
-              placeholder="Filter by tag users"
-              className="users-filter"
+              type='text'
+              placeholder='Filter by tag users'
+              className='users-filter'
             />
           </div>
-          <div className="date-container">
-            <div>week</div>
-            <div>month</div>
-            <div>quater</div>
-            <div>year</div>
-            <div>all</div>
-          </div>
-          <div className="users-list">
-            <div className="eachuser-container">
+          <div className='users-list'>
+            <div className='eachuser-container'>
               <div>
                 <img
-                  src="../images/578b036954e5dbaa.jpeg"
-                  alt="avatar"
-                  className="eachuser-profile-photo"></img>
+                  src='../images/578b036954e5dbaa.jpeg'
+                  alt='avatar'
+                  className='eachuser-profile-photo'></img>
               </div>
-              <div className="eachuser-profile-detail">
-                <Link to="/userinfo">
-                  <div className="to-userinfo-link">BMitch</div>
+              <div className='eachuser-profile-detail'>
+                <Link to='/userinfo'>
+                  <div className='to-userinfo-link'>BMitch</div>
                 </Link>
                 <span>Virgina</span>
-                <div className="eachuser-reputation">8368</div>
+                <div className='eachuser-reputation'>8368</div>
               </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">docker </a>,&nbsp;
-                <a href="/login">docker-compose </a>,&nbsp;
-                <a href="/login">dockerfile </a>
-              </div>
-            </div>
-            <div className="eachuser-container">
-              <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
-                <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
-              </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
+              <div className='eachuser-uselanguage'>
+                <a href='/login'>docker </a>,&nbsp;
+                <a href='/login'>docker-compose </a>,&nbsp;
+                <a href='/login'>dockerfile </a>
               </div>
             </div>
-            <div className="eachuser-container">
+            <div className='eachuser-container'>
               <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
+                src='../images/question.png'
+                alt='avatar'
+                className='eachuser-profile-photo'></img>
+              <div className='eachuser-profile-detail'>
+                <a href='/login'>mozway</a>
                 <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
+                <div className='eachuser-reputation'>6123</div>
               </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
+              <div className='eachuser-uselanguage'>
+                <a href='/login'>python </a>,&nbsp;
+                <a href='/login'>pandas </a>,&nbsp;
+                <a href='/login'>dateframe </a>
               </div>
             </div>
-            <div className="eachuser-container">
+            <div className='eachuser-container'>
               <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
+                src='../images/question.png'
+                alt='avatar'
+                className='eachuser-profile-photo'></img>
+              <div className='eachuser-profile-detail'>
+                <a href='/login'>mozway</a>
                 <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
+                <div className='eachuser-reputation'>6123</div>
               </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
+              <div className='eachuser-uselanguage'>
+                <a href='/login'>python </a>,&nbsp;
+                <a href='/login'>pandas </a>,&nbsp;
+                <a href='/login'>dateframe </a>
               </div>
             </div>
-            <div className="eachuser-container">
+            <div className='eachuser-container'>
               <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
+                src='../images/question.png'
+                alt='avatar'
+                className='eachuser-profile-photo'></img>
+              <div className='eachuser-profile-detail'>
+                <a href='/login'>mozway</a>
                 <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
+                <div className='eachuser-reputation'>6123</div>
               </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
+              <div className='eachuser-uselanguage'>
+                <a href='/login'>python </a>,&nbsp;
+                <a href='/login'>pandas </a>,&nbsp;
+                <a href='/login'>dateframe </a>
               </div>
             </div>
-            <div className="eachuser-container">
+            <div className='eachuser-container'>
               <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
+                src='../images/question.png'
+                alt='avatar'
+                className='eachuser-profile-photo'></img>
+              <div className='eachuser-profile-detail'>
+                <a href='/login'>mozway</a>
                 <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
+                <div className='eachuser-reputation'>6123</div>
               </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
+              <div className='eachuser-uselanguage'>
+                <a href='/login'>python </a>,&nbsp;
+                <a href='/login'>pandas </a>,&nbsp;
+                <a href='/login'>dateframe </a>
               </div>
             </div>
-            <div className="eachuser-container">
+            <div className='eachuser-container'>
               <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
+                src='../images/question.png'
+                alt='avatar'
+                className='eachuser-profile-photo'></img>
+              <div className='eachuser-profile-detail'>
+                <a href='/login'>mozway</a>
                 <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
+                <div className='eachuser-reputation'>6123</div>
               </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
+              <div className='eachuser-uselanguage'>
+                <a href='/login'>python </a>,&nbsp;
+                <a href='/login'>pandas </a>,&nbsp;
+                <a href='/login'>dateframe </a>
               </div>
             </div>
-            <div className="eachuser-container">
+            <div className='eachuser-container'>
               <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
+                src='../images/question.png'
+                alt='avatar'
+                className='eachuser-profile-photo'></img>
+              <div className='eachuser-profile-detail'>
+                <a href='/login'>mozway</a>
                 <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
+                <div className='eachuser-reputation'>6123</div>
               </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
+              <div className='eachuser-uselanguage'>
+                <a href='/login'>python </a>,&nbsp;
+                <a href='/login'>pandas </a>,&nbsp;
+                <a href='/login'>dateframe </a>
               </div>
             </div>
-            <div className="eachuser-container">
+            <div className='eachuser-container'>
               <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
+                src='../images/question.png'
+                alt='avatar'
+                className='eachuser-profile-photo'></img>
+              <div className='eachuser-profile-detail'>
+                <a href='/login'>mozway</a>
                 <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
+                <div className='eachuser-reputation'>6123</div>
               </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
+              <div className='eachuser-uselanguage'>
+                <a href='/login'>python </a>,&nbsp;
+                <a href='/login'>pandas </a>,&nbsp;
+                <a href='/login'>dateframe </a>
               </div>
             </div>
-            <div className="eachuser-container">
+            <div className='eachuser-container'>
               <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
+                src='../images/question.png'
+                alt='avatar'
+                className='eachuser-profile-photo'></img>
+              <div className='eachuser-profile-detail'>
+                <a href='/login'>mozway</a>
                 <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
+                <div className='eachuser-reputation'>6123</div>
               </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
+              <div className='eachuser-uselanguage'>
+                <a href='/login'>python </a>,&nbsp;
+                <a href='/login'>pandas </a>,&nbsp;
+                <a href='/login'>dateframe </a>
+              </div>
+            </div>
+            <div className='eachuser-container'>
+              <img
+                src='../images/question.png'
+                alt='avatar'
+                className='eachuser-profile-photo'></img>
+              <div className='eachuser-profile-detail'>
+                <a href='/login'>mozway</a>
+                <span>Slovakia</span>
+                <div className='eachuser-reputation'>6123</div>
+              </div>
+              <div className='eachuser-uselanguage'>
+                <a href='/login'>python </a>,&nbsp;
+                <a href='/login'>pandas </a>,&nbsp;
+                <a href='/login'>dateframe </a>
               </div>
             </div>
           </div>
