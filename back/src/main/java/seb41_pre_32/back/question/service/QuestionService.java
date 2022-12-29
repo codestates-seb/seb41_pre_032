@@ -105,4 +105,24 @@ public class QuestionService {
         return questionRepository.findById(questionId)
                 .orElseThrow(() -> new QuestionNotFoundException());
     }
+
+    public Question likeQuestion(final Long questionId) {
+        Question question = findVerifiedQuestion(questionId);
+        //Optional.ofNullable(question.getLikeCount())
+                //.ifPresent(likeCount -> question.updateLikeCount(question.getLikeCount() + 1));
+        question.updateLikeCount(question.getLikeCount() + 1);
+        question.updateReputation(question.getLikeCount() - question.getDisLikeCount());
+        return question;
+    }
+
+    public Question dislikeQuestion(final Long questionId) {
+        Question question = findVerifiedQuestion(questionId);
+        question.updateDisLikeCount(question.getDisLikeCount() + 1);
+        question.updateReputation(question.getLikeCount() - question.getDisLikeCount());
+        return question;
+    }
+
+    public Page<Question> findQuestionsByLikes(int page, int size) {
+        return questionRepository.findAll(PageRequest.of(page, size, Sort.by("questionReputation")));
+    }
 }
