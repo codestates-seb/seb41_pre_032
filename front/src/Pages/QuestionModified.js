@@ -98,7 +98,7 @@ const QuestionModified = () => {
 
   const handleSubmit = () => {
     const data = { title, contents, attempt };
-    fetchPatch(`${process.env.REACT_APP_API_URL}/api/questions`, id, data);
+    fetchPatch(`${process.env.REACT_APP_API_URL}/api/questions/`, id, data);
     
   };
   return (
