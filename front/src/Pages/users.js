@@ -1,7 +1,11 @@
-import Sidebar from "../Components/Sidebar";
-import styled from "styled-components";
-import PageListButton from "../Components/PageListButton";
-import { Link } from "react-router-dom";
+import Sidebar from '../Components/Sidebar';
+import styled from 'styled-components';
+import { useState } from 'react';
+import axios from '../util/axios';
+import { useQuery } from 'react-query';
+import Loading from '../Components/Loading';
+import User from '../Components/User';
+import PageButton from '../Components/PageButton';
 
 // 새로운 페이지에 아래 스타일 컴포넌트를 최상단에 깔아줘야함
 const HomeWrap = styled.div`
@@ -67,246 +71,126 @@ const HomeWrap = styled.div`
     gap: calc(1.2rem * 1) calc(1.2rem * 1);
   }
 
-  .eachuser-container {
-    font-size: 13px;
-    padding: 5px 6px 7px 7px;
-    overflow: hidden;
-    box-sizing: border-box;
+  .btns {
+    text-align: right;
+    margin-top: 15px;
   }
 
-  .eachuser-profile-photo {
-    width: 48px;
-    height: 48px;
-    object-fit: cover;
-    float: left;
+  .btn {
+    margin-left: 4px;
+    background-color: transparent;
+    border-style: solid;
+    border-color: hsl(210, 8%, 85%);
+    border-width: 1px;
+    border-radius: 3px;
+    color: hsl(210, 8%, 25%);
+    padding: 3px 6px;
   }
 
-  .eachuser-profile-detail {
-    margin: 0px 0px 0px 9px;
-    float: left;
-
-    > a {
-      font-size: 15px;
-      color: #0074cc;
-      cursor: pointer;
-    }
-
-    > span {
-      font-size: 12px;
-      display: block;
-      margin: 0px 0px 2px;
-      color: hsl(210, 8%, 45%);
-    }
+  .btn:hover {
+    cursor: pointer;
+    background-color: hsl(210, 8%, 85%);
+    border-color: hsl(210, 8%, 75%);
+    color: hsl(210, 8%, 5%);
   }
 
-  .eachuser-reputation {
-    font-size: 12px;
-    margin: 0px 2px 0px 0px;
-    color: #6a737c;
-    font-weight: bold;
-  }
-
-  .eachuser-uselanguage {
-    margin: 0px 0px 0px 57px;
-    clear: both;
-    box-sizing: inherit;
-    display: block;
-    font-size: 12px;
-    > a {
-      color: #0074cc;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    }
+  .btn:disabled,
+  .btn[disabled] {
+    display: none;
   }
 `;
+
 const Users = () => {
+  const [page, setPage] = useState(1);
+
+  const getAllUsers = async (pageParam = 1) => {
+    const res = await axios.get(`/api/users?page=${pageParam}&size=16`, {
+      headers: {
+        Authorization: process.env.REACT_APP_AUTHORIZATION,
+        Refresh: process.env.REACT_APP_REFRESH,
+      },
+    });
+
+    return res.data;
+  };
+
+  const {
+    isLoading,
+    isError,
+    error,
+    data: allUsers,
+    isFetching,
+    isPreviousData,
+  } = useQuery(['/api/users', page], () => getAllUsers(page), {
+    keepPreviousData: true,
+  });
+
+  const prevPage = () => setPage((prev) => prev - 1);
+  const nextPage = () => setPage((prev) => prev + 1);
+
+  const pagesArray = Array(allUsers?.pageInfo?.totalPages)
+    .fill()
+    .map((_, index) => index + 1);
+
+  const [query, setQuery] = useState('');
+
+  console.log(allUsers?.data);
   return (
     <HomeWrap>
       <Sidebar />
-      <div className="users-page-container">
-        <div className="users-mainbar">
-          <h1 className="users-headline">Users</h1>
-          <div className="users-filter-container">
+
+      <div className='users-page-container'>
+        <div className='users-mainbar'>
+          <h1 className='users-headline'>Users</h1>
+
+          <div className='users-filter-container'>
             <input
-              type="text"
-              placeholder="Filter by tag users"
-              className="users-filter"
+              type='text'
+              placeholder='Filter by user'
+              className='users-filter'
+              onChange={(e) => setQuery(e.target.value)}
             />
           </div>
-          <div className="date-container">
-            <div>week</div>
-            <div>month</div>
-            <div>quater</div>
-            <div>year</div>
-            <div>all</div>
+
+          <br />
+
+          <div className='users-list'>
+            {isLoading && <Loading />}
+            {isFetching && <Loading />}
+            {isError && <p>Error: {error.message}</p>}
+
+            {query.length > 2
+              ? allUsers?.data
+                  ?.filter((user) =>
+                    user.displayName.toLowerCase().includes(query)
+                  )
+                  .map((user) => <User key={user?.id} user={user} />)
+              : allUsers?.data?.map((user) => (
+                  <User key={user?.id} user={user} />
+                ))}
           </div>
-          <div className="users-list">
-            <div className="eachuser-container">
-              <div>
-                <img
-                  src="../images/578b036954e5dbaa.jpeg"
-                  alt="avatar"
-                  className="eachuser-profile-photo"></img>
-              </div>
-              <div className="eachuser-profile-detail">
-                <Link to="/userinfo">
-                  <div className="to-userinfo-link">BMitch</div>
-                </Link>
-                <span>Virgina</span>
-                <div className="eachuser-reputation">8368</div>
-              </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">docker </a>,&nbsp;
-                <a href="/login">docker-compose </a>,&nbsp;
-                <a href="/login">dockerfile </a>
-              </div>
-            </div>
-            <div className="eachuser-container">
-              <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
-                <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
-              </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
-              </div>
-            </div>
-            <div className="eachuser-container">
-              <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
-                <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
-              </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
-              </div>
-            </div>
-            <div className="eachuser-container">
-              <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
-                <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
-              </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
-              </div>
-            </div>
-            <div className="eachuser-container">
-              <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
-                <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
-              </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
-              </div>
-            </div>
-            <div className="eachuser-container">
-              <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
-                <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
-              </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
-              </div>
-            </div>
-            <div className="eachuser-container">
-              <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
-                <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
-              </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
-              </div>
-            </div>
-            <div className="eachuser-container">
-              <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
-                <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
-              </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
-              </div>
-            </div>
-            <div className="eachuser-container">
-              <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
-                <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
-              </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
-              </div>
-            </div>
-            <div className="eachuser-container">
-              <img
-                src="../images/question.png"
-                alt="avatar"
-                className="eachuser-profile-photo"></img>
-              <div className="eachuser-profile-detail">
-                <a href="/login">mozway</a>
-                <span>Slovakia</span>
-                <div className="eachuser-reputation">6123</div>
-              </div>
-              <div className="eachuser-uselanguage">
-                <a href="/login">python </a>,&nbsp;
-                <a href="/login">pandas </a>,&nbsp;
-                <a href="/login">dateframe </a>
-              </div>
-            </div>
-          </div>
-          <PageListButton />
+
+          <nav className='btns'>
+            <button
+              className='btn prevBtn'
+              onClick={prevPage}
+              disabled={isPreviousData || page === 1}
+            >
+              Prev
+            </button>
+            {pagesArray.map((pg) => (
+              <PageButton key={pg} pg={pg} setPage={setPage} />
+            ))}
+            <button
+              className='btn nextBtn'
+              onClick={nextPage}
+              disabled={
+                isPreviousData || page === allUsers?.pageInfo?.totalPages
+              }
+            >
+              Next
+            </button>
+          </nav>
         </div>
       </div>
     </HomeWrap>

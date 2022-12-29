@@ -10,7 +10,7 @@ import QuestionView from './Pages/QuestionView';
 import SignUp from './Pages/SignUp';
 import AllQuestions from './Pages/AllQuestions';
 import Tags from './Pages/Tags';
-import Users from './Pages/users';
+import Users from './Pages/Users';
 import Companies from './Pages/Companies';
 import UserInfo from './Pages/UserInfo';
 import RequireAuth from './Components/RequireAuth';
@@ -44,7 +44,14 @@ function App() {
                 </QueryClientProvider>
               }
             />
-            <Route path='/users' element={<Users />} />
+            <Route
+              path='/users'
+              element={
+                <QueryClientProvider client={queryClient}>
+                  <Users />
+                </QueryClientProvider>
+              }
+            />
             <Route path='/userinfo' element={<UserInfo />} />
           </Route>
 
