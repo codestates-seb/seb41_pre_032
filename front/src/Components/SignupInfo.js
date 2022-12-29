@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
@@ -126,6 +126,10 @@ const REGISTER_URL = '/api/users';
 const SignupInfo = () => {
   const [errMsg, setErrMsg] = useState('');
 
+  const navigate = useNavigate();
+
+  const from = '/login';
+
   const formik = useFormik({
     initialValues: {
       displayName: '',
@@ -134,6 +138,7 @@ const SignupInfo = () => {
     },
 
     validationSchema: Yup.object({
+      displayName: Yup.string().required('Display name cannot be empty'),
       email: Yup.string()
         .email('Invalid email address')
         .required('Email cannot be empty.'),
@@ -148,12 +153,11 @@ const SignupInfo = () => {
 
     onSubmit: async (values) => {
       try {
-        const res = await axios.post(REGISTER_URL, JSON.stringify(values), {
+        await axios.post(REGISTER_URL, JSON.stringify(values), {
           headers: { 'Content-Type': 'application/json' },
-          withCredentials: true,
         });
 
-        console.log(res.data);
+        navigate(from, { replace: true });
       } catch (error) {
         if (!error.response) {
           console.log('no server response');
@@ -183,6 +187,9 @@ const SignupInfo = () => {
             name='displayName'
             onChange={formik.handleChange}
           />
+          {formik.touched.displayName && formik.errors.displayName ? (
+            <p className='error'>{formik.errors.displayName}</p>
+          ) : null}
         </div>
         <div className='input-container'>
           <label htmlFor='email'>Email</label>
