@@ -19,19 +19,26 @@ public class QuestionResponseDto {
     private String contents;
     private String attempt;
     private List<TagResponseDto> tags;
+    private int likeCount;
+    private int dislikeCount;
+
+    private int questionReputation;
     private UserResponseDto user;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
 
     public QuestionResponseDto(final Long id, final String title,
                                final String contents, final String attempt,
-                               final List<TagResponseDto> tags, final UserResponseDto user,
+                               final List<TagResponseDto> tags, final  int likeCount, final int dislikeCount, final  int questionReputation, final UserResponseDto user,
                                final LocalDateTime createdDate, final LocalDateTime updatedDate) {
         this.id = id;
         this.title = title;
         this.contents = contents;
         this.attempt = attempt;
         this.tags = tags;
+        this.likeCount = likeCount;
+        this.dislikeCount = dislikeCount;
+        this.questionReputation = questionReputation;
         this.user = user;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
@@ -50,6 +57,9 @@ public class QuestionResponseDto {
                 .contents(question.getContents())
                 .attempt(question.getAttempt())
                 .tags(tags)
+                .likeCount(question.getLikeCount())
+                .dislikeCount(question.getDisLikeCount())
+                .questionReputation(question.getQuestionReputation())
                 .createdDate(question.getCreatedDate())
                 .updatedDate(question.getModifiedDate())
                 .user(UserResponseDto.of(question.getUser()))

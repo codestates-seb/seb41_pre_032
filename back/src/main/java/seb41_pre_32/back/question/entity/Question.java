@@ -30,8 +30,9 @@ public class Question extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String attempt;
 
-    private int likeCount = 0;
-    private int disLikeCount = 0;
+    private int likeCount;
+    private int disLikeCount;
+    private int questionReputation;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -72,5 +73,15 @@ public class Question extends BaseEntity {
         this.attempt = attempt;
     }
 
+    public void updateLikeCount(int likeCount) {
+        this.likeCount = likeCount;
+    }
 
+    public void  updateDisLikeCount(int disLikeCount) {
+        this.disLikeCount = disLikeCount;
+    }
+
+    public void updateReputation(int questionReputation) {
+        this.questionReputation = questionReputation;
+    }
 }
