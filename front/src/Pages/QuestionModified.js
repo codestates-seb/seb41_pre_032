@@ -1,17 +1,17 @@
 import styled from "styled-components";
-import Notice from "../Components/QuestionCreate/Notice";
 import Title from "../Components/QuestionCreate/Title";
 import Problem from "../Components/QuestionCreate/Problem";
 import Expecting from "../Components/QuestionCreate/Expecting";
 import Tags from "../Components/QuestionCreate/Tags";
-import Discard from "../Components/QuestionCreate/Discard";
 import { useEffect, useState } from "react";
-import { fetchCreate } from "../util/api";
+import { fetchPatch } from "../util/api";
 import useInput from "../util/useInput";
+import useFetch from "../util/useFetch";
+import { useParams } from "react-router-dom";
 
-const CreateWrap = styled.section`
+const ModifiedWrap = styled.section`
   background-color: hsl(210, 8%, 95%);
-  > .createContainer {
+  > .modifiedContainer {
     width: 100%;
     max-width: 1264px;
     margin: 0 auto;
@@ -20,6 +20,23 @@ const CreateWrap = styled.section`
     flex-direction: column;
     justify-content: space-between;
     text-align: left;
+
+    > .notice-header {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      height: 13rem;
+      margin-bottom: 1.6rem;
+      background-image: url("../images/question--create--img.png");
+      background-repeat: no-repeat;
+      background-position: right bottom;
+      > h1 {
+        font-weight: 800;
+        font-size: 2.7rem;
+        margin: 2.4rem 0;
+        line-height: 1.3;
+      }
+    }
   }
 `;
 const BtnArea = styled.div`
@@ -33,7 +50,6 @@ const BtnArea = styled.div`
     font-size: 1.3rem;
     border: 1px solid transparent;
     cursor: pointer;
-    
   }
   > .submit {
     margin-left: 0;
@@ -42,55 +58,58 @@ const BtnArea = styled.div`
   > .submit:hover {
     background-color: #0074cc;
   }
-  > .discard {
-    color: #c22e32;
-  }
-  > .discard:hover {
-    background-color: #fdf2f2;
-    color: #ab262a;
-  }
 `;
-const SubmitBtn = styled.button`
-  pointer-events: ${props => props.activebtn === 0 ? 'none' : 'unset'};
-  background-color:${props => props.activebtn === 0 ? '#aaa' : '#0a95ff'};
-`
 
-const QuestionCreate = () => {
-  const [isFocus, setIsFocus] = useState(0);
+const SubmitBtn = styled.button`
+  pointer-events: ${(props) => (props.activebtn === 0 ? "none" : "unset")};
+  background-color: ${(props) => (props.activebtn === 0 ? "#aaa" : "#0a95ff")};
+`;
+const QuestionModified = () => {
+  const { id } = useParams();
+  const [data, isPending, error] = useFetch(
+    `${process.env.REACT_APP_API_URL}/api/questions/${id}`
+  );
+  const isFocus = -1;
+  const setIsFocus = () => {
+    return isFocus;
+  };
   const [title, titleBind, titleReset] = useInput("");
   const [contents, contentsBind, contentsReset] = useInput("");
   const [attempt, attemptBind, attemptReset] = useInput("");
   const [taglist, setTaglist] = useState([]);
-  const [discardActive, setDiscardActive] = useState(0);
   const [submitActive, setSubmitActive] = useState(0);
+  useEffect(() => {
+      if(data) {
+        titleReset(data.title)
+        contentsReset(data.contents)
+        attemptReset(data.attempt)
+        setTaglist(data.tags.map((tag) => {return tag.tagName}))
+      }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[data])
 
   useEffect(() => {
-    if(title && contents && attempt && taglist.length >= 1) {
-      setSubmitActive(1)
+    if (title && contents && attempt && taglist.length >= 1) {
+      setSubmitActive(1);
     } else {
-      setSubmitActive(0)
+      setSubmitActive(0);
     }
-  },[attempt, contents, taglist, title])
+  }, [attempt, contents, taglist, title]);
 
   const handleSubmit = () => {
-    const data = { title, contents, attempt, taglist, vote: 0 };
-    fetchCreate(`${process.env.REACT_APP_API_URL}/api/questions`, data);
-  };
-
-  const handleOnChangeDiscard = () => {
-    discardActive === 0 ? setDiscardActive(1) : setDiscardActive(0);
-  };
-
-  const deleteContent = () => {
-    titleReset('');
-    contentsReset('');
-    attemptReset('');
-    setTaglist([]);
+    const data = { title, contents, attempt };
+    fetchPatch(`${process.env.REACT_APP_API_URL}/api/questions`, id, data);
+    
   };
   return (
-    <CreateWrap>
-      <div className="createContainer">
-        <Notice />
+    <ModifiedWrap>
+    {error && <div>{error}</div>}
+    {isPending && <></>}
+    {data && (
+      <div className="modifiedContainer">
+        <div className="notice-header">
+          <h1>Modified a question</h1>
+        </div>
         <Title
           isFocus={isFocus}
           setIsFocus={setIsFocus}
@@ -113,7 +132,6 @@ const QuestionCreate = () => {
           setTags={setTaglist}
         />
         <BtnArea>
-          
           <SubmitBtn
             className="submit"
             type="button"
@@ -121,23 +139,12 @@ const QuestionCreate = () => {
             onClick={() => handleSubmit()}
             activebtn={submitActive}
           >
-            Review your question
+            Modified your question
           </SubmitBtn>
-          <div
-            className="discard"
-            type="button"
-            onClick={() => handleOnChangeDiscard()}
-          >
-            Discard draft
-          </div>
         </BtnArea>
-        <Discard 
-        active={discardActive} 
-        deleteContent={deleteContent} 
-        handleDiscard={handleOnChangeDiscard}/>
-      </div>
-    </CreateWrap>
+      </div> )}
+    </ModifiedWrap>
   );
 };
 
-export default QuestionCreate;
+export default QuestionModified;

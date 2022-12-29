@@ -14,10 +14,11 @@ const HomeWrap = styled.div`
 `;
 
 function Home() {
+  
   const [data, isPending, error] = useFetch(
     `${process.env.REACT_APP_API_URL}/api/questions?page=1&size=100`
   );
-  console.log(data, isPending, error);
+
   return (
     <HomeWrap>
       <Sidebar />

@@ -30,16 +30,16 @@ export const fetchDelete = (url, id) => {
       Refresh: process.env.REACT_APP_REFRESH,
     },
   })
-    .then(() => {
-      window.location.href = BASE_URL;
-    })
+    // .then(() => {
+    //   window.location.href = BASE_URL;
+    // })
     .catch((error) => {
       console.error("Error", error);
     });
 };
 
 export const fetchPatch = (url, id, data) => {
-  fetch(`${url}${id}`, {
+  fetch(`${url}/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "Application/json",
