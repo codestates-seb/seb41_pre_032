@@ -1,11 +1,11 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
 
 const SidebarWrap = styled.div`
   width: 16.4rem;
   flex-shrink: 0;
   box-shadow: 0 0 0 hsl(210deg 8% 5% / 5%);
-  > .sticySide {
+  > .stickySide {
     position: sticky;
     width: auto;
     top: 0;
@@ -43,32 +43,32 @@ const NavWrap = styled.nav`
 const Sidebar = () => {
   return (
     <SidebarWrap>
-      <div className="sticySide">
+      <div className='stickySide'>
         <NavWrap>
-          <Link to="/" className="nav-link active">
+          <NavLink to='/' className='nav-link'>
             Home
-          </Link>
+          </NavLink>
           <ul>
-            <span className="nav-link">PUBLIC</span>
+            <span className='nav-link'>PUBLIC</span>
             <li>
-              <Link to="/questions" className="nav-link nav-link-link ">
+              <NavLink to='/questions' className='nav-link nav-link-link'>
                 Questions
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/tags" className="nav-link nav-link-link">
+              <NavLink to='/tags' className='nav-link nav-link-link'>
                 Tags
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/users" className="nav-link nav-link-link">
+              <NavLink to='/users' className='nav-link nav-link-link'>
                 Users
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link to="/companies" className="nav-link nav-link-link">
+              <NavLink to='/companies' className='nav-link nav-link-link'>
                 Companies
-              </Link>
+              </NavLink>
             </li>
             {/* list-style:none, padding-left로 불릿과 들여쓰기 없애기 */}
           </ul>
