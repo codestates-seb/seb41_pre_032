@@ -66,6 +66,7 @@ const HomeWrap = styled.div`
   .users-list {
     display: grid;
     margin: 0;
+    margin-top: 32px;
     padding: 0;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: calc(1.2rem * 1) calc(1.2rem * 1);
@@ -134,7 +135,6 @@ const Users = () => {
 
   const [query, setQuery] = useState('');
 
-  console.log(allUsers?.data);
   return (
     <HomeWrap>
       <Sidebar />

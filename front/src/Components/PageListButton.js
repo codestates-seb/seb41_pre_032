@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const PageListButtonStyle = styled.div`
   .tags-page-Container {
@@ -9,14 +9,11 @@ const PageListButtonStyle = styled.div`
     margin: 20px 0;
     float: right;
     > .tags-page-button {
-      box-sizing: inherit;
       padding: 0px 8px;
       border: 1px solid hsl(210, 8%, 85%);
       border-radius: 3px;
       line-height: calc((13+12) / 13) px;
-      font-size: 1.3rem;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      font-size: 13px;
       color: hsl(210, 8%, 25%);
       cursor: pointer;
     }
@@ -26,15 +23,15 @@ const PageListButtonStyle = styled.div`
 const PageListButton = () => {
   return (
     <PageListButtonStyle>
-      <div className="tags-page-Container">
-        <div className="tags-page-button">1</div>
-        <div className="tags-page-button">2</div>
-        <div className="tags-page-button">3</div>
-        <div className="tags-page-button">4</div>
-        <div className="tags-page-button">5</div>
-        <div className="tags-page-button">...</div>
-        <div className="tags-page-button">끝페이지</div>
-        <div className="tags-page-button">Next</div>
+      <div className='tags-page-Container'>
+        <div className='tags-page-button'>1</div>
+        <div className='tags-page-button'>2</div>
+        <div className='tags-page-button'>3</div>
+        <div className='tags-page-button'>4</div>
+        <div className='tags-page-button'>5</div>
+        <div className='tags-page-button'>...</div>
+        <div className='tags-page-button'>끝페이지</div>
+        <div className='tags-page-button'>Next</div>
         {/* 버튼리스트는 따로 빼기 */}
       </div>
     </PageListButtonStyle>

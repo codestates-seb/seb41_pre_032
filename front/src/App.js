@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import GlobalStyle from './GlobalStyle';
 import Header from './Components/Header';
-import Footer from './Components/footer';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import QuestionCreate from './Pages/QuestionCreate';
@@ -13,8 +12,12 @@ import Tags from './Pages/Tags';
 import Users from './Pages/Users';
 import Companies from './Pages/Companies';
 import UserInfo from './Pages/UserInfo';
+import Footer from './Components/footer';
+import EditProfile from './Pages/EditProfile';
+import DeleteProfile from './Pages/DeleteProfile';
 import RequireAuth from './Components/RequireAuth';
 import Missing from './Components/Missing';
+import QuestionModified from './Pages/QuestionModified';
 
 const queryClient = new QueryClient();
 
@@ -36,6 +39,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/question/:id' element={<QuestionView />} />
             <Route path='/question/create' element={<QuestionCreate />} />
+            <Route path='/question/modified/:id' element={<QuestionModified />} />
             <Route
               path='/questions'
               element={
@@ -53,6 +57,8 @@ function App() {
               }
             />
             <Route path='/userinfo' element={<UserInfo />} />
+            <Route path='/userinfo/edit' element={<EditProfile />} />
+            <Route path='/userinfo/delete' element={<DeleteProfile />} />
           </Route>
 
           {/* catch all */}

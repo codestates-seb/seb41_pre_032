@@ -1,7 +1,6 @@
 import Sidebar from '../Components/Sidebar';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
 const HomeWrap = styled.div`
   width: 100%;
   max-width: 1264px;
@@ -208,9 +207,80 @@ const HomeWrap = styled.div`
     font-size: 13px;
     color: #6a737c;
   }
+
+  .editbar-container {
+    margin-bottom: 48px;
+    display: flex;
+  }
+
+  .editbar-sidebar-container {
+    margin-right: 32px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .editbar-sidebar-title {
+    padding: 6px 12px;
+    color: #232629;
+    font-size: 11px;
+    font-weight: bold;
+  }
+
+  .deleteprofile-title-container {
+    padding-bottom: 16px;
+    border-bottom: 1px solid hsl(210, 8%, 85%);
+    margin-bottom: 24px;
+    > h1 {
+      font-size: 27px;
+      font-weight: normal;
+    }
+  }
+
+  .delete-intro-container {
+    > p {
+      font-size: 15px;
+      margin-bottom: 16.5px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    > ul {
+      list-style: disc;
+      margin: 0px 0px 16.5px 30px;
+      font-size: 15px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      > li {
+        margin-bottom: 8.25px;
+      }
+    }
+  }
+
+  .delete-formbox {
+    margin-bottom: 24px;
+  }
+
+  .deletecheck-label {
+    margin: 4px;
+    padding: 0px 2px;
+    cursor: pointer;
+  }
+
+  .formbox {
+    margin-bottom: 24px;
+  }
+
+  .delete-button {
+    padding: 10.4px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    background-color: hsl(358, 62%, 47%);
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+  }
 `;
 
-const UserInfo = () => {
+const DeleteProfile = () => {
   return (
     <HomeWrap>
       <Sidebar />
@@ -252,82 +322,77 @@ const UserInfo = () => {
               </div>
             </div>
             <div className='absolute-container'>
-              {/* <button className='absolute-button'>Profiles</button> */}
+              {/* <button className='absolute-button'>Edit profile</button> */}
             </div>
           </div>
         </div>
         <div className='setting-container'>
           <ul className='setting-box'>
-            <li className='setting-click'>Profile</li>
-
-            <Link to='/userinfo/edit'>
-              {' '}
-              <li className='setting-non'>Settings</li>
+            <Link to='/userinfo'>
+              <li className='setting-non'>Profile</li>
             </Link>
+            <li className='setting-click'>Settings</li>
           </ul>
         </div>
-        <div className='main-content-container'>
-          <div className='main-content'>
-            <div className='left-content-container'>
-              <div className='left-content'>
-                <div className='stats-box'>
-                  <div className='stats-title'>Stats</div>
-                  <div className='stats-content-container'>
-                    <div className='stats-content-box'>
-                      <div className='stats-content'>
-                        <div className='stats-content-data'>10,003</div>
-                        reputation
-                      </div>
-                      <div className='stats-content'>
-                        <div className='stats-content-data'>2.6m</div>
-                        reached
-                      </div>
-                      <div className='stats-content'>
-                        <div className='stats-content-data'>184</div>
-                        answers
-                      </div>
-                      <div className='stats-content'>
-                        <div className='stats-content-data'>4</div>
-                        questions
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* <div className="communities-container">
-                    <dlv className="communities-title-box">
-                        <div className="communities-title">Communities</div>
-                        <div className="title-link">view all</div>
-                    </dlv>
-                    <div className="communities-top5-container"></div>
-                    
-                </div> */}
-              </div>
+
+        <div className='editbar-container'>
+          <div className='editbar-sidebar-container'>
+            <div className='editbar-sidebar-box'>
+              <div className='editbar-sidebar-title'>PERSONAL INFORMATION</div>
+              <Link to='/userinfo/edit'>
+                <div className='setting-non'>Edit profile</div>
+              </Link>
+              <Link to='/userinfo/delete'>
+                <div className='setting-click'>Delete profile</div>
+              </Link>
             </div>
-            <div className='right-content-container'>
-              <div className='about-container'>
-                <div className='about-title'>About</div>
-                <div className='about-content'>
-                  자기소개를 임의로 써봅니다. 자기소개를 임의로 써봅니다.
-                  자기소개를 임의로 써봅니다.{' '}
+          </div>
+          <div className='deleteprofile-container'>
+            <div className='deleteprofile-title-container'>
+              <h1>Delete Profile</h1>
+            </div>
+            <div className='delete-intro-container'>
+              <p>
+                Before confirming that you would like your profile deleted, we'd
+                like to take a moment to explain the implications of deletion:
+              </p>
+              <ul>
+                <li>
+                  Deletion is irreversible, and you will have no way to regain
+                  any of your original content, should this deletion be carried
+                  out and you change your mind later on.
+                </li>
+                <li>
+                  Your questions and answers will remain on the site, but will
+                  be disassociated and anonymized (the author will be listed as
+                  "user20812601") and will not indicate your authorship even if
+                  you later return to the site.
+                </li>
+              </ul>
+              <p>
+                Confirming deletion will only delete your profile on Stack
+                Overflow - it will not affect any of your other profiles on the
+                Stack Exchange network. If you want to delete multiple profiles,
+                you'll need to visit each site separately and request deletion
+                of those individual profiles.
+              </p>
+              <form>
+                <div className='delete-formbox'>
+                  <div className='formbox'>
+                    <input
+                      type='checkbox'
+                      className='delete-checkbox'
+                      id='deletecheck'
+                    />
+                    <label htmlFor='deletecheck' className='deletecheck-label'>
+                      I have read the information stated above and understand
+                      the implications of having my profile deleted. I wish to
+                      proceed with the deletion of my profile.
+                    </label>
+                  </div>
                 </div>
-              </div>
-              <div className='posts-container'>
-                <div className='about-title'>Posts</div>
-                <div className='posts-lists'>
-                  <div className='each-post'>
-                    <div className='each-post-title'>질문 목록 1</div>
-                    <div className='each-post-date'>Jun 12, 2013</div>
-                  </div>
-                  <div className='each-post'>
-                    <div className='each-post-title'>질문 목록 2</div>
-                    <div className='each-post-date'>Jun 12, 2013</div>
-                  </div>
-                  <div className='each-post-last'>
-                    <div className='each-post-title'>질문 목록 3</div>
-                    <div className='each-post-date'>Jun 12, 2013</div>
-                  </div>
-                </div>
-              </div>
+                <button className='delete-button'>Delete profile</button>
+              </form>
             </div>
           </div>
         </div>
@@ -336,4 +401,4 @@ const UserInfo = () => {
   );
 };
 
-export default UserInfo;
+export default DeleteProfile;
