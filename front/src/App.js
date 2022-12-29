@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import GlobalStyle from './GlobalStyle';
 import Header from './Components/Header';
-import Footer from './Components/footer';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import QuestionCreate from './Pages/QuestionCreate';
@@ -13,6 +12,9 @@ import Tags from './Pages/Tags';
 import Users from './Pages/users';
 import Companies from './Pages/Companies';
 import UserInfo from './Pages/UserInfo';
+import Footer from './Components/footer';
+import EditProfile from './Pages/EditProfile';
+import DeleteProfile from './Pages/DeleteProfile';
 import RequireAuth from './Components/RequireAuth';
 import Missing from './Components/Missing';
 
@@ -46,6 +48,8 @@ function App() {
             />
             <Route path='/users' element={<Users />} />
             <Route path='/userinfo' element={<UserInfo />} />
+            <Route path='/userinfo/edit' element={<EditProfile />} />
+            <Route path='/userinfo/delete' element={<DeleteProfile />} />
           </Route>
 
           {/* catch all */}
