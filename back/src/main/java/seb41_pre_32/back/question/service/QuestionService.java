@@ -90,7 +90,7 @@ public class QuestionService {
         return findVerifiedQuestion(questionId);
     }
 
-    public Page<Question> findQuestions(int page, int size) {
+    public Page<Question> findQuestions(final int page, final int size) {
         return questionRepository.findAll(PageRequest.of(page, size, Sort.by("modifiedDate").descending()));
     }
 
@@ -101,28 +101,28 @@ public class QuestionService {
         questionRepository.deleteById(questionId);
     }
 
-    public Question findVerifiedQuestion(Long questionId) {
+    public Question findVerifiedQuestion(final Long questionId) {
         return questionRepository.findById(questionId)
                 .orElseThrow(() -> new QuestionNotFoundException());
     }
 
+    @Transactional
     public Question likeQuestion(final Long questionId) {
         Question question = findVerifiedQuestion(questionId);
-        //Optional.ofNullable(question.getLikeCount())
-                //.ifPresent(likeCount -> question.updateLikeCount(question.getLikeCount() + 1));
-        question.updateLikeCount(question.getLikeCount() + 1);
-        question.updateReputation(question.getLikeCount() - question.getDisLikeCount());
+        question.updateLikeCount();
+        question.updateReputation();
         return question;
     }
 
+    @Transactional
     public Question dislikeQuestion(final Long questionId) {
         Question question = findVerifiedQuestion(questionId);
-        question.updateDisLikeCount(question.getDisLikeCount() + 1);
-        question.updateReputation(question.getLikeCount() - question.getDisLikeCount());
+        question.updateDisLikeCount();
+        question.updateReputation();
         return question;
     }
 
     public Page<Question> findQuestionsByLikes(int page, int size) {
-        return questionRepository.findAll(PageRequest.of(page, size, Sort.by("questionReputation")));
+        return questionRepository.findAll(PageRequest.of(page, size, Sort.by("reputation").descending()));
     }
 }

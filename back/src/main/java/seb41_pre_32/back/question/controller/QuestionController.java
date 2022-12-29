@@ -66,7 +66,6 @@ public class QuestionController {
     public ResponseEntity deleteQuestion(@PathVariable("questionId") Long questionId,
                                          @LoginUser AuthInfo authInfo) {
         questionService.deleteQuestion(questionId, authInfo);
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
@@ -84,7 +83,7 @@ public class QuestionController {
 
     @GetMapping("/reputation")
     public ResponseEntity<MultiResponse> getQuestionsByLikes(@RequestParam("page") int page,
-                                                      @RequestParam("size") int size) {
+                                                             @RequestParam("size") int size) {
 
         Page<Question> questions = questionService.findQuestionsByLikes(page - 1, size);
         List<QuestionResponseDto> response =
