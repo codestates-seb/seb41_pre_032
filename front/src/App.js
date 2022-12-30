@@ -12,7 +12,6 @@ import Tags from './Pages/Tags';
 import Users from './Pages/Users';
 import Companies from './Pages/Companies';
 import UserInfo from './Pages/UserInfo';
-import Footer from './Components/Footer';
 import EditProfile from './Pages/EditProfile';
 import DeleteProfile from './Pages/DeleteProfile';
 import RequireAuth from './Components/RequireAuth';
@@ -69,7 +68,6 @@ function App() {
           {/* catch all */}
           <Route path='*' element={<Missing />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
     </div>
   );
