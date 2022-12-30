@@ -78,10 +78,10 @@ public class Question extends BaseEntity {
     }
 
     public void updateDisLikeCount() {
-        this.disLikeCount--;
+        this.disLikeCount++;
     }
 
     public void updateReputation() {
-        this.reputation = this.likeCount + this.disLikeCount;
+        this.reputation = this.likeCount - this.disLikeCount;
     }
 }
