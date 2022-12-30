@@ -66,6 +66,7 @@ const TagInput = styled.div`
   flex-wrap: wrap;
   border: 1px solid hsl(210,8%,75%);
   border-radius: 3px;
+  pointer-events: ${props => props.isFocus === -1 ? "none" : "unset"};
 
   > ul {
     display: flex;
@@ -137,7 +138,7 @@ const Tags = ({ isFocus, setIsFocus, tags, setTags }) => {
           Add up to 5 tags to describe what your question is about. Start typing
           to see suggestions.
         </p>
-        <TagInput>
+        <TagInput isFocus={isFocus}>
           <ul id="tags">
             {tags.map((tag, index) => (
               <li key={index} className="tag">

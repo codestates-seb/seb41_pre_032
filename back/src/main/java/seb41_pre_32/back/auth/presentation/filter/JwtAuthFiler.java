@@ -1,4 +1,4 @@
-package seb41_pre_32.back.auth.filter;
+package seb41_pre_32.back.auth.presentation.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +8,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import seb41_pre_32.back.auth.dto.LoginRequest;
-import seb41_pre_32.back.auth.jwt.JwtTokenizer;
+import seb41_pre_32.back.auth.presentation.dto.LoginRequest;
+import seb41_pre_32.back.auth.utils.JwtTokenizer;
 import seb41_pre_32.back.user.entity.User;
 
 import javax.servlet.FilterChain;
@@ -27,8 +27,8 @@ public class JwtAuthFiler extends UsernamePasswordAuthenticationFilter {
 
     @SneakyThrows
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request,
-                                                HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(final HttpServletRequest request,
+                                                final HttpServletResponse response) throws AuthenticationException {
         ObjectMapper mapper = new ObjectMapper();
         LoginRequest loginRequest = mapper.readValue(request.getInputStream(), LoginRequest.class);
 
@@ -39,10 +39,10 @@ public class JwtAuthFiler extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request,
-                                            HttpServletResponse response,
-                                            FilterChain chain,
-                                            Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(final HttpServletRequest request,
+                                            final HttpServletResponse response,
+                                            final FilterChain chain,
+                                            final Authentication authResult) throws IOException, ServletException {
 
         User user = (User) authResult.getPrincipal();
 
@@ -52,7 +52,7 @@ public class JwtAuthFiler extends UsernamePasswordAuthenticationFilter {
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
 
-    private String delegateAccessToken(User user) {
+    private String delegateAccessToken(final User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId());
         claims.put("username", user.getEmail());
@@ -62,7 +62,7 @@ public class JwtAuthFiler extends UsernamePasswordAuthenticationFilter {
         return jwtTokenizer.createAccessToken(claims, user.getEmail());
     }
 
-    private String delegateRefreshToken(User user) {
+    private String delegateRefreshToken(final User user) {
         return jwtTokenizer.createRefreshToken(user.getEmail());
     }
 

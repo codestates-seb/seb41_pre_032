@@ -1,4 +1,4 @@
-package seb41_pre_32.back.auth.utils;
+package seb41_pre_32.back.auth.presentation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

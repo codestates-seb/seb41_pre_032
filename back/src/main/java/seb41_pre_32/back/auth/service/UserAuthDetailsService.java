@@ -1,4 +1,4 @@
-package seb41_pre_32.back.auth.userDetails;
+package seb41_pre_32.back.auth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

@@ -10,9 +10,10 @@ import seb41_pre_32.back.answer.dto.AnswerPostDto;
 import seb41_pre_32.back.answer.dto.AnswerResponseDto;
 import seb41_pre_32.back.answer.entity.Answer;
 import seb41_pre_32.back.answer.service.AnswerService;
-import seb41_pre_32.back.auth.dto.AuthInfo;
-import seb41_pre_32.back.auth.utils.LoginUser;
+import seb41_pre_32.back.auth.presentation.dto.AuthInfo;
+import seb41_pre_32.back.auth.presentation.LoginUser;
 import seb41_pre_32.back.common.dto.MultiResponse;
+import seb41_pre_32.back.question.dto.QuestionResponseDto;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -44,11 +45,19 @@ public class AnswerController {
                 HttpStatus.OK);
     }
 
+    @GetMapping("/{answerId}")
+    public ResponseEntity getAnswer(@PathVariable("answerId") final Long answerId,
+                                    @LoginUser final AuthInfo authInfo) {
+        return new ResponseEntity<>(
+                AnswerResponseDto.of(answerService.getAnswer(answerId, authInfo)),
+                HttpStatus.OK);
+    }
+
     // 해당 질문에 포함된 Answer 리스트 전체 조회
-    @GetMapping("/{questionId}")
+    @GetMapping("/questions/{questionId}")
     public ResponseEntity getAnswers(@PathVariable("questionId") final Long questionId,
-                                     @RequestParam("page") int page,
-                                     @RequestParam("size") int size) {
+                                     @RequestParam("page") final int page,
+                                     @RequestParam("size") final int size) {
 
         Page<Answer> answers = answerService.getAnswers(questionId, page - 1, size);
 
@@ -62,7 +71,7 @@ public class AnswerController {
     //Answer 삭제
     @DeleteMapping("/{answerId}")
     public ResponseEntity deleteAnswer(@PathVariable("answerId") final Long answerId,
-                                       @LoginUser AuthInfo authInfo) {
+                                       @LoginUser final AuthInfo authInfo) {
         answerService.deleteAnswer(answerId, authInfo);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

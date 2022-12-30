@@ -20,10 +20,6 @@ const HomeWrap = styled.div`
   display: flex;
   justify-content: space-between;
   text-align: left;
-
-  .button-list-container {
-    margin: 20px 0px;
-  }
 `;
 
 const AllQuestions = () => {
@@ -65,7 +61,7 @@ const AllQuestions = () => {
           {isLoading && <Loading />}
           {isFetching && <Loading />}
           {isError && <p>Error: {error.message}</p>}
-          <nav className='button-list-container'>
+          <nav>
             <button onClick={prevPage} disabled={isPreviousData || page === 1}>
               Prev
             </button>

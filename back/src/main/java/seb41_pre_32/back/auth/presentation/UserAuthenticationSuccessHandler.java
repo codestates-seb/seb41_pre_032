@@ -1,4 +1,4 @@
-package seb41_pre_32.back.auth.handler;
+package seb41_pre_32.back.auth.presentation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
@@ -15,12 +15,12 @@ import java.io.IOException;
 public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override
-    public void onAuthenticationSuccess(HttpServletRequest request,
-                                        HttpServletResponse response,
-                                        Authentication authentication) throws IOException, ServletException {
-
+    public void onAuthenticationSuccess(final HttpServletRequest request,
+                                        final HttpServletResponse response,
+                                        final Authentication authentication) throws IOException, ServletException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(HttpStatus.OK.value());
+        response.setCharacterEncoding("UTF-8");
         response.getWriter().write("로그인 성공");
     }
 }

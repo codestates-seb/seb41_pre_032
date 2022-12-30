@@ -1,4 +1,4 @@
-package seb41_pre_32.back.auth.filter;
+package seb41_pre_32.back.auth.presentation.filter;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import seb41_pre_32.back.auth.jwt.JwtTokenizer;
+import seb41_pre_32.back.auth.utils.JwtTokenizer;
 import seb41_pre_32.back.auth.utils.CustomAuthorityUtils;
 
 import javax.servlet.FilterChain;
@@ -27,10 +27,9 @@ public class JwtVerifyFilter extends OncePerRequestFilter {
     private final CustomAuthorityUtils customAuthorityUtils;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
-
+    protected void doFilterInternal(final HttpServletRequest request,
+                                    final HttpServletResponse response,
+                                    final FilterChain filterChain) throws ServletException, IOException {
         try {
             Map<String, Object> claims = verifyJws(request);
             setAuthToContextHolder(claims);
@@ -46,18 +45,17 @@ public class JwtVerifyFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+    protected boolean shouldNotFilter(final HttpServletRequest request) throws ServletException {
         String authorization = request.getHeader("Authorization");
-
         return !StringUtils.hasText(authorization) || !authorization.startsWith("Bearer");
     }
 
-    private Map<String, Object> verifyJws(HttpServletRequest request) {
+    private Map<String, Object> verifyJws(final HttpServletRequest request) {
         String jws = request.getHeader("Authorization").replace("Bearer ", "");
         return jwtTokenizer.getClaims(jws).getBody();
     }
 
-    private void setAuthToContextHolder(Map<String, Object> claims) {
+    private void setAuthToContextHolder(final Map<String, Object> claims) {
         String username = (String) claims.get("username");
         List<GrantedAuthority> authorities = customAuthorityUtils.createAuthorities((String) claims.get("role"));
         Authentication authentication = new UsernamePasswordAuthenticationToken(username, null, authorities);
