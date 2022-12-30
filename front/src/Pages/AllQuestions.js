@@ -14,6 +14,34 @@ const HomeWrap = styled.div`
   display: flex;
   justify-content: space-between;
   text-align: left;
+
+  .btns {
+    text-align: right;
+    margin-top: 15px;
+  }
+
+  .btn {
+    margin-left: 4px;
+    background-color: transparent;
+    border-style: solid;
+    border-color: hsl(210, 8%, 85%);
+    border-width: 1px;
+    border-radius: 3px;
+    color: hsl(210, 8%, 25%);
+    padding: 3px 6px;
+  }
+
+  .btn:hover {
+    cursor: pointer;
+    background-color: hsl(210, 8%, 85%);
+    border-color: hsl(210, 8%, 75%);
+    color: hsl(210, 8%, 5%);
+  }
+
+  .btn:disabled,
+  .btn[disabled] {
+    display: none;
+  }
 `;
 
 const AllQuestions = () => {
@@ -29,6 +57,7 @@ const AllQuestions = () => {
 
     return res.data;
   };
+
   const {
     isLoading,
     isError,
@@ -54,14 +83,19 @@ const AllQuestions = () => {
         {isLoading && <Loading />}
         {isFetching && <Loading />}
         {isError && <p>Error: {error.message}</p>}
-        <nav>
-          <button onClick={prevPage} disabled={isPreviousData || page === 1}>
+        <nav className='btns'>
+          <button
+            className='btn prevBtn'
+            onClick={prevPage}
+            disabled={isPreviousData || page === 1}
+          >
             Prev
           </button>
           {pagesArray.map((pg) => (
             <PageButton key={pg} pg={pg} setPage={setPage} />
           ))}
           <button
+            className='btn nextBtn'
             onClick={nextPage}
             disabled={
               isPreviousData || page === allQuestions?.pageInfo?.totalPages
