@@ -1,8 +1,18 @@
 import styled from "styled-components";
 import useFetch from "../../util/useFetch";
 import Loading from "../Loading";
+import Answer from "./Answer";
+import AnswerCreate from "./AnswerCreate";
 
-const AnswersLayout = styled.article``;
+
+const AnswersLayout = styled.article`
+  padding-top: 1rem;
+  h2 {
+    font-weight: 400;
+    color: #232629;
+    font-size: 1.9rem;
+  }
+`;
 
 const AnswersCell = ({ id }) => {
   const [data, isPending, error] = useFetch(
@@ -12,8 +22,7 @@ const AnswersCell = ({ id }) => {
   if (data) {
     answers = data.data;
   }
-  console.log(answers)
-
+  console.log(answers);
   return (
     <AnswersLayout>
       {error && <div>{error}</div>}
@@ -26,11 +35,9 @@ const AnswersCell = ({ id }) => {
               : "Know someone who can answer? Share a link to this question via email, Twitter, or Facebook."}
           </h2>
           {answers.map((answer) => (
-            <div key={answer.id} className="answer">
-              <div className="votecell"></div>
-              <div className="answercell">{answer.contents}</div>
-            </div>
+            <Answer key={answer.id} answer={answer} />
           ))}
+          <AnswerCreate id={id}/>
         </div>
       )}
     </AnswersLayout>
