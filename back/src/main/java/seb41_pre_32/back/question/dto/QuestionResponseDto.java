@@ -12,32 +12,36 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@Builder
 public class QuestionResponseDto {
     private Long id;
     private String title;
     private String contents;
     private String attempt;
     private List<TagResponseDto> tags;
+    private int likeCount;
+    private int dislikeCount;
+    private int reputation;
     private UserResponseDto user;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
-    private int answerCount;
 
-    @Builder
     public QuestionResponseDto(final Long id, final String title,
                                final String contents, final String attempt,
-                               final List<TagResponseDto> tags, final UserResponseDto user,
-                               final LocalDateTime createdDate, final LocalDateTime updatedDate,
-                               final int answerCount) {
+                               final List<TagResponseDto> tags, final int likeCount, final int dislikeCount,
+                               final int reputation, final UserResponseDto user,
+                               final LocalDateTime createdDate, final LocalDateTime updatedDate) {
         this.id = id;
         this.title = title;
         this.contents = contents;
         this.attempt = attempt;
         this.tags = tags;
+        this.likeCount = likeCount;
+        this.dislikeCount = dislikeCount;
+        this.reputation = reputation;
         this.user = user;
         this.createdDate = createdDate;
         this.updatedDate = updatedDate;
-        this.answerCount = answerCount;
     }
 
     public static QuestionResponseDto of(final Question question) {
@@ -53,10 +57,12 @@ public class QuestionResponseDto {
                 .contents(question.getContents())
                 .attempt(question.getAttempt())
                 .tags(tags)
+                .likeCount(question.getLikeCount())
+                .dislikeCount(question.getDisLikeCount())
+                .reputation(question.getReputation())
                 .createdDate(question.getCreatedDate())
                 .updatedDate(question.getModifiedDate())
                 .user(UserResponseDto.of(question.getUser()))
-                .answerCount(question.getAnswerList().size())
                 .build();
     }
 

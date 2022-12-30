@@ -66,7 +66,31 @@ public class QuestionController {
     public ResponseEntity deleteQuestion(@PathVariable("questionId") Long questionId,
                                          @LoginUser AuthInfo authInfo) {
         questionService.deleteQuestion(questionId, authInfo);
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/{questionId}/likes")
+    public ResponseEntity updateQuestionLikes(@PathVariable("questionId") Long questionId) {
+        return new ResponseEntity<>(
+                QuestionResponseDto.of(questionService.likeQuestion(questionId)), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{questionId}/dislikes")
+    public ResponseEntity updateQuestionDislikes(@PathVariable("questionId") Long questionId) {
+        return new ResponseEntity<>(
+                QuestionResponseDto.of(questionService.dislikeQuestion(questionId)), HttpStatus.OK);
+    }
+
+    @GetMapping("/reputation")
+    public ResponseEntity<MultiResponse> getQuestionsByLikes(@RequestParam("page") int page,
+                                                             @RequestParam("size") int size) {
+
+        Page<Question> questions = questionService.findQuestionsByLikes(page - 1, size);
+        List<QuestionResponseDto> response =
+                questions.getContent().stream()
+                        .map(question -> QuestionResponseDto.of(question))
+                        .collect(Collectors.toList());
+
+        return new ResponseEntity<>(new MultiResponse<>(response, questions), HttpStatus.OK);
     }
 }
