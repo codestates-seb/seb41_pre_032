@@ -107,13 +107,11 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
-    public User findUser(final Long userId, final AuthInfo authInfo) {
+    public User findUser(final Long userId) {
         User findUser = findValidUser(userId);
-        validateOwnInfo(findUser.getEmail(), authInfo);
 
         findUserAnswers(userId).forEach(
                 answer -> answer.addUser(findUser));
-
         findUserQuestions(userId).forEach(
                 question -> question.addUser(findUser)
         );
