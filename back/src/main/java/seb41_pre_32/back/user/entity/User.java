@@ -51,9 +51,13 @@ public class User extends BaseEntity {
     private List<Question> questions = new ArrayList<>();
 
     @Builder
-    public User(final String username, final String password,
-                final String email, final String profileUrl, final int reputation,
-                final String location, final Role role) {
+    public User(final String username,
+                final String password,
+                final String email,
+                final String profileUrl,
+                final int reputation,
+                final String location,
+                final Role role) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -75,12 +79,11 @@ public class User extends BaseEntity {
         this.role = role;
     }
 
-    public void addQuestions(final List<Question> questions) {
-        this.questions = questions;
-    }
-
-    public void addAnswers(final List<Answer> answers) {
-        this.answers = answers;
+    public static User of(final String email) {
+        return User.builder()
+                .email(email)
+                .username(email.substring(0, email.indexOf("@")))
+                .build();
     }
 
     public void changeUsername(final String username) {
@@ -97,5 +100,9 @@ public class User extends BaseEntity {
 
     public void changePassword(final String password) {
         this.password = password;
+    }
+
+    public void changeRole(final Role role) {
+        this.role = role;
     }
 }

@@ -1,4 +1,4 @@
-package seb41_pre_32.back.auth.handler;
+package seb41_pre_32.back.auth.presentation;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,9 +16,9 @@ import java.io.IOException;
 public class UserAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
     @Override
-    public void onAuthenticationFailure(HttpServletRequest request,
-                                        HttpServletResponse response,
-                                        AuthenticationException exception) throws IOException, ServletException {
+    public void onAuthenticationFailure(final HttpServletRequest request,
+                                        final HttpServletResponse response,
+                                        final AuthenticationException exception) throws IOException, ServletException {
         ErrorResponseUtils.sendErrorResponse(ErrorCode.LOGIN_FAILED, response, HttpStatus.UNAUTHORIZED);
         log.error("Authentication failed : {}", exception.getMessage());
     }

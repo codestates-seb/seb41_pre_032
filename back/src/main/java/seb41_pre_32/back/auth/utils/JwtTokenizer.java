@@ -1,10 +1,10 @@
-package seb41_pre_32.back.auth.jwt;
+package seb41_pre_32.back.auth.utils;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import seb41_pre_32.back.auth.dto.AuthInfo;
+import seb41_pre_32.back.auth.presentation.dto.AuthInfo;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
@@ -13,14 +13,13 @@ import java.util.Map;
 
 @Component
 public class JwtTokenizer {
-
     private final SecretKey secretKey;
     private final long accessTokenExpirationMills;
     private final long refreshTokenExpirationMills;
 
-    public JwtTokenizer(@Value("${security.jwt.token.secret-key}") final String secretKey,
-                        @Value("${security.jwt.token.access-expire-time}") final long accessTokenExpirationMills,
-                        @Value("${security.jwt.token.refresh-expire-time}") final long refreshTokenExpirationMills) {
+    public JwtTokenizer(@Value("${spring.security.jwt.token.secret-key}") final String secretKey,
+                        @Value("${spring.security.jwt.token.access-expire-time}") final long accessTokenExpirationMills,
+                        @Value("${spring.security.jwt.token.refresh-expire-time}") final long refreshTokenExpirationMills) {
         this.secretKey = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
         this.accessTokenExpirationMills = accessTokenExpirationMills;
         this.refreshTokenExpirationMills = refreshTokenExpirationMills;
@@ -59,7 +58,7 @@ public class JwtTokenizer {
                 .parseClaimsJws(jws);
     }
 
-    public AuthInfo parseClaimsToAuthInfo(String token) {
+    public AuthInfo parseClaimsToAuthInfo(final String token) {
         Claims claims;
         try {
             claims = getClaims(token).getBody();
