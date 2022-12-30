@@ -19,7 +19,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Component
-public class Oauth2UserSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
+public class Oauth2UserAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtTokenizer jwtTokenizer;
     private final UserService userService;
     @Override

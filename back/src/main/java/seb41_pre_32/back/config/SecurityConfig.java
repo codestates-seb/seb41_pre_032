@@ -9,8 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -29,7 +27,7 @@ import java.util.List;
 public class SecurityConfig {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-    private final Oauth2UserSuccessHandler oauth2UserSuccessHandler;
+    private final Oauth2UserAuthenticationSuccessHandler oauth2UserAuthenticationSuccessHandler;
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity httpSecurity) throws Exception {
@@ -56,7 +54,7 @@ public class SecurityConfig {
                 .and()
                 .apply(new CustomFilterConfig())
                 .and()
-                .oauth2Login(oauth2 -> oauth2.successHandler(oauth2UserSuccessHandler))
+                .oauth2Login(oauth2 -> oauth2.successHandler(oauth2UserAuthenticationSuccessHandler))
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/api/users").permitAll()
                         .antMatchers(HttpMethod.GET, "/api/users/**", "/api/questions/**").hasRole("USER")
