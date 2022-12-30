@@ -31,7 +31,7 @@ public class UserController {
 
     @PatchMapping("/{userId}")
     public ResponseEntity update(@PathVariable("userId") final Long userId,
-                                 @LoginUser AuthInfo authInfo,
+                                 @LoginUser final AuthInfo authInfo,
                                  @RequestBody @Valid final UserPatchRequest userPatchRequest) {
         return new ResponseEntity<>(
                 UserResponseDto.of(userService.updateUser(userId, userPatchRequest, authInfo)),
@@ -39,17 +39,16 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity getUser(@PathVariable("userId") Long userId,
-                                  @LoginUser AuthInfo authInfo) {
+    public ResponseEntity getUser(@PathVariable("userId") final Long userId,
+                                  @LoginUser final AuthInfo authInfo) {
         return new ResponseEntity<>(
                 UserResponseDto.toGetResponse(userService.findUser(userId, authInfo)),
                 HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<MultiResponse> getUsers(@RequestParam("page") int page,
-                                                  @RequestParam("size") int size) {
-
+    public ResponseEntity<MultiResponse> getUsers(@RequestParam("page") final int page,
+                                                  @RequestParam("size") final int size) {
         Page<User> users = userService.findUsers(page - 1, size);
         List<UserResponseDto> userResponseDtos = users.getContent()
                 .stream()
@@ -60,7 +59,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> delete(@PathVariable("userId") final Long userId, @LoginUser AuthInfo authInfo) {
+    public ResponseEntity<Void> delete(@PathVariable("userId") final Long userId,
+                                       @LoginUser final AuthInfo authInfo) {
         userService.deleteUser(userId, authInfo);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
