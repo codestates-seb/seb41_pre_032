@@ -164,15 +164,15 @@ const Question = ({ data }) => {
       <div className="question-container">
         <div className="left">
           <div className="votesWrap">
-            <span>0</span>
+            <span>0&nbsp;</span>
             <span>votes</span>
           </div>
           <div className="answersWrap">
-            <span>0</span>
+            <span>0&nbsp;</span>
             <span>answers</span>
           </div>
           <div className="viewsWrap">
-            <span>0</span>
+            <span>0&nbsp;</span>
             <span>views</span>
           </div>
         </div>
