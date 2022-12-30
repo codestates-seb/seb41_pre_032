@@ -15,12 +15,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import seb41_pre_32.back.auth.presentation.*;
 import seb41_pre_32.back.auth.presentation.filter.JwtAuthFiler;
 import seb41_pre_32.back.auth.presentation.filter.JwtVerifyFilter;
-import seb41_pre_32.back.auth.presentation.UserAccessDeniedHandler;
-import seb41_pre_32.back.auth.presentation.UserAuthenticationEntryPoint;
-import seb41_pre_32.back.auth.presentation.UserAuthenticationFailureHandler;
-import seb41_pre_32.back.auth.presentation.UserAuthenticationSuccessHandler;
 import seb41_pre_32.back.auth.utils.JwtTokenizer;
 import seb41_pre_32.back.auth.utils.CustomAuthorityUtils;
 
@@ -32,25 +29,34 @@ import java.util.List;
 public class SecurityConfig {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
+    private final Oauth2UserSuccessHandler oauth2UserSuccessHandler;
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
-                .headers().frameOptions().disable()
+                .headers()
+                    .frameOptions()
+                    .disable()
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .formLogin().disable()
-                .httpBasic().disable()
-                .cors().configurationSource(corsConfigurationSource())
+                .formLogin()
+                    .disable()
+                .httpBasic()
+                    .disable()
+                .cors()
+                    .configurationSource(corsConfigurationSource())
                 .and()
-                .csrf().disable()
+                .csrf()
+                    .disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(new UserAuthenticationEntryPoint())
-                .accessDeniedHandler(new UserAccessDeniedHandler())
+                    .authenticationEntryPoint(new UserAuthenticationEntryPoint())
+                    .accessDeniedHandler(new UserAccessDeniedHandler())
                 .and()
                 .apply(new CustomFilterConfig())
                 .and()
+                .oauth2Login(oauth2 -> oauth2.successHandler(oauth2UserSuccessHandler))
                 .authorizeHttpRequests(authorize -> authorize
                         .antMatchers(HttpMethod.POST, "/api/users").permitAll()
                         .antMatchers(HttpMethod.GET, "/api/users/**", "/api/questions/**").hasRole("USER")
@@ -75,11 +81,6 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
     public class CustomFilterConfig extends AbstractHttpConfigurer<CustomFilterConfig, HttpSecurity> {

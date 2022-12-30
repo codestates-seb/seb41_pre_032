@@ -75,6 +75,13 @@ public class User extends BaseEntity {
         this.role = role;
     }
 
+    public static User of(final String email) {
+        return User.builder()
+                .email(email)
+                .username(email.substring(0, email.indexOf("@")))
+                .build();
+    }
+
     public void addQuestions(final List<Question> questions) {
         this.questions = questions;
     }
@@ -97,5 +104,9 @@ public class User extends BaseEntity {
 
     public void changePassword(final String password) {
         this.password = password;
+    }
+
+    public void changeRole(final Role role) {
+        this.role = role;
     }
 }

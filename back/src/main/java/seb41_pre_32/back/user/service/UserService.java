@@ -17,12 +17,14 @@ import seb41_pre_32.back.question.entity.Question;
 import seb41_pre_32.back.question.repository.QuestionRepository;
 import seb41_pre_32.back.user.dto.UserPatchRequest;
 import seb41_pre_32.back.user.dto.UserPostRequest;
+import seb41_pre_32.back.user.entity.Role;
 import seb41_pre_32.back.user.entity.User;
 import seb41_pre_32.back.user.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -47,6 +49,20 @@ public class UserService {
         return savedUser;
     }
 
+    @Transactional
+    public User createGoogleUser(final String email) {
+        checkEmailDuplicate(email);
+        User user = User.of(email);
+
+        String encryptedPassword = passwordEncoder.encode(UUID.randomUUID().toString());
+        user.changePassword(encryptedPassword);
+        user.changeRole(Role.USER);
+        user.changeLocation("서울");
+        user.changeProfile("http://file3.instiz.net/data/file3/2021/05/31/7/0/9/7091080ae49c76e54021c3c3e42c7469.png");
+
+        return userRepository.save(user);
+    }
+
     private void checkEmailDuplicate(String email) {
         boolean isEmailDuplicated = userRepository.existsUserByEmail(email);
         if (isEmailDuplicated) {
@@ -56,13 +72,15 @@ public class UserService {
 
     @Transactional
     public User updateUser(Long userId, UserPatchRequest userPatchRequest, AuthInfo authInfo) {
-        validateOwnInfo(userId, authInfo);
         User findUser = findValidUser(userId);
+        validateOwnInfo(findUser.getEmail(), authInfo);
 
         Optional.ofNullable(userPatchRequest.getDisplayName())
                 .ifPresent(username -> findUser.changeUsername(username));
+
         Optional.ofNullable(userPatchRequest.getProfileUrl())
                 .ifPresent(url -> findUser.changeProfile(url));
+
         Optional.ofNullable(userPatchRequest.getLocation())
                 .ifPresent(location -> findUser.changeLocation(location));
 
@@ -74,16 +92,22 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException());
     }
 
+    private void validateOwnInfo(String email, AuthInfo authInfo) {
+        if (!email.equals(authInfo.getEmail())) {
+            throw new NotAuthorizedUserAccessException();
+        }
+    }
+
     @Transactional
     public void deleteUser(Long userId, AuthInfo authInfo) {
-        validateOwnInfo(userId, authInfo);
-        findValidUser(userId);
+        User findUser = findValidUser(userId);
+        validateOwnInfo(findUser.getEmail(), authInfo);
         userRepository.deleteById(userId);
     }
 
     public User findUser(Long userId, AuthInfo authInfo) {
-        validateOwnInfo(userId, authInfo);
         User findUser = findValidUser(userId);
+        validateOwnInfo(findUser.getEmail(), authInfo);
 
         List<Answer> userAnswers = findUserAnswers(userId);
         findUser.addAnswers(userAnswers);
@@ -106,14 +130,12 @@ public class UserService {
         else return questions;
     }
 
-
-    private void validateOwnInfo(Long userId, AuthInfo authInfo) {
-        if (userId != authInfo.getUserId()) {
-            throw new NotAuthorizedUserAccessException();
-        }
-    }
-
     public Page<User> findUsers(int page, int size) {
         return userRepository.findAll(PageRequest.of(page, size, Sort.by("id")));
+    }
+
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException());
     }
 }
