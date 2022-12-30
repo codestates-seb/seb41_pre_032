@@ -302,7 +302,6 @@ const Companies = () => {
                             alt='location_img'
                             className='img-box'
                           />
-
                           <p>Vilnius; Kaunas; Poland</p>
                         </div>
                         <div className='companies-location'>
@@ -311,7 +310,6 @@ const Companies = () => {
                             alt='building_logo'
                             className='img-box'
                           />
-
                           <p>
                             Cybersecurity, Network Security, Software
                             Development
