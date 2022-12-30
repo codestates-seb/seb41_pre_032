@@ -71,9 +71,9 @@ public class Oauth2UserAuthenticationSuccessHandler extends SimpleUrlAuthenticat
     private URI createURI() {
         return UriComponentsBuilder
                 .newInstance()
-                .scheme("http")
-                .host("localhost")
+                .host("")
                 .port(8080)
+                .scheme("http://ec2-3-35-204-189.ap-northeast-2.compute.amazonaws.com")
                 .path("/api/login/google")
                 .build()
                 .toUri();
