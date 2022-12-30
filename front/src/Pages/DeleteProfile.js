@@ -1,6 +1,13 @@
 import Sidebar from '../Components/Sidebar';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Footer from '../Components/Footer';
+
+const HomeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const HomeWrap = styled.div`
   width: 100%;
   max-width: 1264px;
@@ -217,6 +224,9 @@ const HomeWrap = styled.div`
     margin-right: 32px;
     display: flex;
     flex-direction: column;
+    > div {
+      width: 175px;
+    }
   }
 
   .editbar-sidebar-title {
@@ -282,122 +292,130 @@ const HomeWrap = styled.div`
 
 const DeleteProfile = () => {
   return (
-    <HomeWrap>
-      <Sidebar />
-      <div className='userinfo-container'>
-        <div className='mainbar_full'>
-          <div className='top-relative'>
-            <div className='top-container'>
-              <img
-                src='../images/578b036954e5dbaa.jpeg'
-                alt='shibainu'
-                className='top-avatar'
-              />
-              <div className='top-info'>
-                <div className='top-idbox'>
-                  <div className='top-id'>SungJin</div>
+    <HomeContainer>
+      <HomeWrap>
+        <Sidebar />
+        <div className='userinfo-container'>
+          <div className='mainbar_full'>
+            <div className='top-relative'>
+              <div className='top-container'>
+                <img
+                  src='../images/578b036954e5dbaa.jpeg'
+                  alt='shibainu'
+                  className='top-avatar'
+                />
+                <div className='top-info'>
+                  <div className='top-idbox'>
+                    <div className='top-id'>SungJin</div>
+                  </div>
+                  <ul className='member-logrecord-box'>
+                    <li className='member-logrecord'>
+                      <div className='logrecord'>
+                        <img
+                          src='../images/cupcake.png'
+                          className='birthicon'
+                          alt='bithday-icon'
+                        />
+                        <div>Member for 5 years, 1 month</div>
+                      </div>
+                    </li>
+                    <li className='member-logrecord'>
+                      <div className='logrecord'>
+                        <img
+                          src='../images/clock.png'
+                          className='birthicon'
+                          alt='logtime-icon'
+                        />
+                        <div className='log-data'>Last seen this week</div>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
-                <ul className='member-logrecord-box'>
-                  <li className='member-logrecord'>
-                    <div className='logrecord'>
-                      <img
-                        src='../images/cupcake.png'
-                        className='birthicon'
-                        alt='bithday-icon'
-                      />
-                      <div>Member for 5 years, 1 month</div>
-                    </div>
-                  </li>
-                  <li className='member-logrecord'>
-                    <div className='logrecord'>
-                      <img
-                        src='../images/clock.png'
-                        className='birthicon'
-                        alt='logtime-icon'
-                      />
-                      <div className='log-data'>Last seen this week</div>
-                    </div>
-                  </li>
-                </ul>
+              </div>
+              <div className='absolute-container'>
+                {/* <button className='absolute-button'>Edit profile</button> */}
               </div>
             </div>
-            <div className='absolute-container'>
-              {/* <button className='absolute-button'>Edit profile</button> */}
-            </div>
           </div>
-        </div>
-        <div className='setting-container'>
-          <ul className='setting-box'>
-            <Link to='/userinfo'>
-              <li className='setting-non'>Profile</li>
-            </Link>
-            <li className='setting-click'>Settings</li>
-          </ul>
-        </div>
+          <div className='setting-container'>
+            <ul className='setting-box'>
+              <Link to='/userinfo'>
+                <li className='setting-non'>Profile</li>
+              </Link>
+              <li className='setting-click'>Settings</li>
+            </ul>
+          </div>
 
-        <div className='editbar-container'>
-          <div className='editbar-sidebar-container'>
-            <div className='editbar-sidebar-box'>
-              <div className='editbar-sidebar-title'>PERSONAL INFORMATION</div>
-              <Link to='/userinfo/edit'>
-                <div className='setting-non'>Edit profile</div>
-              </Link>
-              <Link to='/userinfo/delete'>
-                <div className='setting-click'>Delete profile</div>
-              </Link>
-            </div>
-          </div>
-          <div className='deleteprofile-container'>
-            <div className='deleteprofile-title-container'>
-              <h1>Delete Profile</h1>
-            </div>
-            <div className='delete-intro-container'>
-              <p>
-                Before confirming that you would like your profile deleted, we'd
-                like to take a moment to explain the implications of deletion:
-              </p>
-              <ul>
-                <li>
-                  Deletion is irreversible, and you will have no way to regain
-                  any of your original content, should this deletion be carried
-                  out and you change your mind later on.
-                </li>
-                <li>
-                  Your questions and answers will remain on the site, but will
-                  be disassociated and anonymized (the author will be listed as
-                  "user20812601") and will not indicate your authorship even if
-                  you later return to the site.
-                </li>
-              </ul>
-              <p>
-                Confirming deletion will only delete your profile on Stack
-                Overflow - it will not affect any of your other profiles on the
-                Stack Exchange network. If you want to delete multiple profiles,
-                you'll need to visit each site separately and request deletion
-                of those individual profiles.
-              </p>
-              <form>
-                <div className='delete-formbox'>
-                  <div className='formbox'>
-                    <input
-                      type='checkbox'
-                      className='delete-checkbox'
-                      id='deletecheck'
-                    />
-                    <label htmlFor='deletecheck' className='deletecheck-label'>
-                      I have read the information stated above and understand
-                      the implications of having my profile deleted. I wish to
-                      proceed with the deletion of my profile.
-                    </label>
-                  </div>
+          <div className='editbar-container'>
+            <div className='editbar-sidebar-container'>
+              <div className='editbar-sidebar-box'>
+                <div className='editbar-sidebar-title'>
+                  PERSONAL INFORMATION
                 </div>
-                <button className='delete-button'>Delete profile</button>
-              </form>
+                <Link to='/userinfo/edit'>
+                  <div className='setting-non'>Edit profile</div>
+                </Link>
+                <Link to='/userinfo/delete'>
+                  <div className='setting-click'>Delete profile</div>
+                </Link>
+              </div>
+            </div>
+            <div className='deleteprofile-container'>
+              <div className='deleteprofile-title-container'>
+                <h1>Delete Profile</h1>
+              </div>
+              <div className='delete-intro-container'>
+                <p>
+                  Before confirming that you would like your profile deleted,
+                  we'd like to take a moment to explain the implications of
+                  deletion:
+                </p>
+                <ul>
+                  <li>
+                    Deletion is irreversible, and you will have no way to regain
+                    any of your original content, should this deletion be
+                    carried out and you change your mind later on.
+                  </li>
+                  <li>
+                    Your questions and answers will remain on the site, but will
+                    be disassociated and anonymized (the author will be listed
+                    as "user20812601") and will not indicate your authorship
+                    even if you later return to the site.
+                  </li>
+                </ul>
+                <p>
+                  Confirming deletion will only delete your profile on Stack
+                  Overflow - it will not affect any of your other profiles on
+                  the Stack Exchange network. If you want to delete multiple
+                  profiles, you'll need to visit each site separately and
+                  request deletion of those individual profiles.
+                </p>
+                <form>
+                  <div className='delete-formbox'>
+                    <div className='formbox'>
+                      <input
+                        type='checkbox'
+                        className='delete-checkbox'
+                        id='deletecheck'
+                      />
+                      <label
+                        htmlFor='deletecheck'
+                        className='deletecheck-label'>
+                        I have read the information stated above and understand
+                        the implications of having my profile deleted. I wish to
+                        proceed with the deletion of my profile.
+                      </label>
+                    </div>
+                  </div>
+                  <button className='delete-button'>Delete profile</button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </HomeWrap>
+      </HomeWrap>
+      <Footer />
+    </HomeContainer>
   );
 };
 

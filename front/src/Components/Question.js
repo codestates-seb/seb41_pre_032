@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const QuestionWrap = styled.li`
   margin: 0 -2.4rem;
@@ -161,55 +161,59 @@ const Question = ({ data }) => {
   let date = `${data.updatedDate.slice(0, 10)} ${data.updatedDate.slice(-8)}`;
   return (
     <QuestionWrap>
-      <div className="question-container">
-        <div className="left">
-          <div className="votesWrap">
-            <span>0</span>
+      <div className='question-container'>
+        <div className='left'>
+          <div className='votesWrap'>
+            <span>0&nbsp;</span>
             <span>votes</span>
           </div>
-          <div className="answersWrap">
-            <span>0</span>
+          <div className='answersWrap'>
+            <span>0&nbsp;</span>
             <span>answers</span>
           </div>
-          <div className="viewsWrap">
-            <span>0</span>
+          <div className='viewsWrap'>
+            <span>0&nbsp;</span>
             <span>views</span>
           </div>
         </div>
-        <div className="right">
-          <h3 className="question-title">
+        <div className='right'>
+          <h3 className='question-title'>
             <Link to={`/question/${data.id}`}>{data.title}</Link>
           </h3>
-          <div className="question-content">{data.contents}</div>
+          <div className='question-content'>{data.contents}</div>
 
-          <div className="content-meta">
-            <ul className="tag-list">
+          <div className='content-meta'>
+            <ul className='tag-list'>
               {data.tags
                 ? data.tags.map((tag, idx) => (
-                    <li key={idx} className="tag">
+                    <li key={idx} className='tag'>
                       {tag.tagName}
                     </li>
                   ))
                 : null}
             </ul>
-            <div className="userWrap">
-              <div className="usercard-photo">
-                <a href="/">
+            <div className='userWrap'>
+              <div className='usercard-photo'>
+                <a href='/'>
                   <img
-                    alt="userAvatar"
-                    src={data.user.profileUrl ? data.user.profileUrl : "../logo192.png"}
-                    className="useravatar"
+                    alt='userAvatar'
+                    src={
+                      data.user.profileUrl
+                        ? data.user.profileUrl
+                        : '../logo192.png'
+                    }
+                    className='useravatar'
                   />
                   {/* 프로필사진 예시 */}
                 </a>
               </div>
-              <div className="usercard-name">
-                <Link href="/" className="username">
+              <div className='usercard-name'>
+                <Link href='/' className='username'>
                   {data.user.displayName}
                 </Link>
               </div>
-              <div className="usercard-date">
-                <p className="date">{date}</p>
+              <div className='usercard-date'>
+                <p className='date'>{date}</p>
               </div>
             </div>
           </div>

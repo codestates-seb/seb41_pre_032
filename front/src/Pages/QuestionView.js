@@ -1,10 +1,16 @@
-import Sidebar from "../Components/Sidebar";
-import styled from "styled-components";
-import useFetch from "../util/useFetch";
-import { Link, useParams } from "react-router-dom";
-import Loading from "../Components/Loading";
-import { fetchDelete } from "../util/api";
-import { useState } from "react";
+import Sidebar from '../Components/Sidebar';
+import styled from 'styled-components';
+import useFetch from '../util/useFetch';
+import { Link, useParams } from 'react-router-dom';
+import Loading from '../Components/Loading';
+import { fetchDelete } from '../util/api';
+import { useState } from 'react';
+import Footer from '../Components/Footer';
+
+const HomeContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const ViewWrap = styled.div`
   width: 100%;
@@ -158,11 +164,15 @@ const QuestionView = () => {
   const [data, isPending, error] = useFetch(
     `${process.env.REACT_APP_API_URL}/api/questions/${id}`
   );
-  let createdDate
-  let updatedDate
-  if(data) {
-    createdDate = `${data.createdDate.slice(0, 10)} ${data.createdDate.slice(-8)}`;
-    updatedDate = `${data.updatedDate.slice(0, 10)} ${data.updatedDate.slice(-8)}`;
+  let createdDate;
+  let updatedDate;
+  if (data) {
+    createdDate = `${data.createdDate.slice(0, 10)} ${data.createdDate.slice(
+      -8
+    )}`;
+    updatedDate = `${data.updatedDate.slice(0, 10)} ${data.updatedDate.slice(
+      -8
+    )}`;
   }
 
   const handleDelete = () => {
@@ -175,125 +185,132 @@ const QuestionView = () => {
     downVote === 0 ? setDownVote(1) : setDownVote(0);
   };
   return (
-    <ViewWrap>
-      <Sidebar />
-      <Content>
-        {isPending && <Loading />}
-        {error && <div>{error}</div>}
-        {data && (
-          <>
-            <div className="question-header">
-              <h2>{data.title}</h2>
-              <Link to="/question/create" className="button-ask-question">
-                Ask Question
-              </Link>
-            </div>
-            <div className="fw-wrap">
-              <div className="fw-item">
-                <span>Asked</span>
-                <time>{createdDate}</time>
+    <HomeContainer>
+      <ViewWrap>
+        <Sidebar />
+        <Content>
+          {isPending && <Loading />}
+          {error && <div>{error}</div>}
+          {data && (
+            <>
+              <div className='question-header'>
+                <h2>{data.title}</h2>
+                <Link to='/question/create' className='button-ask-question'>
+                  Ask Question
+                </Link>
               </div>
-              <div className="fw-item">
-                <span>Modified</span>
-                <time>{updatedDate}</time>
-              </div>
-              <div className="fw-item">
-                <span>Viewed</span>
-                <span>{`${0} times`}</span>
-              </div>
-            </div>
-            <article className="post-layout">
-              <div className="votecell">
-                <button
-                  onClick={() => {
-                    handleUpVote();
-                  }}
-                  className="vote-up-btn"
-                  aria-label="Up vote"
-                >
-                  <img
-                    alt="Up vote"
-                    src={
-                      upVote === 0
-                        ? "../images/upVote.png"
-                        : "../images/upVoteOrange.png"
-                    }
-                  />
-                </button>
-                <div className="vote-count">0</div>
-                <button
-                  onClick={() => {
-                    handleDownVote();
-                  }}
-                  className="vote-up-btn"
-                  aria-label="Up vote"
-                >
-                  <img
-                    alt="Up vote"
-                    src={
-                      downVote === 0
-                        ? "../images/downVote.png"
-                        : "../images/downVoteOrange.png"
-                    }
-                  />
-                </button>
-              </div>
-              <div className="postcell">
-                <div className="post-body">
-                  <div>{data.contents}</div>
-                  <div>{data.attempt}</div>
+              <div className='fw-wrap'>
+                <div className='fw-item'>
+                  <span>Asked</span>
+                  <time>{createdDate}</time>
                 </div>
-                <div className="tags-wrap">
-                  <ul>
-                    {data.tags
-                      ? data.tags.map((tag, idx) => (
-                          <li key={idx} className="tag">
-                            {tag.tagName}
-                          </li>
-                        ))
-                      : null}
-                  </ul>
+                <div className='fw-item'>
+                  <span>Modified</span>
+                  <time>{updatedDate}</time>
                 </div>
-                <div className="etc-wrap">
-                  <div className="btn-wrap">
-                    <button>Modified</button>
-                    <button
-                      onClick={() => {
-                        handleDelete();
-                      }}
-                    >
-                      Delete
-                    </button>
+                <div className='fw-item'>
+                  <span>Viewed</span>
+                  <span>{`${0} times`}</span>
+                </div>
+              </div>
+              <article className='post-layout'>
+                <div className='votecell'>
+                  <button
+                    onClick={() => {
+                      handleUpVote();
+                    }}
+                    className='vote-up-btn'
+                    aria-label='Up vote'>
+                    <img
+                      alt='Up vote'
+                      src={
+                        upVote === 0
+                          ? '../images/upVote.png'
+                          : '../images/upVoteOrange.png'
+                      }
+                    />
+                  </button>
+                  <div className='vote-count'>0</div>
+                  <button
+                    onClick={() => {
+                      handleDownVote();
+                    }}
+                    className='vote-up-btn'
+                    aria-label='Up vote'>
+                    <img
+                      alt='Up vote'
+                      src={
+                        downVote === 0
+                          ? '../images/downVote.png'
+                          : '../images/downVoteOrange.png'
+                      }
+                    />
+                  </button>
+                </div>
+                <div className='postcell'>
+                  <div className='post-body'>
+                    <div>{data.contents}</div>
+                    <div>{data.attempt}</div>
                   </div>
-                  <div className="action-time">
-                    <span>{`edited ${createdDate}`}</span>
+                  <div className='tags-wrap'>
+                    <ul>
+                      {data.tags
+                        ? data.tags.map((tag, idx) => (
+                            <li key={idx} className='tag'>
+                              {tag.tagName}
+                            </li>
+                          ))
+                        : null}
+                    </ul>
                   </div>
-                  <div className="user-info">
-                    <Link to="/" className="user-avatar">
-                      <img alt="UserAvatar" src={data.user.profileUrl ? data.user.profileUrl : "../logo192.png"} />
-                    </Link>
-                    <div className="user-details">
-                      <Link to="/">{data.user.displayName}</Link>
-                      <div className="flair">
-                        <span className="bages">
-                          <span className="circle" /> {data.user.reputation}
-                        </span>
+                  <div className='etc-wrap'>
+                    <div className='btn-wrap'>
+                      <button>Modified</button>
+                      <button
+                        onClick={() => {
+                          handleDelete();
+                        }}>
+                        Delete
+                      </button>
+                    </div>
+                    <div className='action-time'>
+                      <span>{`edited ${createdDate}`}</span>
+                    </div>
+                    <div className='user-info'>
+                      <Link to='/' className='user-avatar'>
+                        <img
+                          alt='UserAvatar'
+                          src={
+                            data.user.profileUrl
+                              ? data.user.profileUrl
+                              : '../logo192.png'
+                          }
+                        />
+                      </Link>
+                      <div className='user-details'>
+                        <Link to='/'>{data.user.displayName}</Link>
+                        <div className='flair'>
+                          <span className='bages'>
+                            <span className='circle' /> {data.user.reputation}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </article>
-            <article className="answers-layout">
-              <h2 className="answers-notice">
-                Know someone who can answer? Share a link to this question via
-                email, Twitter, or Facebook.
-              </h2>
-            </article>
-          </>
-        )}
-      </Content>
-    </ViewWrap>
+              </article>
+              <article className='answers-layout'>
+                <h2 className='answers-notice'>
+                  Know someone who can answer? Share a link to this question via
+                  email, Twitter, or Facebook.
+                </h2>
+              </article>
+            </>
+          )}
+        </Content>
+      </ViewWrap>
+      <Footer />
+    </HomeContainer>
   );
 };
 

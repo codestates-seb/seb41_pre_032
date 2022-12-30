@@ -9,14 +9,15 @@ import QuestionView from './Pages/QuestionView';
 import SignUp from './Pages/SignUp';
 import AllQuestions from './Pages/AllQuestions';
 import Tags from './Pages/Tags';
-import Users from './Pages/users';
+import Users from './Pages/Users';
 import Companies from './Pages/Companies';
 import UserInfo from './Pages/UserInfo';
-import Footer from './Components/footer';
+// import Footer from './Components/Footer';
 import EditProfile from './Pages/EditProfile';
 import DeleteProfile from './Pages/DeleteProfile';
 import RequireAuth from './Components/RequireAuth';
 import Missing from './Components/Missing';
+import TaggedQuestion from './Pages/TaggedQuestion';
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/tags' element={<Tags />} />
+          <Route path='/tags/tagged' element={<TaggedQuestion />} />
           <Route path='/companies' element={<Companies />} />
 
           {/* private routes */}
@@ -38,6 +40,7 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/question/:id' element={<QuestionView />} />
             <Route path='/question/create' element={<QuestionCreate />} />
+
             <Route
               path='/questions'
               element={
@@ -55,7 +58,7 @@ function App() {
           {/* catch all */}
           <Route path='*' element={<Missing />} />
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </BrowserRouter>
     </div>
   );

@@ -1,16 +1,5 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
-// import Logo from '../images/logo-stackoverflow.png'
-
-// function GoHomeImage() {
-//     return(
-//         <Link to = '/app.js'>
-//             <img className='Logo' src ='seb41_pre_032/front/src/Images/logo-stackoverflow.svg' />
-//         </Link>
-//     )
-// }
-
-// 배너를 로그인 홈 링크로 걸어보려다 보류
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
 const Headercss = styled.div`
   position: fixed;
@@ -21,10 +10,11 @@ const Headercss = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index:999;
+  z-index: 999;
   border-top: 3px solid var(--main-color);
   background-color: var(--background-color);
-  box-shadow:  0 1px 2px hsla(0,0%,0%,0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05), 0 2px 8px hsla(0, 0%, 0%, 0.05);
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
   > .logo {
     padding: 0 0.8rem;
     height: 100%;
@@ -38,6 +28,19 @@ const Headercss = styled.div`
       background-position: center center;
       text-indent: -9999rem;
     }
+  }
+
+  .filter-container {
+    padding: 1px 2px 1px 32px;
+    border: 1px solid hsl(210, 8%, 75%);
+    border-radius: 3px;
+    padding: 7.8px 9.1px 7.8px 32px;
+    background-image: url(../images/glass.png);
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: 8px center;
+    color: hsl(210, 8%, 55%);
+    /* 태그 필터 안에 이미지 위치를 정확히 파악하지 못하는 중 */
   }
   .signup-button {
     background-color: hsl(206, 100%, 52%);
@@ -81,23 +84,27 @@ const Headercss = styled.div`
 const Header = () => {
   return (
     <Headercss>
-      <Link to="/" className="logo">
+      <Link to='/' className='logo'>
         <span>Stackoverflow</span>
       </Link>
       {/* <div>About</div>
            <div>Products</div>
            <div>For Teams</div> */}
       <form>
-        <input type="text" placeholder="Search..." />
+        <input
+          type='text'
+          placeholder='Search...'
+          className='filter-container'
+        />
       </form>
-      <button className="login-button">
-        <Link to="/login" className="login-font">
+      <button className='login-button'>
+        <Link to='/login' className='login-font'>
           Log in
         </Link>
       </button>
       {/* Login.js로 이동 */}
-      <button className="signup-button">
-        <Link to="/signup" className="font">
+      <button className='signup-button'>
+        <Link to='/signup' className='font'>
           Sign up
         </Link>
       </button>
