@@ -1,4 +1,4 @@
-package seb41_pre_32.back.auth.filter;
+package seb41_pre_32.back.auth.presentation.filter;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
-import seb41_pre_32.back.auth.jwt.JwtTokenizer;
+import seb41_pre_32.back.auth.utils.JwtTokenizer;
 import seb41_pre_32.back.auth.utils.CustomAuthorityUtils;
 
 import javax.servlet.FilterChain;

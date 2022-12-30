@@ -1,4 +1,4 @@
-package seb41_pre_32.back.auth.handler;
+package seb41_pre_32.back.auth.presentation;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

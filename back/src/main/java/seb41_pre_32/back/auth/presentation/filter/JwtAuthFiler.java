@@ -1,4 +1,4 @@
-package seb41_pre_32.back.auth.filter;
+package seb41_pre_32.back.auth.presentation.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -8,8 +8,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import seb41_pre_32.back.auth.dto.LoginRequest;
-import seb41_pre_32.back.auth.jwt.JwtTokenizer;
+import seb41_pre_32.back.auth.presentation.dto.LoginRequest;
+import seb41_pre_32.back.auth.utils.JwtTokenizer;
 import seb41_pre_32.back.user.entity.User;
 
 import javax.servlet.FilterChain;

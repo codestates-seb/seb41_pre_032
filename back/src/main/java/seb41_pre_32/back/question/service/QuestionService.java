@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import seb41_pre_32.back.auth.dto.AuthInfo;
+import seb41_pre_32.back.auth.presentation.dto.AuthInfo;
 import seb41_pre_32.back.exception.question.QuestionNotFoundException;
 import seb41_pre_32.back.exception.user.NotAuthorizedUserAccessException;
 import seb41_pre_32.back.exception.user.UserNotFoundException;

@@ -1,4 +1,4 @@
-package seb41_pre_32.back.auth.handler;
+package seb41_pre_32.back.auth.presentation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;

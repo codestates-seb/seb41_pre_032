@@ -1,10 +1,10 @@
-package seb41_pre_32.back.auth.jwt;
+package seb41_pre_32.back.auth.utils;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import seb41_pre_32.back.auth.dto.AuthInfo;
+import seb41_pre_32.back.auth.presentation.dto.AuthInfo;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;

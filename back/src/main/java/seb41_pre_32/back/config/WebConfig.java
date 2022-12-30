@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import seb41_pre_32.back.auth.jwt.JwtTokenizer;
-import seb41_pre_32.back.auth.utils.LoginUserArgumentResolver;
+import seb41_pre_32.back.auth.utils.JwtTokenizer;
+import seb41_pre_32.back.auth.presentation.LoginUserArgumentResolver;
 
 import java.util.List;
 

@@ -10,8 +10,8 @@ import seb41_pre_32.back.answer.dto.AnswerPostDto;
 import seb41_pre_32.back.answer.dto.AnswerResponseDto;
 import seb41_pre_32.back.answer.entity.Answer;
 import seb41_pre_32.back.answer.service.AnswerService;
-import seb41_pre_32.back.auth.dto.AuthInfo;
-import seb41_pre_32.back.auth.utils.LoginUser;
+import seb41_pre_32.back.auth.presentation.dto.AuthInfo;
+import seb41_pre_32.back.auth.presentation.LoginUser;
 import seb41_pre_32.back.common.dto.MultiResponse;
 
 import javax.validation.Valid;

@@ -10,7 +10,7 @@ import seb41_pre_32.back.answer.dto.AnswerPatchDto;
 import seb41_pre_32.back.answer.dto.AnswerPostDto;
 import seb41_pre_32.back.answer.entity.Answer;
 import seb41_pre_32.back.answer.repository.AnswerRepository;
-import seb41_pre_32.back.auth.dto.AuthInfo;
+import seb41_pre_32.back.auth.presentation.dto.AuthInfo;
 import seb41_pre_32.back.exception.answer.AnswerNotFoundException;
 import seb41_pre_32.back.exception.question.QuestionNotFoundException;
 import seb41_pre_32.back.exception.user.NotAuthorizedUserAccessException;

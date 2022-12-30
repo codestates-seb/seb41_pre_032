@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import seb41_pre_32.back.answer.entity.Answer;
 import seb41_pre_32.back.answer.repository.AnswerRepository;
-import seb41_pre_32.back.auth.dto.AuthInfo;
+import seb41_pre_32.back.auth.presentation.dto.AuthInfo;
 import seb41_pre_32.back.exception.user.DuplicateUserEmailException;
 import seb41_pre_32.back.exception.user.NotAuthorizedUserAccessException;
 import seb41_pre_32.back.exception.user.UserNotFoundException;
