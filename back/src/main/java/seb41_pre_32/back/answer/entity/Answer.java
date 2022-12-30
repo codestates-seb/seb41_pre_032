@@ -59,4 +59,8 @@ public class Answer extends BaseEntity {
         this.contents = contents;
     }
 
+    public void addQuestion(Question question) {
+        this.question = question;
+        question.getAnswerList().add(this);
+    }
 }
