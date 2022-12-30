@@ -5,17 +5,17 @@ import lombok.Getter;
 @Getter
 public class AuthInfo {
     private Long userId;
-    private String displayName;
     private String email;
+    private String displayName;
     private String role;
 
     public AuthInfo(final Long userId,
-                    final String displayName,
                     final String email,
+                    final String displayName,
                     final String role) {
         this.userId = userId;
-        this.displayName = displayName;
         this.email = email;
+        this.displayName = displayName;
         this.role = role;
     }
 }
