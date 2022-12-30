@@ -1,4 +1,19 @@
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 1026974384916-bgnbu81m9p72m46joblq21que34qio1t.apps.googleusercontent.com
+            clientSecret: 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
+            scope:
+              - email
+              - profile
+    jwt:
+      token:
+        secret-key: rutyweorituwyerotiuweyrtoiuweyrtoweiurtywoeighdfsojkghsdfgsdofiguwyertouw
+        access-expire-time: 3600
+        refresh-expire-time: 2592000
   h2:
     console:
       enabled: true
@@ -24,9 +39,4 @@ server:
     encoding:
       force-response: true
 
-security:
-  jwt:
-    token:
-      secret-key: rutyweorituwyerotiuweyrtoiuweyrtoweiurtywoeighdfsojkghsdfgsdofiguwyertouw
-      access-expire-time: 3600
-      refresh-expire-time: 2592000
+
