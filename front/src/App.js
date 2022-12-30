@@ -12,7 +12,7 @@ import Tags from './Pages/Tags';
 import Users from './Pages/Users';
 import Companies from './Pages/Companies';
 import UserInfo from './Pages/UserInfo';
-import Footer from './Components/footer';
+import Footer from './Components/Footer';
 import EditProfile from './Pages/EditProfile';
 import DeleteProfile from './Pages/DeleteProfile';
 import RequireAuth from './Components/RequireAuth';
@@ -39,7 +39,10 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/question/:id' element={<QuestionView />} />
             <Route path='/question/create' element={<QuestionCreate />} />
-            <Route path='/question/modified/:id' element={<QuestionModified />} />
+            <Route
+              path='/question/modified/:id'
+              element={<QuestionModified />}
+            />
             <Route
               path='/questions'
               element={
