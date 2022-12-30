@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 import seb41_pre_32.back.auth.utils.CustomAuthorityUtils;
 import seb41_pre_32.back.auth.utils.JwtTokenizer;
+import seb41_pre_32.back.user.entity.User;
 import seb41_pre_32.back.user.service.UserService;
 
 import javax.servlet.ServletException;
@@ -36,29 +37,31 @@ public class Oauth2UserAuthenticationSuccessHandler extends SimpleUrlAuthenticat
 
         var oAuth2User = (OAuth2User) authentication.getPrincipal();
         String email = String.valueOf(oAuth2User.getAttributes().get("email"));
-        userService.createGoogleUser(email);
+        User googleUser = userService.createGoogleUser(email);
 
-        redirect(request, response, email);
+        redirect(request, response, email, googleUser);
     }
 
     private void redirect(final HttpServletRequest request,
                           final HttpServletResponse response,
-                          final String username) throws IOException {
+                          final String username,
+                          final User user) throws IOException {
 
-        response.setHeader("Authorization", "Bearer " + delegateAccessToken(username));
+        response.setHeader("Authorization", "Bearer " + delegateAccessToken(user));
         response.setHeader("Refresh", delegateRefreshToken(username));
 
         String uri = createURI().toString();
         getRedirectStrategy().sendRedirect(request, response, uri);
     }
 
-    private String delegateAccessToken(final String username) {
+    private String delegateAccessToken(final User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("username", username);
+        claims.put("userId", user.getId());
+        claims.put("username", user.getEmail());
         claims.put("role", "USER");
         setAuthToContextHolder(claims);
 
-        return jwtTokenizer.createAccessToken(claims, username);
+        return jwtTokenizer.createAccessToken(claims, user.getEmail());
     }
 
     private String delegateRefreshToken(final String username) {
