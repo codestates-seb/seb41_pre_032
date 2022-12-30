@@ -13,8 +13,8 @@ public class OAuth2Config {
     private final String clientId;
     private final String clientSecret;
 
-    public OAuth2Config(@Value("${spring.security.oauth2.client.registration.google.clientId}") final String clientId,
-                        @Value("${spring.security.oauth2.client.registration.google.clientSecret}") final String clientSecret) {
+    public OAuth2Config(@Value("${spring.security.oauth2.client.registration.google.client-id}") final String clientId,
+                        @Value("${spring.security.oauth2.client.registration.google.client-secret}") final String clientSecret) {
         this.clientId = clientId;
         this.clientSecret = clientSecret;
     }
