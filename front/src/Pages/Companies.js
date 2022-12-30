@@ -1,7 +1,12 @@
 import Sidebar from '../Components/Sidebar';
 import PageListButton from '../Components/PageListButton';
 import styled from 'styled-components';
+import Footer from '../Components/Footer';
 
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const HomeWrap = styled.div`
   width: 100%;
   max-width: 1264px;
@@ -204,87 +209,279 @@ const HomeWrap = styled.div`
 
 const Companies = () => {
   return (
-    <HomeWrap>
-      <Sidebar />
+    <BodyWrap>
+      <HomeWrap>
+        <Sidebar />
 
-      <div className='companies-page-container'>
-        <h1 className='companies-headline'>Companies</h1>
-        <p className='companies-intro'>
-          learn about what it's like to work at companies
-        </p>
-        <div className='companies-mainbar'>
-          <form className='companies-searchform'>
-            <div className='companies-inputform'>
-              <div className='input-filter'>
-                <input
-                  type='text'
-                  placeholder='Search all companies'
-                  className='companies-filter'
-                />
+        <div className='companies-page-container'>
+          <h1 className='companies-headline'>Companies</h1>
+          <p className='companies-intro'>
+            learn about what it's like to work at companies
+          </p>
+          <div className='companies-mainbar'>
+            <form className='companies-searchform'>
+              <div className='companies-inputform'>
+                <div className='input-filter'>
+                  <input
+                    type='text'
+                    placeholder='Search all companies'
+                    className='companies-filter'
+                  />
+                </div>
+                <div className='input-filter2'>
+                  <input type='text' placeholder='Search company by location' />
+                </div>
               </div>
-              <div className='input-filter2'>
-                <input type='text' placeholder='Search company by location' />
+              <div className='all-companies-count'>
+                <div>142 companies</div>
               </div>
-            </div>
-            <div className='all-companies-count'>
-              <div>142 companies</div>
-            </div>
-          </form>
+            </form>
 
-          <div className='companies-list-container'>
-            <ul className='companies-list'>
-              <li className='eachcompanies'>
-                <img
-                  src='../logo192.png'
-                  alt='company_logo'
-                  className='companies-photo'
-                />
-                <div className='company-detail'>
-                  <h2 className='compaines-name'>Nord Security</h2>
-                  <div className='companies-lnfo-box'>
-                    <div className='companies-location-box'>
-                      <div className='companies-location'>
-                        <img
-                          src='../images/location-dot-solid.svg'
-                          alt='location_img'
-                          className='img-box'
-                        />
+            <div className='companies-list-container'>
+              <ul className='companies-list'>
+                <li className='eachcompanies'>
+                  <img
+                    src='../logo192.png'
+                    alt='company_logo'
+                    className='companies-photo'
+                  />
+                  <div className='company-detail'>
+                    <h2 className='compaines-name'>Nord Security</h2>
+                    <div className='companies-lnfo-box'>
+                      <div className='companies-location-box'>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/location-dot-solid.svg'
+                            alt='location_img'
+                            className='img-box'
+                          />
 
-                        <p>Vilnius; Kaunas; Poland</p>
+                          <p>Vilnius; Kaunas; Poland</p>
+                        </div>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/building-solid.svg'
+                            alt='building_logo'
+                            className='img-box'
+                          />
+
+                          <p>
+                            Cybersecurity, Network Security, Software
+                            Development
+                          </p>
+                        </div>
                       </div>
-                      <div className='companies-location'>
-                        <img
-                          src='../images/building-solid.svg'
-                          alt='building_logo'
-                          className='img-box'
-                        />
-
-                        <p>
-                          Cybersecurity, Network Security, Software Development
-                        </p>
+                      <p className='companies-introduce'>
+                        Nord Security is one of the world’s leading digital
+                        security and privacy solutions providers. Used by
+                        millions of customers worldwide, our suite of products
+                        include: NordVPN - the fastest VPN on the planet, built
+                        to protect your online traffic and privacy with
+                        next-generation encryption. NordLayer
+                      </p>
+                      <div className='companies-uselanguage-box'>
+                        <div className='companies-uselanguage'>rust</div>
+                        <div className='companies-uselanguage'>open-source</div>
                       </div>
-                    </div>
-                    <p className='companies-introduce'>
-                      Nord Security is one of the world’s leading digital
-                      security and privacy solutions providers. Used by millions
-                      of customers worldwide, our suite of products include:
-                      NordVPN - the fastest VPN on the planet, built to protect
-                      your online traffic and privacy with next-generation
-                      encryption. NordLayer
-                    </p>
-                    <div className='companies-uselanguage-box'>
-                      <div className='companies-uselanguage'>rust</div>
-                      <div className='companies-uselanguage'>open-source</div>
                     </div>
                   </div>
-                </div>
-              </li>
-            </ul>
+                </li>
+                <li className='eachcompanies'>
+                  <img
+                    src='../logo192.png'
+                    alt='company_logo'
+                    className='companies-photo'
+                  />
+                  <div className='company-detail'>
+                    <h2 className='compaines-name'>Nord Security</h2>
+                    <div className='companies-lnfo-box'>
+                      <div className='companies-location-box'>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/location-dot-solid.svg'
+                            alt='location_img'
+                            className='img-box'
+                          />
+
+                          <p>Vilnius; Kaunas; Poland</p>
+                        </div>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/building-solid.svg'
+                            alt='building_logo'
+                            className='img-box'
+                          />
+
+                          <p>
+                            Cybersecurity, Network Security, Software
+                            Development
+                          </p>
+                        </div>
+                      </div>
+                      <p className='companies-introduce'>
+                        Nord Security is one of the world’s leading digital
+                        security and privacy solutions providers. Used by
+                        millions of customers worldwide, our suite of products
+                        include: NordVPN - the fastest VPN on the planet, built
+                        to protect your online traffic and privacy with
+                        next-generation encryption. NordLayer
+                      </p>
+                      <div className='companies-uselanguage-box'>
+                        <div className='companies-uselanguage'>rust</div>
+                        <div className='companies-uselanguage'>open-source</div>
+                      </div>
+                    </div>
+                  </div>
+                </li>{' '}
+                <li className='eachcompanies'>
+                  <img
+                    src='../logo192.png'
+                    alt='company_logo'
+                    className='companies-photo'
+                  />
+                  <div className='company-detail'>
+                    <h2 className='compaines-name'>Nord Security</h2>
+                    <div className='companies-lnfo-box'>
+                      <div className='companies-location-box'>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/location-dot-solid.svg'
+                            alt='location_img'
+                            className='img-box'
+                          />
+
+                          <p>Vilnius; Kaunas; Poland</p>
+                        </div>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/building-solid.svg'
+                            alt='building_logo'
+                            className='img-box'
+                          />
+
+                          <p>
+                            Cybersecurity, Network Security, Software
+                            Development
+                          </p>
+                        </div>
+                      </div>
+                      <p className='companies-introduce'>
+                        Nord Security is one of the world’s leading digital
+                        security and privacy solutions providers. Used by
+                        millions of customers worldwide, our suite of products
+                        include: NordVPN - the fastest VPN on the planet, built
+                        to protect your online traffic and privacy with
+                        next-generation encryption. NordLayer
+                      </p>
+                      <div className='companies-uselanguage-box'>
+                        <div className='companies-uselanguage'>rust</div>
+                        <div className='companies-uselanguage'>open-source</div>
+                      </div>
+                    </div>
+                  </div>
+                </li>{' '}
+                <li className='eachcompanies'>
+                  <img
+                    src='../logo192.png'
+                    alt='company_logo'
+                    className='companies-photo'
+                  />
+                  <div className='company-detail'>
+                    <h2 className='compaines-name'>Nord Security</h2>
+                    <div className='companies-lnfo-box'>
+                      <div className='companies-location-box'>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/location-dot-solid.svg'
+                            alt='location_img'
+                            className='img-box'
+                          />
+
+                          <p>Vilnius; Kaunas; Poland</p>
+                        </div>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/building-solid.svg'
+                            alt='building_logo'
+                            className='img-box'
+                          />
+
+                          <p>
+                            Cybersecurity, Network Security, Software
+                            Development
+                          </p>
+                        </div>
+                      </div>
+                      <p className='companies-introduce'>
+                        Nord Security is one of the world’s leading digital
+                        security and privacy solutions providers. Used by
+                        millions of customers worldwide, our suite of products
+                        include: NordVPN - the fastest VPN on the planet, built
+                        to protect your online traffic and privacy with
+                        next-generation encryption. NordLayer
+                      </p>
+                      <div className='companies-uselanguage-box'>
+                        <div className='companies-uselanguage'>rust</div>
+                        <div className='companies-uselanguage'>open-source</div>
+                      </div>
+                    </div>
+                  </div>
+                </li>{' '}
+                <li className='eachcompanies'>
+                  <img
+                    src='../logo192.png'
+                    alt='company_logo'
+                    className='companies-photo'
+                  />
+                  <div className='company-detail'>
+                    <h2 className='compaines-name'>Nord Security</h2>
+                    <div className='companies-lnfo-box'>
+                      <div className='companies-location-box'>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/location-dot-solid.svg'
+                            alt='location_img'
+                            className='img-box'
+                          />
+
+                          <p>Vilnius; Kaunas; Poland</p>
+                        </div>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/building-solid.svg'
+                            alt='building_logo'
+                            className='img-box'
+                          />
+
+                          <p>
+                            Cybersecurity, Network Security, Software
+                            Development
+                          </p>
+                        </div>
+                      </div>
+                      <p className='companies-introduce'>
+                        Nord Security is one of the world’s leading digital
+                        security and privacy solutions providers. Used by
+                        millions of customers worldwide, our suite of products
+                        include: NordVPN - the fastest VPN on the planet, built
+                        to protect your online traffic and privacy with
+                        next-generation encryption. NordLayer
+                      </p>
+                      <div className='companies-uselanguage-box'>
+                        <div className='companies-uselanguage'>rust</div>
+                        <div className='companies-uselanguage'>open-source</div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <PageListButton />
           </div>
-          <PageListButton />
         </div>
-      </div>
-    </HomeWrap>
+      </HomeWrap>
+      <Footer />
+    </BodyWrap>
   );
 };
 
