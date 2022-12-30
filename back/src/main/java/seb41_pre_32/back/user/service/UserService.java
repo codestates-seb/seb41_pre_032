@@ -51,18 +51,25 @@ public class UserService {
     }
 
     @Transactional
-    public User createGoogleUser(final String email) {
-        checkEmailDuplicate(email);
-        User user = User.of(email);
+    public User createOrUpdateGoogleUser(final String email) {
+        User user;
 
-        String encryptedPassword = passwordEncoder.encode(UUID.randomUUID().toString());
-        user.changePassword(encryptedPassword);
-
-        user.changeRole(Role.USER);
-        user.changeLocation("서울");
-        user.changeProfile("http://file3.instiz.net/data/file3/2021/05/31/7/0/9/7091080ae49c76e54021c3c3e42c7469.png");
+        if (isFirstLogin(email)) {
+            user = User.of(email);
+            String encryptedPassword = passwordEncoder.encode(UUID.randomUUID().toString());
+            user.changePassword(encryptedPassword);
+            user.changeRole(Role.USER);
+            user.changeLocation("서울");
+            user.changeProfile("http://file3.instiz.net/data/file3/2021/05/31/7/0/9/7091080ae49c76e54021c3c3e42c7469.png");
+        } else {
+            user = userRepository.findByEmail(email).get();
+        }
 
         return userRepository.save(user);
+    }
+
+    private boolean isFirstLogin(String email) {
+        return !userRepository.existsUserByEmail(email);
     }
 
     private void checkEmailDuplicate(final String email) {

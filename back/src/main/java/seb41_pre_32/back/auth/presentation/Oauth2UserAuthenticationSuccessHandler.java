@@ -37,7 +37,7 @@ public class Oauth2UserAuthenticationSuccessHandler extends SimpleUrlAuthenticat
 
         var oAuth2User = (OAuth2User) authentication.getPrincipal();
         String email = String.valueOf(oAuth2User.getAttributes().get("email"));
-        User googleUser = userService.createGoogleUser(email);
+        User googleUser = userService.createOrUpdateGoogleUser(email);
 
         redirect(request, response, email, googleUser);
     }
@@ -71,9 +71,9 @@ public class Oauth2UserAuthenticationSuccessHandler extends SimpleUrlAuthenticat
     private URI createURI() {
         return UriComponentsBuilder
                 .newInstance()
-                .host("")
+                .scheme("http")
+                .host("ec2-3-35-204-189.ap-northeast-2.compute.amazonaws.com")
                 .port(8080)
-                .scheme("http://ec2-3-35-204-189.ap-northeast-2.compute.amazonaws.com")
                 .path("/api/login/google")
                 .build()
                 .toUri();
