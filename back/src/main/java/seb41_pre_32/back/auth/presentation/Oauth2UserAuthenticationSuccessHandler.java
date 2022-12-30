@@ -33,28 +33,26 @@ public class Oauth2UserAuthenticationSuccessHandler extends SimpleUrlAuthenticat
     public void onAuthenticationSuccess(final HttpServletRequest request,
                                         final HttpServletResponse response,
                                         final Authentication authentication) throws IOException, ServletException {
+
         var oAuth2User = (OAuth2User) authentication.getPrincipal();
         String email = String.valueOf(oAuth2User.getAttributes().get("email"));
-        String role = String.valueOf(oAuth2User.getAttributes().get("role"));
-        String userAuthority = customAuthorityUtils.createAuthority(role);
         userService.createGoogleUser(email);
 
-        redirect(request, response, email, userAuthority);
+        redirect(request, response, email);
     }
 
     private void redirect(final HttpServletRequest request,
                           final HttpServletResponse response,
-                          final String username,
-                          final String authority) throws IOException {
+                          final String username) throws IOException {
 
-        response.setHeader("Authorization", "Bearer " + delegateAccessToken(username, authority));
+        response.setHeader("Authorization", "Bearer " + delegateAccessToken(username));
         response.setHeader("Refresh", delegateRefreshToken(username));
 
         String uri = createURI().toString();
         getRedirectStrategy().sendRedirect(request, response, uri);
     }
 
-    private String delegateAccessToken(final String username, final String authority) {
+    private String delegateAccessToken(final String username) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
         claims.put("role", "USER");

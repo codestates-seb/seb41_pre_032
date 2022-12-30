@@ -19,13 +19,15 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
     private final JwtTokenizer jwtTokenizer;
 
     @Override
-    public boolean supportsParameter(MethodParameter parameter) {
+    public boolean supportsParameter(final MethodParameter parameter) {
         return parameter.hasParameterAnnotation(LoginUser.class);
     }
 
     @Override
-    public AuthInfo resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-                                    NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public AuthInfo resolveArgument(final MethodParameter parameter,
+                                    final ModelAndViewContainer mavContainer,
+                                    final NativeWebRequest webRequest,
+                                    final WebDataBinderFactory binderFactory) throws Exception {
 
         HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
 

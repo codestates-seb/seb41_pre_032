@@ -15,7 +15,7 @@ public class WebConfig implements WebMvcConfigurer {
     private final JwtTokenizer jwtTokenizer;
 
     @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+    public void addArgumentResolvers(final List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new LoginUserArgumentResolver(jwtTokenizer));
     }
 }

@@ -18,12 +18,12 @@ import java.io.IOException;
 public class UserAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+    public void commence(final HttpServletRequest request,
+                         final HttpServletResponse response,
+                         final AuthenticationException authException) throws IOException, ServletException {
         Exception exception = (Exception) request.getAttribute("exception");
         String message = exception == null ? authException.getMessage() : exception.getMessage();
-
         ErrorResponseUtils.sendErrorResponse(ErrorCode.UNAUTHORIZED_USER, response, HttpStatus.UNAUTHORIZED);
-
         log.warn("Unauthorized Exception : {}", message);
     }
 }

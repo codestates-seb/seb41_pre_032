@@ -47,8 +47,8 @@ public class AnswerController {
     // 해당 질문에 포함된 Answer 리스트 전체 조회
     @GetMapping("/{questionId}")
     public ResponseEntity getAnswers(@PathVariable("questionId") final Long questionId,
-                                     @RequestParam("page") int page,
-                                     @RequestParam("size") int size) {
+                                     @RequestParam("page") final int page,
+                                     @RequestParam("size") final int size) {
 
         Page<Answer> answers = answerService.getAnswers(questionId, page - 1, size);
 
@@ -62,7 +62,7 @@ public class AnswerController {
     //Answer 삭제
     @DeleteMapping("/{answerId}")
     public ResponseEntity deleteAnswer(@PathVariable("answerId") final Long answerId,
-                                       @LoginUser AuthInfo authInfo) {
+                                       @LoginUser final AuthInfo authInfo) {
         answerService.deleteAnswer(answerId, authInfo);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }

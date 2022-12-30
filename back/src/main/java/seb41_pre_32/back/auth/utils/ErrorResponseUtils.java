@@ -12,7 +12,9 @@ import java.io.IOException;
 public class ErrorResponseUtils {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public static void sendErrorResponse(ErrorCode errorCode, HttpServletResponse response, HttpStatus status) throws IOException {
+    public static void sendErrorResponse(final ErrorCode errorCode,
+                                         final HttpServletResponse response,
+                                         final HttpStatus status) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.setStatus(status.value());
 

@@ -27,8 +27,8 @@ public class JwtAuthFiler extends UsernamePasswordAuthenticationFilter {
 
     @SneakyThrows
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request,
-                                                HttpServletResponse response) throws AuthenticationException {
+    public Authentication attemptAuthentication(final HttpServletRequest request,
+                                                final HttpServletResponse response) throws AuthenticationException {
         ObjectMapper mapper = new ObjectMapper();
         LoginRequest loginRequest = mapper.readValue(request.getInputStream(), LoginRequest.class);
 
@@ -39,10 +39,10 @@ public class JwtAuthFiler extends UsernamePasswordAuthenticationFilter {
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request,
-                                            HttpServletResponse response,
-                                            FilterChain chain,
-                                            Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(final HttpServletRequest request,
+                                            final HttpServletResponse response,
+                                            final FilterChain chain,
+                                            final Authentication authResult) throws IOException, ServletException {
 
         User user = (User) authResult.getPrincipal();
 
@@ -52,7 +52,7 @@ public class JwtAuthFiler extends UsernamePasswordAuthenticationFilter {
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
 
-    private String delegateAccessToken(User user) {
+    private String delegateAccessToken(final User user) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId());
         claims.put("username", user.getEmail());
@@ -62,7 +62,7 @@ public class JwtAuthFiler extends UsernamePasswordAuthenticationFilter {
         return jwtTokenizer.createAccessToken(claims, user.getEmail());
     }
 
-    private String delegateRefreshToken(User user) {
+    private String delegateRefreshToken(final User user) {
         return jwtTokenizer.createRefreshToken(user.getEmail());
     }
 

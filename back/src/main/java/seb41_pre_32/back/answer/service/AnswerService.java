@@ -62,7 +62,7 @@ public class AnswerService {
                                final AuthInfo authInfo,
                                final AnswerPatchDto answerPatchDto) {
         Answer answer = findAnswer(answerId);
-        checkValidateUser(authInfo.getUserId(), answer.getUser().getId());
+        checkValidateUser(authInfo.getEmail(), answer.getUser().getEmail());
         answer.changeContents(answerPatchDto.getContents());
 
         return answer;
@@ -73,8 +73,8 @@ public class AnswerService {
                 .orElseThrow(() -> new AnswerNotFoundException());
     }
 
-    private void checkValidateUser(final Long authId, final Long answerUserId) {
-        if (authId != answerUserId) {
+    private void checkValidateUser(final String userEmail, final String answerUserEmail) {
+        if (!userEmail.equals(answerUserEmail)) {
             throw new NotAuthorizedUserAccessException();
         }
     }
@@ -82,12 +82,11 @@ public class AnswerService {
     @Transactional
     public void deleteAnswer(final Long answerId, final AuthInfo authInfo) {
         Answer answer = findAnswer(answerId);
-        checkValidateUser(authInfo.getUserId(), answer.getUser().getId());
+        checkValidateUser(authInfo.getEmail(), answer.getUser().getEmail());
         answerRepository.deleteById(answerId);
     }
 
     public Page<Answer> getAnswers(Long questionId, int page, int size) {
-        Question question = findQuestion(questionId);
         return answerRepository.findAnswersByQuestion(questionId,
                 PageRequest.of(page, size, Sort.by("createdDate").descending()));
     }

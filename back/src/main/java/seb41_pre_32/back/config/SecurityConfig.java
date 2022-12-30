@@ -84,7 +84,7 @@ public class SecurityConfig {
 
     public class CustomFilterConfig extends AbstractHttpConfigurer<CustomFilterConfig, HttpSecurity> {
         @Override
-        public void configure(HttpSecurity builder) throws Exception {
+        public void configure(final HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
             JwtAuthFiler jwtAuthFiler = new JwtAuthFiler(authenticationManager, jwtTokenizer);
