@@ -79,6 +79,12 @@ public class AnswerService {
         }
     }
 
+    public Answer getAnswer(final Long answerId, final AuthInfo authInfo) {
+        Answer answer = findAnswer(answerId);
+        checkValidateUser(authInfo.getEmail(), answer.getUser().getEmail());
+        return answer;
+    }
+
     @Transactional
     public void deleteAnswer(final Long answerId, final AuthInfo authInfo) {
         Answer answer = findAnswer(answerId);
