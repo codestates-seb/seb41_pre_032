@@ -18,6 +18,7 @@ import DeleteProfile from './Pages/DeleteProfile';
 import RequireAuth from './Components/RequireAuth';
 import Missing from './Components/Missing';
 import QuestionModified from './Pages/QuestionModified';
+import TaggedQuestion from './Pages/TaggedQuestion';
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/tags' element={<Tags />} />
+          <Route path='/tags/tagged' element={<TaggedQuestion />} />
           <Route path='/companies' element={<Companies />} />
 
           {/* private routes */}

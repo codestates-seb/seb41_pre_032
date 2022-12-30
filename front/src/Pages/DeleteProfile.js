@@ -208,6 +208,8 @@ const HomeWrap = styled.div`
     color: #6a737c;
   }
 
+
+
   .editbar-container {
     margin-bottom: 48px;
     display: flex;
@@ -217,6 +219,10 @@ const HomeWrap = styled.div`
     margin-right: 32px;
     display: flex;
     flex-direction: column;
+  }
+
+  .editbar-sidebar-box{
+    width: 175.52px;
   }
 
   .editbar-sidebar-title {

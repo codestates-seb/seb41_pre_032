@@ -140,6 +140,7 @@ const HomeWrap = styled.div`
 
   .left-content {
     display: grid;
+    width: 234.75px;
   }
 
   .stats-title {
@@ -161,6 +162,10 @@ const HomeWrap = styled.div`
 
   .stats-content {
     margin: 8px;
+    > p {
+      font-size: 13px;
+      color: #6a737c;
+    }
   }
 
   .stats-content-data {
@@ -276,19 +281,19 @@ const UserInfo = () => {
                     <div className='stats-content-box'>
                       <div className='stats-content'>
                         <div className='stats-content-data'>10,003</div>
-                        reputation
+                        <p>reputation</p>
                       </div>
                       <div className='stats-content'>
                         <div className='stats-content-data'>2.6m</div>
-                        reached
+                        <p>reached</p>
                       </div>
                       <div className='stats-content'>
                         <div className='stats-content-data'>184</div>
-                        answers
+                        <p> answers</p>
                       </div>
                       <div className='stats-content'>
                         <div className='stats-content-data'>4</div>
-                        questions
+                        <p> questions</p>
                       </div>
                     </div>
                   </div>
