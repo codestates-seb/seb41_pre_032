@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 // import Logo from '../images/logo-stackoverflow.png'
 
 // function GoHomeImage() {
@@ -21,10 +21,11 @@ const Headercss = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index:999;
+  z-index: 999;
   border-top: 3px solid var(--main-color);
   background-color: var(--background-color);
-  box-shadow:  0 1px 2px hsla(0,0%,0%,0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05), 0 2px 8px hsla(0, 0%, 0%, 0.05);
+  box-shadow: 0 1px 2px hsla(0, 0%, 0%, 0.05), 0 1px 4px hsla(0, 0%, 0%, 0.05),
+    0 2px 8px hsla(0, 0%, 0%, 0.05);
   > .logo {
     padding: 0 0.8rem;
     height: 100%;
@@ -76,28 +77,48 @@ const Headercss = styled.div`
   .login-font {
     color: hsl(206, 100%, 40%);
   }
+
+  .filter-container {
+    width: 721.27px;
+    height: 36.78px;
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 1px 2px 1px 32px;
+    border: 1px solid hsl(210, 8%, 75%);
+    border-radius: 3px;
+    padding: 7.8px 9.1px 7.8px 32px;
+    background-image: url(../images/glass.png);
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: 8px center;
+    color: hsl(210, 8%, 55%);
+  }
 `;
 
 const Header = () => {
   return (
     <Headercss>
-      <Link to="/" className="logo">
+      <Link to='/' className='logo'>
         <span>Stackoverflow</span>
       </Link>
       {/* <div>About</div>
            <div>Products</div>
            <div>For Teams</div> */}
       <form>
-        <input type="text" placeholder="Search..." />
+        <input
+          type='text'
+          placeholder='Search...'
+          className='filter-container'
+        />
       </form>
-      <button className="login-button">
-        <Link to="/login" className="login-font">
+      <button className='login-button'>
+        <Link to='/login' className='login-font'>
           Log in
         </Link>
       </button>
       {/* Login.js로 이동 */}
-      <button className="signup-button">
-        <Link to="/signup" className="font">
+      <button className='signup-button'>
+        <Link to='/signup' className='font'>
           Sign up
         </Link>
       </button>
