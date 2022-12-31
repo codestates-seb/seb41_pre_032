@@ -6,6 +6,7 @@ import Loading from '../Components/Loading';
 import { fetchDelete } from '../util/api';
 import { useState } from 'react';
 import PostCell from '../Components/QuestionView/PostCell';
+import AnswersCell from '../Components/QuestionView/AnswersCell';
 import Footer from '../Components/Footer';
 
 const BodyWrap = styled.div`
@@ -67,7 +68,7 @@ const QuestionView = () => {
   const [data, isPending, error] = useFetch(
     `${process.env.REACT_APP_API_URL}/api/questions/${id}`
   );
-  console.log(data);
+
   let createdDate;
   let updatedDate;
   if (data) {
@@ -82,6 +83,7 @@ const QuestionView = () => {
   const handleDelete = () => {
     fetchDelete(`${process.env.REACT_APP_API_URL}/api/questions/`, id);
   };
+
   const handleUpVote = (e) => {
     upVote === 0 ? setUpVote(1) : setUpVote(0);
   };
@@ -113,8 +115,8 @@ const QuestionView = () => {
                   <time>{updatedDate}</time>
                 </div>
                 <div className='fw-item'>
-                  <span>Viewed</span>
-                  <span>{`${0} times`}</span>
+                  <span> Answers</span>
+                  <span>{data.answerCount}</span>
                 </div>
               </div>
               <PostCell
@@ -126,12 +128,7 @@ const QuestionView = () => {
                 handleUpVote={handleUpVote}
                 handleDownVote={handleDownVote}
               />
-              <article className='answers-layout'>
-                <h2 className='answers-notice'>
-                  Know someone who can answer? Share a link to this question via
-                  email, Twitter, or Facebook.
-                </h2>
-              </article>
+              <AnswersCell id={id} />
             </>
           )}
         </Content>

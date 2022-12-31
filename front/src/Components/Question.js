@@ -159,21 +159,18 @@ const QuestionWrap = styled.li`
 
 const Question = ({ data }) => {
   let date = `${data.updatedDate.slice(0, 10)} ${data.updatedDate.slice(-8)}`;
+
   return (
     <QuestionWrap>
       <div className="question-container">
         <div className="left">
           <div className="votesWrap">
-            <span>0&nbsp;</span>
-            <span>votes</span>
+            <span>0</span>
+            <span> votes</span>
           </div>
           <div className="answersWrap">
-            <span>0&nbsp;</span>
-            <span>answers</span>
-          </div>
-          <div className="viewsWrap">
-            <span>0&nbsp;</span>
-            <span>views</span>
+            <span>{data.answerCount}</span>
+            <span> answers</span>
           </div>
         </div>
         <div className="right">

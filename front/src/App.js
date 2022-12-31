@@ -17,6 +17,7 @@ import DeleteProfile from './Pages/DeleteProfile';
 import RequireAuth from './Components/RequireAuth';
 import Missing from './Components/Missing';
 import QuestionModified from './Pages/QuestionModified';
+import AnswerModified from './Pages/AnswerModified';
 import TaggedQuestion from './Pages/TaggedQuestion';
 
 const queryClient = new QueryClient();
@@ -40,10 +41,8 @@ function App() {
             <Route path='/' element={<Home />} />
             <Route path='/question/:id' element={<QuestionView />} />
             <Route path='/question/create' element={<QuestionCreate />} />
-            <Route
-              path='/question/modified/:id'
-              element={<QuestionModified />}
-            />
+            <Route path='/question/modified/:id' element={<QuestionModified />} />
+            <Route path='/answer/modified/:id' element={<AnswerModified />} />
             <Route
               path='/questions'
               element={
