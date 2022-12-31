@@ -29,7 +29,7 @@ public enum ErrorCode {
 
     private final String value;
 
-    ErrorCode(String value) {
+    ErrorCode(final String value) {
         this.value = value;
     }
 

@@ -12,13 +12,13 @@ import Tags from './Pages/Tags';
 import Users from './Pages/Users';
 import Companies from './Pages/Companies';
 import UserInfo from './Pages/UserInfo';
-import Footer from './Components/footer';
 import EditProfile from './Pages/EditProfile';
 import DeleteProfile from './Pages/DeleteProfile';
 import RequireAuth from './Components/RequireAuth';
 import Missing from './Components/Missing';
 import QuestionModified from './Pages/QuestionModified';
 import AnswerModified from './Pages/AnswerModified';
+import TaggedQuestion from './Pages/TaggedQuestion';
 
 const queryClient = new QueryClient();
 
@@ -33,6 +33,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/tags' element={<Tags />} />
+          <Route path='/tags/tagged' element={<TaggedQuestion />} />
           <Route path='/companies' element={<Companies />} />
 
           {/* private routes */}
@@ -66,7 +67,6 @@ function App() {
           {/* catch all */}
           <Route path='*' element={<Missing />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
     </div>
   );

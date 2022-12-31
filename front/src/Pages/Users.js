@@ -6,8 +6,13 @@ import { useQuery } from 'react-query';
 import Loading from '../Components/Loading';
 import User from '../Components/User';
 import PageButton from '../Components/PageButton';
+import Footer from '../Components/Footer';
 
-// 새로운 페이지에 아래 스타일 컴포넌트를 최상단에 깔아줘야함
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const HomeWrap = styled.div`
   width: 100%;
   max-width: 1264px;
@@ -136,64 +141,65 @@ const Users = () => {
   const [query, setQuery] = useState('');
 
   return (
-    <HomeWrap>
-      <Sidebar />
+    <BodyWrap>
+      <HomeWrap>
+        <Sidebar />
 
-      <div className='users-page-container'>
-        <div className='users-mainbar'>
-          <h1 className='users-headline'>Users</h1>
+        <div className='users-page-container'>
+          <div className='users-mainbar'>
+            <h1 className='users-headline'>Users</h1>
 
-          <div className='users-filter-container'>
-            <input
-              type='text'
-              placeholder='Filter by user'
-              className='users-filter'
-              onChange={(e) => setQuery(e.target.value)}
-            />
+            <div className='users-filter-container'>
+              <input
+                type='text'
+                placeholder='Filter by user'
+                className='users-filter'
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </div>
+
+            <br />
+
+            <div className='users-list'>
+              {isLoading && <Loading />}
+              {isFetching && <Loading />}
+              {isError && <p>Error: {error.message}</p>}
+
+              {query.length > 2
+                ? allUsers?.data
+                    ?.filter((user) =>
+                      user.displayName.toLowerCase().includes(query)
+                    )
+                    .map((user) => <User key={user?.id} user={user} />)
+                : allUsers?.data?.map((user) => (
+                    <User key={user?.id} user={user} />
+                  ))}
+            </div>
+
+            <nav className='btns'>
+              <button
+                className='btn prevBtn'
+                onClick={prevPage}
+                disabled={isPreviousData || page === 1}>
+                Prev
+              </button>
+              {pagesArray.map((pg) => (
+                <PageButton key={pg} pg={pg} setPage={setPage} />
+              ))}
+              <button
+                className='btn nextBtn'
+                onClick={nextPage}
+                disabled={
+                  isPreviousData || page === allUsers?.pageInfo?.totalPages
+                }>
+                Next
+              </button>
+            </nav>
           </div>
-
-          <br />
-
-          <div className='users-list'>
-            {isLoading && <Loading />}
-            {isFetching && <Loading />}
-            {isError && <p>Error: {error.message}</p>}
-
-            {query.length > 2
-              ? allUsers?.data
-                  ?.filter((user) =>
-                    user.displayName.toLowerCase().includes(query)
-                  )
-                  .map((user) => <User key={user?.id} user={user} />)
-              : allUsers?.data?.map((user) => (
-                  <User key={user?.id} user={user} />
-                ))}
-          </div>
-
-          <nav className='btns'>
-            <button
-              className='btn prevBtn'
-              onClick={prevPage}
-              disabled={isPreviousData || page === 1}
-            >
-              Prev
-            </button>
-            {pagesArray.map((pg) => (
-              <PageButton key={pg} pg={pg} setPage={setPage} />
-            ))}
-            <button
-              className='btn nextBtn'
-              onClick={nextPage}
-              disabled={
-                isPreviousData || page === allUsers?.pageInfo?.totalPages
-              }
-            >
-              Next
-            </button>
-          </nav>
         </div>
-      </div>
-    </HomeWrap>
+      </HomeWrap>
+      <Footer />
+    </BodyWrap>
   );
 };
 

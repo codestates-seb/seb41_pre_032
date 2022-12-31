@@ -6,7 +6,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import seb41_pre_32.back.auth.dto.AuthInfo;
+import seb41_pre_32.back.answer.entity.Answer;
+import seb41_pre_32.back.answer.repository.AnswerRepository;
+import seb41_pre_32.back.auth.presentation.dto.AuthInfo;
 import seb41_pre_32.back.exception.question.QuestionNotFoundException;
 import seb41_pre_32.back.exception.user.NotAuthorizedUserAccessException;
 import seb41_pre_32.back.exception.user.UserNotFoundException;
@@ -28,8 +30,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class QuestionService {
-
     private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
     private final UserRepository userRepository;
     private final TagRepository tagRepository;
 
@@ -87,7 +89,11 @@ public class QuestionService {
     }
 
     public Question findQuestion(Long questionId) {
-        return findVerifiedQuestion(questionId);
+        Question question = findVerifiedQuestion(questionId);
+        List<Answer> answers = answerRepository.findAnswersByQuestionId(questionId);
+        answers.forEach(answer -> answer.addQuestion(question));
+
+        return question;
     }
 
     public Page<Question> findQuestions(final int page, final int size) {

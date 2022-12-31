@@ -1,13 +1,19 @@
-import styled from "styled-components";
-import Notice from "../Components/QuestionCreate/Notice";
-import Title from "../Components/QuestionCreate/Title";
-import Problem from "../Components/QuestionCreate/Problem";
-import Expecting from "../Components/QuestionCreate/Expecting";
-import Tags from "../Components/QuestionCreate/Tags";
-import Discard from "../Components/QuestionCreate/Discard";
-import { useEffect, useState } from "react";
-import { fetchCreate } from "../util/api";
-import useInput from "../util/useInput";
+import styled from 'styled-components';
+import Notice from '../Components/QuestionCreate/Notice';
+import Title from '../Components/QuestionCreate/Title';
+import Problem from '../Components/QuestionCreate/Problem';
+import Expecting from '../Components/QuestionCreate/Expecting';
+import Tags from '../Components/QuestionCreate/Tags';
+import Discard from '../Components/QuestionCreate/Discard';
+import { useEffect, useState } from 'react';
+import { fetchCreate } from '../util/api';
+import useInput from '../util/useInput';
+import Footer from '../Components/Footer';
+
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const CreateWrap = styled.section`
   background-color: hsl(210, 8%, 95%);
@@ -33,7 +39,6 @@ const BtnArea = styled.div`
     font-size: 1.3rem;
     border: 1px solid transparent;
     cursor: pointer;
-    
   }
   > .submit {
     margin-left: 0;
@@ -51,26 +56,26 @@ const BtnArea = styled.div`
   }
 `;
 const SubmitBtn = styled.button`
-  pointer-events: ${props => props.activebtn === 0 ? 'none' : 'unset'};
-  background-color:${props => props.activebtn === 0 ? '#aaa' : '#0a95ff'};
-`
+  pointer-events: ${(props) => (props.activebtn === 0 ? 'none' : 'unset')};
+  background-color: ${(props) => (props.activebtn === 0 ? '#aaa' : '#0a95ff')};
+`;
 
 const QuestionCreate = () => {
   const [isFocus, setIsFocus] = useState(0);
-  const [title, titleBind, titleReset] = useInput("");
-  const [contents, contentsBind, contentsReset] = useInput("");
-  const [attempt, attemptBind, attemptReset] = useInput("");
+  const [title, titleBind, titleReset] = useInput('');
+  const [contents, contentsBind, contentsReset] = useInput('');
+  const [attempt, attemptBind, attemptReset] = useInput('');
   const [taglist, setTaglist] = useState([]);
   const [discardActive, setDiscardActive] = useState(0);
   const [submitActive, setSubmitActive] = useState(0);
 
   useEffect(() => {
-    if(title && contents && attempt && taglist.length >= 1) {
-      setSubmitActive(1)
+    if (title && contents && attempt && taglist.length >= 1) {
+      setSubmitActive(1);
     } else {
-      setSubmitActive(0)
+      setSubmitActive(0);
     }
-  },[attempt, contents, taglist, title])
+  }, [attempt, contents, taglist, title]);
 
   const handleSubmit = () => {
     const data = { title, contents, attempt, taglist, vote: 0 };
@@ -88,55 +93,56 @@ const QuestionCreate = () => {
     setTaglist([]);
   };
   return (
-    <CreateWrap>
-      <div className="createContainer">
-        <Notice />
-        <Title
-          isFocus={isFocus}
-          setIsFocus={setIsFocus}
-          titleBind={titleBind}
-        />
-        <Problem
-          isFocus={isFocus}
-          setIsFocus={setIsFocus}
-          contentsBind={contentsBind}
-        />
-        <Expecting
-          isFocus={isFocus}
-          setIsFocus={setIsFocus}
-          attemptBind={attemptBind}
-        />
-        <Tags
-          isFocus={isFocus}
-          setIsFocus={setIsFocus}
-          tags={taglist}
-          setTags={setTaglist}
-        />
-        <BtnArea>
-          
-          <SubmitBtn
-            className="submit"
-            type="button"
-            autoComplete="off"
-            onClick={() => handleSubmit()}
-            activebtn={submitActive}
-          >
-            Review your question
-          </SubmitBtn>
-          <div
-            className="discard"
-            type="button"
-            onClick={() => handleOnChangeDiscard()}
-          >
-            Discard draft
-          </div>
-        </BtnArea>
-        <Discard 
-        active={discardActive} 
-        deleteContent={deleteContent} 
-        handleDiscard={handleOnChangeDiscard}/>
-      </div>
-    </CreateWrap>
+    <BodyWrap>
+      <CreateWrap>
+        <div className='createContainer'>
+          <Notice />
+          <Title
+            isFocus={isFocus}
+            setIsFocus={setIsFocus}
+            titleBind={titleBind}
+          />
+          <Problem
+            isFocus={isFocus}
+            setIsFocus={setIsFocus}
+            contentsBind={contentsBind}
+          />
+          <Expecting
+            isFocus={isFocus}
+            setIsFocus={setIsFocus}
+            attemptBind={attemptBind}
+          />
+          <Tags
+            isFocus={isFocus}
+            setIsFocus={setIsFocus}
+            tags={taglist}
+            setTags={setTaglist}
+          />
+          <BtnArea>
+            <SubmitBtn
+              className='submit'
+              type='button'
+              autoComplete='off'
+              onClick={() => handleSubmit()}
+              activebtn={submitActive}>
+              Review your question
+            </SubmitBtn>
+            <div
+              className='discard'
+              type='button'
+              onClick={() => handleOnChangeDiscard()}>
+              Discard draft
+            </div>
+          </BtnArea>
+          <Discard
+            active={discardActive}
+            deleteContent={deleteContent}
+            handleDiscard={handleOnChangeDiscard}
+          />
+        </div>
+      </CreateWrap>
+      <Footer />
+    </BodyWrap>
   );
 };
 

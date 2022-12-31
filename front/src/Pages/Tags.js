@@ -1,8 +1,14 @@
-import Sidebar from "../Components/Sidebar";
-import styled from "styled-components";
-import PageListButton from "../Components/PageListButton";
+import Sidebar from '../Components/Sidebar';
+import styled from 'styled-components';
+import PageListButton from '../Components/PageListButton';
+import { Link } from 'react-router-dom';
+import Footer from '../Components/Footer';
 
-// 새로운 페이지에 아래 스타일 컴포넌트를 최상단에 깔아줘야함
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const HomeWrap = styled.div`
   width: 100%;
   max-width: 1264px;
@@ -47,8 +53,8 @@ const HomeWrap = styled.div`
       text-decoration: none;
       cursor: pointer;
       font-size: 1.3rem;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
       color: #0074cc;
     }
   }
@@ -107,8 +113,8 @@ const HomeWrap = styled.div`
     border-style: solid;
     width: 65.7px;
     height: 27.59px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     cursor: pointer;
   }
 
@@ -130,8 +136,8 @@ const HomeWrap = styled.div`
   }
 
   .tags-tag-etc {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+      Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     > a {
       font-size: 1.2rem;
       color: hsl(210, 8%, 55%);
@@ -140,202 +146,221 @@ const HomeWrap = styled.div`
 `;
 function Tags() {
   return (
-    <HomeWrap>
-      <Sidebar />
-      {/* 태그 인포메이션과 태그 검색기능, 태그리스트로 구성 */}
+    <BodyWrap>
+      <HomeWrap>
+        <Sidebar />
+        {/* 태그 인포메이션과 태그 검색기능, 태그리스트로 구성 */}
 
-      <div className="tags-page-container">
-        <div className="tags-mainbar">
-          <h1 className="tags-headline">Tags</h1>
-          <p className="tags-intro">
-            A tag is a keyword or label that categorizes your question with
-            other, similar questions. Using the right tags makes it easier for
-            others to find and answer your question.
-          </p>
-          <div className="tags-synonyms-link">
-            <p>Show all tag synonyms</p>
+        <div className='tags-page-container'>
+          <div className='tags-mainbar'>
+            <h1 className='tags-headline'>Tags</h1>
+            <p className='tags-intro'>
+              A tag is a keyword or label that categorizes your question with
+              other, similar questions. Using the right tags makes it easier for
+              others to find and answer your question.
+            </p>
+            <div className='tags-synonyms-link'>
+              <p>Show all tag synonyms</p>
+            </div>
+            <div className='tags-filter-container'>
+              <input
+                type='text'
+                placeholder='Filter by tag name'
+                className='tags-filter'
+              />
+            </div>
+            <div className='tags-list'>
+              <div className='eachtag-container'>
+                <ul className='tags-tag'>
+                  <Link to='/tags/tagged'>
+                    <li className='tags-tag-name'>javascript</li>
+                  </Link>
+                </ul>
+                <div className='tags-tag-intro'>
+                  For questions about programming in ECMAScript (JavaScript/JS)
+                  and its different dialects/implementations (except for
+                  ActionScript). Keep in mind that JavaScript is NOT the same as
+                  Java! Include all labels that are relevant to your question;
+                  e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
+                  [ember.js], [vue.js], [typescript], [svelte], etc.
+                </div>
+                <div className='tags-tag-etc-container'>
+                  <div className='tags-tag-etc'>2460631 questions</div>
+                  <div className='tags-tag-etc'>
+                    <a href='/login' className='tags-tag-etc'>
+                      558 asked today, 3583 this week
+                    </a>
+                  </div>
+                </div>
+              </div>{' '}
+              <div className='eachtag-container'>
+                <ul className='tags-tag'>
+                  <Link to='/tags/tagged'>
+                    <li className='tags-tag-name'>javascript</li>
+                  </Link>
+                </ul>
+                <div className='tags-tag-intro'>
+                  For questions about programming in ECMAScript (JavaScript/JS)
+                  and its different dialects/implementations (except for
+                  ActionScript). Keep in mind that JavaScript is NOT the same as
+                  Java! Include all labels that are relevant to your question;
+                  e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
+                  [ember.js], [vue.js], [typescript], [svelte], etc.
+                </div>
+                <div className='tags-tag-etc-container'>
+                  <div className='tags-tag-etc'>2460631 questions</div>
+                  <div className='tags-tag-etc'>
+                    <a href='/login' className='tags-tag-etc'>
+                      558 asked today, 3583 this week
+                    </a>
+                  </div>
+                </div>
+              </div>{' '}
+              <div className='eachtag-container'>
+                <ul className='tags-tag'>
+                  <Link to='/tags/tagged'>
+                    <li className='tags-tag-name'>javascript</li>
+                  </Link>
+                </ul>
+                <div className='tags-tag-intro'>
+                  For questions about programming in ECMAScript (JavaScript/JS)
+                  and its different dialects/implementations (except for
+                  ActionScript). Keep in mind that JavaScript is NOT the same as
+                  Java! Include all labels that are relevant to your question;
+                  e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
+                  [ember.js], [vue.js], [typescript], [svelte], etc.
+                </div>
+                <div className='tags-tag-etc-container'>
+                  <div className='tags-tag-etc'>2460631 questions</div>
+                  <div className='tags-tag-etc'>
+                    <a href='/login' className='tags-tag-etc'>
+                      558 asked today, 3583 this week
+                    </a>
+                  </div>
+                </div>
+              </div>{' '}
+              <div className='eachtag-container'>
+                <ul className='tags-tag'>
+                  <Link to='/tags/tagged'>
+                    <li className='tags-tag-name'>javascript</li>
+                  </Link>
+                </ul>
+                <div className='tags-tag-intro'>
+                  For questions about programming in ECMAScript (JavaScript/JS)
+                  and its different dialects/implementations (except for
+                  ActionScript). Keep in mind that JavaScript is NOT the same as
+                  Java! Include all labels that are relevant to your question;
+                  e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
+                  [ember.js], [vue.js], [typescript], [svelte], etc.
+                </div>
+                <div className='tags-tag-etc-container'>
+                  <div className='tags-tag-etc'>2460631 questions</div>
+                  <div className='tags-tag-etc'>
+                    <a href='/login' className='tags-tag-etc'>
+                      558 asked today, 3583 this week
+                    </a>
+                  </div>
+                </div>
+              </div>{' '}
+              <div className='eachtag-container'>
+                <ul className='tags-tag'>
+                  <Link to='/tags/tagged'>
+                    <li className='tags-tag-name'>javascript</li>
+                  </Link>
+                </ul>
+                <div className='tags-tag-intro'>
+                  For questions about programming in ECMAScript (JavaScript/JS)
+                  and its different dialects/implementations (except for
+                  ActionScript). Keep in mind that JavaScript is NOT the same as
+                  Java! Include all labels that are relevant to your question;
+                  e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
+                  [ember.js], [vue.js], [typescript], [svelte], etc.
+                </div>
+                <div className='tags-tag-etc-container'>
+                  <div className='tags-tag-etc'>2460631 questions</div>
+                  <div className='tags-tag-etc'>
+                    <a href='/login' className='tags-tag-etc'>
+                      558 asked today, 3583 this week
+                    </a>
+                  </div>
+                </div>
+              </div>{' '}
+              <div className='eachtag-container'>
+                <ul className='tags-tag'>
+                  <Link to='/tags/tagged'>
+                    <li className='tags-tag-name'>javascript</li>
+                  </Link>
+                </ul>
+                <div className='tags-tag-intro'>
+                  For questions about programming in ECMAScript (JavaScript/JS)
+                  and its different dialects/implementations (except for
+                  ActionScript). Keep in mind that JavaScript is NOT the same as
+                  Java! Include all labels that are relevant to your question;
+                  e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
+                  [ember.js], [vue.js], [typescript], [svelte], etc.
+                </div>
+                <div className='tags-tag-etc-container'>
+                  <div className='tags-tag-etc'>2460631 questions</div>
+                  <div className='tags-tag-etc'>
+                    <a href='/login' className='tags-tag-etc'>
+                      558 asked today, 3583 this week
+                    </a>
+                  </div>
+                </div>
+              </div>{' '}
+              <div className='eachtag-container'>
+                <ul className='tags-tag'>
+                  <Link to='/tags/tagged'>
+                    <li className='tags-tag-name'>javascript</li>
+                  </Link>
+                </ul>
+                <div className='tags-tag-intro'>
+                  For questions about programming in ECMAScript (JavaScript/JS)
+                  and its different dialects/implementations (except for
+                  ActionScript). Keep in mind that JavaScript is NOT the same as
+                  Java! Include all labels that are relevant to your question;
+                  e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
+                  [ember.js], [vue.js], [typescript], [svelte], etc.
+                </div>
+                <div className='tags-tag-etc-container'>
+                  <div className='tags-tag-etc'>2460631 questions</div>
+                  <div className='tags-tag-etc'>
+                    <a href='/login' className='tags-tag-etc'>
+                      558 asked today, 3583 this week
+                    </a>
+                  </div>
+                </div>
+              </div>{' '}
+              <div className='eachtag-container'>
+                <ul className='tags-tag'>
+                  <Link to='/tags/tagged'>
+                    <li className='tags-tag-name'>javascript</li>
+                  </Link>
+                </ul>
+                <div className='tags-tag-intro'>
+                  For questions about programming in ECMAScript (JavaScript/JS)
+                  and its different dialects/implementations (except for
+                  ActionScript). Keep in mind that JavaScript is NOT the same as
+                  Java! Include all labels that are relevant to your question;
+                  e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
+                  [ember.js], [vue.js], [typescript], [svelte], etc.
+                </div>
+                <div className='tags-tag-etc-container'>
+                  <div className='tags-tag-etc'>2460631 questions</div>
+                  <div className='tags-tag-etc'>
+                    <a href='/login' className='tags-tag-etc'>
+                      558 asked today, 3583 this week
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <PageListButton />
           </div>
-          <div className="tags-filter-container">
-            <input
-              type="text"
-              placeholder="Filter by tag name"
-              className="tags-filter"
-            />
-          </div>
-          <div className="tags-list">
-            <div className="eachtag-container">
-              <ul className="tags-tag">
-                <li className="tags-tag-name">javascript</li>
-              </ul>
-              <div className="tags-tag-intro">
-                For questions about programming in ECMAScript (JavaScript/JS)
-                and its different dialects/implementations (except for
-                ActionScript). Keep in mind that JavaScript is NOT the same as
-                Java! Include all labels that are relevant to your question;
-                e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
-                [ember.js], [vue.js], [typescript], [svelte], etc.
-              </div>
-              <div className="tags-tag-etc-container">
-                <div className="tags-tag-etc">2460631 questions</div>
-                <div className="tags-tag-etc">
-                  <a href="/login" className="tags-tag-etc">
-                    558 asked today, 3583 this week
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="eachtag-container">
-              <ul className="tags-tag">
-                <li className="tags-tag-name">javascript</li>
-              </ul>
-              <div className="tags-tag-intro">
-                For questions about programming in ECMAScript (JavaScript/JS)
-                and its different dialects/implementations (except for
-                ActionScript). Keep in mind that JavaScript is NOT the same as
-                Java! Include all labels that are relevant to your question;
-                e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
-                [ember.js], [vue.js], [typescript], [svelte], etc.
-              </div>
-              <div className="tags-tag-etc-container">
-                <div className="tags-tag-etc">2460631 questions</div>
-                <div className="tags-tag-etc">
-                  <a href="/login" className="tags-tag-etc">
-                    558 asked today, 3583 this week
-                  </a>
-                </div>
-              </div>
-            </div>{" "}
-            <div className="eachtag-container">
-              <ul className="tags-tag">
-                <li className="tags-tag-name">javascript</li>
-              </ul>
-              <div className="tags-tag-intro">
-                For questions about programming in ECMAScript (JavaScript/JS)
-                and its different dialects/implementations (except for
-                ActionScript). Keep in mind that JavaScript is NOT the same as
-                Java! Include all labels that are relevant to your question;
-                e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
-                [ember.js], [vue.js], [typescript], [svelte], etc.
-              </div>
-              <div className="tags-tag-etc-container">
-                <div className="tags-tag-etc">2460631 questions</div>
-                <div className="tags-tag-etc">
-                  <a href="/login" className="tags-tag-etc">
-                    558 asked today, 3583 this week
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="eachtag-container">
-              <ul className="tags-tag">
-                <li className="tags-tag-name">javascript</li>
-              </ul>
-              <div className="tags-tag-intro">
-                For questions about programming in ECMAScript (JavaScript/JS)
-                and its different dialects/implementations (except for
-                ActionScript). Keep in mind that JavaScript is NOT the same as
-                Java! Include all labels that are relevant to your question;
-                e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
-                [ember.js], [vue.js], [typescript], [svelte], etc.
-              </div>
-              <div className="tags-tag-etc-container">
-                <div className="tags-tag-etc">2460631 questions</div>
-                <div className="tags-tag-etc">
-                  <a href="/login" className="tags-tag-etc">
-                    558 asked today, 3583 this week
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="eachtag-container">
-              <ul className="tags-tag">
-                <li className="tags-tag-name">javascript</li>
-              </ul>
-              <div className="tags-tag-intro">
-                For questions about programming in ECMAScript (JavaScript/JS)
-                and its different dialects/implementations (except for
-                ActionScript). Keep in mind that JavaScript is NOT the same as
-                Java! Include all labels that are relevant to your question;
-                e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
-                [ember.js], [vue.js], [typescript], [svelte], etc.
-              </div>
-              <div className="tags-tag-etc-container">
-                <div className="tags-tag-etc">2460631 questions</div>
-                <div className="tags-tag-etc">
-                  <a href="/login" className="tags-tag-etc">
-                    558 asked today, 3583 this week
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="eachtag-container">
-              <ul className="tags-tag">
-                <li className="tags-tag-name">javascript</li>
-              </ul>
-              <div className="tags-tag-intro">
-                For questions about programming in ECMAScript (JavaScript/JS)
-                and its different dialects/implementations (except for
-                ActionScript). Keep in mind that JavaScript is NOT the same as
-                Java! Include all labels that are relevant to your question;
-                e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
-                [ember.js], [vue.js], [typescript], [svelte], etc.
-              </div>
-              <div className="tags-tag-etc-container">
-                <div className="tags-tag-etc">2460631 questions</div>
-                <div className="tags-tag-etc">
-                  <a href="/login" className="tags-tag-etc">
-                    558 asked today, 3583 this week
-                  </a>
-                </div>
-              </div>
-            </div>{" "}
-            <div className="eachtag-container">
-              <ul className="tags-tag">
-                <li className="tags-tag-name">javascript</li>
-              </ul>
-              <div className="tags-tag-intro">
-                For questions about programming in ECMAScript (JavaScript/JS)
-                and its different dialects/implementations (except for
-                ActionScript). Keep in mind that JavaScript is NOT the same as
-                Java! Include all labels that are relevant to your question;
-                e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
-                [ember.js], [vue.js], [typescript], [svelte], etc.
-              </div>
-              <div className="tags-tag-etc-container">
-                <div className="tags-tag-etc">2460631 questions</div>
-                <div className="tags-tag-etc">
-                  <a href="/login" className="tags-tag-etc">
-                    558 asked today, 3583 this week
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div className="eachtag-container">
-              <ul className="tags-tag">
-                <li className="tags-tag-name">javascript</li>
-              </ul>
-              <div className="tags-tag-intro">
-                For questions about programming in ECMAScript (JavaScript/JS)
-                and its different dialects/implementations (except for
-                ActionScript). Keep in mind that JavaScript is NOT the same as
-                Java! Include all labels that are relevant to your question;
-                e.g., [node.js], [jQuery], [JSON], [ReactJS], [angular],
-                [ember.js], [vue.js], [typescript], [svelte], etc.
-              </div>
-              <div className="tags-tag-etc-container">
-                <div className="tags-tag-etc">2460631 questions</div>
-                <div className="tags-tag-etc">
-                  <a href="/login" className="tags-tag-etc">
-                    558 asked today, 3583 this week
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <PageListButton />
         </div>
-      </div>
-    </HomeWrap>
+      </HomeWrap>
+      <Footer />
+    </BodyWrap>
   );
 }
 

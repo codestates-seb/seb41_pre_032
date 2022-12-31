@@ -13,12 +13,12 @@ public class AuthorizationExtractor {
     private AuthorizationExtractor() {
     }
 
-    public static String getAccessToken(HttpServletRequest request) {
+    public static String getAccessToken(final HttpServletRequest request) {
         Enumeration<String> headers = request.getHeaders(HttpHeaders.AUTHORIZATION);
         return extract(headers);
     }
 
-    public static String extract(Enumeration<String> headers) {
+    public static String extract(final Enumeration<String> headers) {
         while (headers.hasMoreElements()) {
             String val = headers.nextElement();
             if ((val.toLowerCase().startsWith(PRE_FIX.toLowerCase()))) {

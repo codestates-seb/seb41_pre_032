@@ -1,6 +1,12 @@
 import Sidebar from '../Components/Sidebar';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import Footer from '../Components/Footer';
+
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const HomeWrap = styled.div`
   width: 100%;
@@ -140,6 +146,7 @@ const HomeWrap = styled.div`
 
   .left-content {
     display: grid;
+    width: 234.75px;
   }
 
   .stats-title {
@@ -161,6 +168,10 @@ const HomeWrap = styled.div`
 
   .stats-content {
     margin: 8px;
+    > p {
+      font-size: 13px;
+      color: #6a737c;
+    }
   }
 
   .stats-content-data {
@@ -212,88 +223,89 @@ const HomeWrap = styled.div`
 
 const UserInfo = () => {
   return (
-    <HomeWrap>
-      <Sidebar />
-      <div className='userinfo-container'>
-        <div className='mainbar_full'>
-          <div className='top-relative'>
-            <div className='top-container'>
-              <img
-                src='../images/578b036954e5dbaa.jpeg'
-                alt='shibainu'
-                className='top-avatar'
-              />
-              <div className='top-info'>
-                <div className='top-idbox'>
-                  <div className='top-id'>SungJin</div>
+    <BodyWrap>
+      <HomeWrap>
+        <Sidebar />
+        <div className='userinfo-container'>
+          <div className='mainbar_full'>
+            <div className='top-relative'>
+              <div className='top-container'>
+                <img
+                  src='../images/578b036954e5dbaa.jpeg'
+                  alt='shibainu'
+                  className='top-avatar'
+                />
+                <div className='top-info'>
+                  <div className='top-idbox'>
+                    <div className='top-id'>SungJin</div>
+                  </div>
+                  <ul className='member-logrecord-box'>
+                    <li className='member-logrecord'>
+                      <div className='logrecord'>
+                        <img
+                          src='../images/cupcake.png'
+                          className='birthicon'
+                          alt='bithday-icon'
+                        />
+                        <div>Member for 5 years, 1 month</div>
+                      </div>
+                    </li>
+                    <li className='member-logrecord'>
+                      <div className='logrecord'>
+                        <img
+                          src='../images/clock.png'
+                          className='birthicon'
+                          alt='logtime-icon'
+                        />
+                        <div className='log-data'>Last seen this week</div>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
-                <ul className='member-logrecord-box'>
-                  <li className='member-logrecord'>
-                    <div className='logrecord'>
-                      <img
-                        src='../images/cupcake.png'
-                        className='birthicon'
-                        alt='bithday-icon'
-                      />
-                      <div>Member for 5 years, 1 month</div>
-                    </div>
-                  </li>
-                  <li className='member-logrecord'>
-                    <div className='logrecord'>
-                      <img
-                        src='../images/clock.png'
-                        className='birthicon'
-                        alt='logtime-icon'
-                      />
-                      <div className='log-data'>Last seen this week</div>
-                    </div>
-                  </li>
-                </ul>
+              </div>
+              <div className='absolute-container'>
+                {/* <button className='absolute-button'>Profiles</button> */}
               </div>
             </div>
-            <div className='absolute-container'>
-              {/* <button className='absolute-button'>Profiles</button> */}
-            </div>
           </div>
-        </div>
-        <div className='setting-container'>
-          <ul className='setting-box'>
-            <li className='setting-click'>Profile</li>
+          <div className='setting-container'>
+            <ul className='setting-box'>
+              <li className='setting-click'>Profile</li>
 
-            <Link to='/userinfo/edit'>
-              {' '}
-              <li className='setting-non'>Settings</li>
-            </Link>
-          </ul>
-        </div>
-        <div className='main-content-container'>
-          <div className='main-content'>
-            <div className='left-content-container'>
-              <div className='left-content'>
-                <div className='stats-box'>
-                  <div className='stats-title'>Stats</div>
-                  <div className='stats-content-container'>
-                    <div className='stats-content-box'>
-                      <div className='stats-content'>
-                        <div className='stats-content-data'>10,003</div>
-                        reputation
-                      </div>
-                      <div className='stats-content'>
-                        <div className='stats-content-data'>2.6m</div>
-                        reached
-                      </div>
-                      <div className='stats-content'>
-                        <div className='stats-content-data'>184</div>
-                        answers
-                      </div>
-                      <div className='stats-content'>
-                        <div className='stats-content-data'>4</div>
-                        questions
+              <Link to='/userinfo/edit'>
+                {' '}
+                <li className='setting-non'>Settings</li>
+              </Link>
+            </ul>
+          </div>
+          <div className='main-content-container'>
+            <div className='main-content'>
+              <div className='left-content-container'>
+                <div className='left-content'>
+                  <div className='stats-box'>
+                    <div className='stats-title'>Stats</div>
+                    <div className='stats-content-container'>
+                      <div className='stats-content-box'>
+                        <div className='stats-content'>
+                          <div className='stats-content-data'>10,003</div>
+                          <p>reputation</p>
+                        </div>
+                        <div className='stats-content'>
+                          <div className='stats-content-data'>2.6m</div>
+                          <p>reached</p>
+                        </div>
+                        <div className='stats-content'>
+                          <div className='stats-content-data'>184</div>
+                          <p> answers</p>
+                        </div>
+                        <div className='stats-content'>
+                          <div className='stats-content-data'>4</div>
+                          <p> questions</p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                {/* <div className="communities-container">
+                  {/* <div className="communities-container">
                     <dlv className="communities-title-box">
                         <div className="communities-title">Communities</div>
                         <div className="title-link">view all</div>
@@ -301,38 +313,40 @@ const UserInfo = () => {
                     <div className="communities-top5-container"></div>
                     
                 </div> */}
-              </div>
-            </div>
-            <div className='right-content-container'>
-              <div className='about-container'>
-                <div className='about-title'>About</div>
-                <div className='about-content'>
-                  자기소개를 임의로 써봅니다. 자기소개를 임의로 써봅니다.
-                  자기소개를 임의로 써봅니다.{' '}
                 </div>
               </div>
-              <div className='posts-container'>
-                <div className='about-title'>Posts</div>
-                <div className='posts-lists'>
-                  <div className='each-post'>
-                    <div className='each-post-title'>질문 목록 1</div>
-                    <div className='each-post-date'>Jun 12, 2013</div>
+              <div className='right-content-container'>
+                <div className='about-container'>
+                  <div className='about-title'>About</div>
+                  <div className='about-content'>
+                    자기소개를 임의로 써봅니다. 자기소개를 임의로 써봅니다.
+                    자기소개를 임의로 써봅니다.{' '}
                   </div>
-                  <div className='each-post'>
-                    <div className='each-post-title'>질문 목록 2</div>
-                    <div className='each-post-date'>Jun 12, 2013</div>
-                  </div>
-                  <div className='each-post-last'>
-                    <div className='each-post-title'>질문 목록 3</div>
-                    <div className='each-post-date'>Jun 12, 2013</div>
+                </div>
+                <div className='posts-container'>
+                  <div className='about-title'>Posts</div>
+                  <div className='posts-lists'>
+                    <div className='each-post'>
+                      <div className='each-post-title'>질문 목록 1</div>
+                      <div className='each-post-date'>Jun 12, 2013</div>
+                    </div>
+                    <div className='each-post'>
+                      <div className='each-post-title'>질문 목록 2</div>
+                      <div className='each-post-date'>Jun 12, 2013</div>
+                    </div>
+                    <div className='each-post-last'>
+                      <div className='each-post-title'>질문 목록 3</div>
+                      <div className='each-post-date'>Jun 12, 2013</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </HomeWrap>
+      </HomeWrap>
+      <Footer />
+    </BodyWrap>
   );
 };
 
