@@ -72,7 +72,6 @@ const AnswerModified = () => {
     fetchPatch(`${process.env.REACT_APP_API_URL}/api/answers/`, id, data);
   };
 
-  console.log(data);
   useEffect(() => {
     if (data) {
       contentsReset(data.contents);
