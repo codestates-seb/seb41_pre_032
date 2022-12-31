@@ -159,6 +159,7 @@ const QuestionWrap = styled.li`
 
 const Question = ({ data }) => {
   let date = `${data.updatedDate.slice(0, 10)} ${data.updatedDate.slice(-8)}`;
+
   return (
     <QuestionWrap>
       <div className="question-container">

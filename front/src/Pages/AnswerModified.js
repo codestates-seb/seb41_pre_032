@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import Loading from "../Components/Loading";
 import Sidebar from "../Components/Sidebar";
 import useFetch from "../util/useFetch";
 const ModifiedWrap = styled.section`
@@ -56,7 +57,7 @@ const AnswerModified = () => {
       <Sidebar />
       <article className="answerModified">
         {error && <div>{error}</div>}
-        {isPending && <></>}
+        {isPending && <Loading />}
         {data && <h2>Answer</h2>}
       </article>
     </ModifiedWrap>

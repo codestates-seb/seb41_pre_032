@@ -16,13 +16,14 @@ const AnswersLayout = styled.article`
 
 const AnswersCell = ({ id }) => {
   const [data, isPending, error] = useFetch(
-    `${process.env.REACT_APP_API_URL}/api/answers/${id}?page=1&size=100`
+    `${process.env.REACT_APP_API_URL}/api/answers/questions/${id}?page=1&size=100`
   );
   let answers;
   if (data) {
     answers = data.data;
   }
-  console.log(answers);
+
+  console.log(data)
   return (
     <AnswersLayout>
       {error && <div>{error}</div>}

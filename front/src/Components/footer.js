@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const FooterCss = styled.div`
+const FooterCss = styled.footer`
   background-color: hsl(210, 8%, 15%);
 
   .footer-box {
