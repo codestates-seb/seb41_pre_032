@@ -58,22 +58,35 @@ public class JwtTokenizer {
                 .parseClaimsJws(jws);
     }
 
+    // AuthInfo 파싱
     public AuthInfo parseClaimsToAuthInfo(final String token) {
         Claims claims;
         try {
             claims = getClaims(token).getBody();
         } catch (ExpiredJwtException ex) {
-            Long userId = ex.getClaims().get("userId", Long.class);
-            String email = ex.getClaims().get("username", String.class);
-            String displayName = ex.getClaims().get("displayName", String.class);
-            String role = ex.getClaims().get("role", String.class);
-            return new AuthInfo(userId, email, displayName, role);
+            return getAuthInfo(ex.getClaims());
         }
+        return getAuthInfo(claims);
+    }
 
+    private AuthInfo getAuthInfo(Claims claims) {
         Long userId = claims.get("userId", Long.class);
         String email = claims.get("username", String.class);
         String displayName = claims.get("displayName", String.class);
         String role = claims.get("role", String.class);
         return new AuthInfo(userId, email, displayName, role);
+    }
+
+    public boolean isValidToken(String token) {
+        try {
+            Jws<Claims> claims = Jwts.parserBuilder()
+                    .setSigningKey(secretKey)
+                    .build()
+                    .parseClaimsJws(token);
+            Date exp = claims.getBody().getExpiration();
+            return exp.after(new Date());
+        } catch (JwtException je) {
+            return false;
+        }
     }
 }

@@ -17,8 +17,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import seb41_pre_32.back.auth.presentation.*;
 import seb41_pre_32.back.auth.presentation.filter.JwtAuthFiler;
 import seb41_pre_32.back.auth.presentation.filter.JwtVerifyFilter;
+import seb41_pre_32.back.auth.service.RefreshTokenService;
 import seb41_pre_32.back.auth.utils.JwtTokenizer;
-import seb41_pre_32.back.auth.utils.CustomAuthorityUtils;
 
 import java.util.List;
 
@@ -27,31 +27,31 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtTokenizer jwtTokenizer;
-    private final CustomAuthorityUtils authorityUtils;
     private final Oauth2UserAuthenticationSuccessHandler oauth2UserAuthenticationSuccessHandler;
+    private final RefreshTokenService refreshTokenService;
 
     @Bean
     public SecurityFilterChain filterChain(final HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .headers()
-                    .frameOptions()
-                    .disable()
+                .frameOptions()
+                .disable()
                 .and()
                 .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin()
-                    .disable()
+                .and()
                 .httpBasic()
-                    .disable()
+                .disable()
                 .cors()
-                    .configurationSource(corsConfigurationSource())
+                .configurationSource(corsConfigurationSource())
                 .and()
                 .csrf()
-                    .disable()
+                .disable()
                 .exceptionHandling()
-                    .authenticationEntryPoint(new UserAuthenticationEntryPoint())
-                    .accessDeniedHandler(new UserAccessDeniedHandler())
+                .authenticationEntryPoint(new UserAuthenticationEntryPoint())
+                .accessDeniedHandler(new UserAccessDeniedHandler())
                 .and()
                 .apply(new CustomFilterConfig())
                 .and()
@@ -64,7 +64,8 @@ public class SecurityConfig {
                         .antMatchers(HttpMethod.GET, "/api/users", "/api/questions", "/api/answers").hasRole("USER")
                         .antMatchers(HttpMethod.DELETE, "/api/users/**", "/api/questions/**", "/api/answers/**").hasRole("USER")
                         .anyRequest().permitAll()
-                ).build();
+                )
+                .build();
     }
 
     @Bean
@@ -89,10 +90,10 @@ public class SecurityConfig {
 
             JwtAuthFiler jwtAuthFiler = new JwtAuthFiler(authenticationManager, jwtTokenizer);
             jwtAuthFiler.setFilterProcessesUrl("/api/login");
-            jwtAuthFiler.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler());
+            jwtAuthFiler.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler(refreshTokenService));
             jwtAuthFiler.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
 
-            JwtVerifyFilter jwtVerifyFilter = new JwtVerifyFilter(jwtTokenizer, authorityUtils);
+            JwtVerifyFilter jwtVerifyFilter = new JwtVerifyFilter(jwtTokenizer);
 
             builder.addFilter(jwtAuthFiler)
                     .addFilterAfter(jwtVerifyFilter, JwtAuthFiler.class)
