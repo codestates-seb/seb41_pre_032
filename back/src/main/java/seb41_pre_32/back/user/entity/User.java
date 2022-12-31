@@ -105,4 +105,8 @@ public class User extends BaseEntity {
     public void changeRole(final Role role) {
         this.role = role;
     }
+
+    public String getDisplayName() {
+        return username;
+    }
 }
