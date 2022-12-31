@@ -1,11 +1,17 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
+import Footer from '../Components/Footer';
 import Loading from '../Components/Loading';
 import Sidebar from '../Components/Sidebar';
 import { fetchPatch } from '../util/api';
 import useFetch from '../util/useFetch';
 import useInput from '../util/useInput';
+
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const ModifiedWrap = styled.section`
   width: 100%;
   max-width: 1264px;
@@ -63,38 +69,41 @@ const AnswerModified = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { contents };
-    fetchPatch(`${process.env.REACT_APP_API_URL}/api/answers/`,id, data);
+    fetchPatch(`${process.env.REACT_APP_API_URL}/api/answers/`, id, data);
   };
-  
+
   console.log(data);
   useEffect(() => {
-    if(data) {
-      contentsReset(data.contents)
+    if (data) {
+      contentsReset(data.contents);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
   return (
-    <ModifiedWrap>
-      <Sidebar />
-      <article className='answerModified'>
-        {error && <div>{error}</div>}
-        {isPending && <Loading />}
-        {data && (
-          <>
-            <h2>Answer</h2>
-            <textarea id='contents' name='contents' {...contentsBind} />
-            <PatchBtn
-              onClick={(e) => {
-                handleSubmit(e);
-              }}
-              activebtn={contents.length}
-            >
-              Save edits
-            </PatchBtn>
-          </>
-        )}
-      </article>
-    </ModifiedWrap>
+    <BodyWrap>
+      <ModifiedWrap>
+        <Sidebar />
+        <article className='answerModified'>
+          {error && <div>{error}</div>}
+          {isPending && <Loading />}
+          {data && (
+            <>
+              <h2>Answer</h2>
+              <textarea id='contents' name='contents' {...contentsBind} />
+              <PatchBtn
+                onClick={(e) => {
+                  handleSubmit(e);
+                }}
+                activebtn={contents.length}
+              >
+                Save edits
+              </PatchBtn>
+            </>
+          )}
+        </article>
+      </ModifiedWrap>
+      <Footer />
+    </BodyWrap>
   );
 };
 
