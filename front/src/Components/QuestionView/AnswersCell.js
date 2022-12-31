@@ -23,7 +23,6 @@ const AnswersCell = ({ id }) => {
     answers = data.data;
   }
 
-  console.log(data)
   return (
     <AnswersLayout>
       {error && <div>{error}</div>}
