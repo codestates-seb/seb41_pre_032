@@ -1,14 +1,12 @@
 package seb41_pre_32.back.auth.presentation;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
+import seb41_pre_32.back.auth.service.RefreshTokenService;
 import seb41_pre_32.back.auth.utils.CustomAuthorityUtils;
 import seb41_pre_32.back.auth.utils.JwtTokenizer;
 import seb41_pre_32.back.user.entity.User;
@@ -20,7 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URI;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -28,7 +25,7 @@ import java.util.Map;
 public class Oauth2UserAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtTokenizer jwtTokenizer;
     private final UserService userService;
-    private final CustomAuthorityUtils customAuthorityUtils;
+    private final RefreshTokenService refreshTokenService;
 
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request,
@@ -47,8 +44,12 @@ public class Oauth2UserAuthenticationSuccessHandler extends SimpleUrlAuthenticat
                           final String username,
                           final User user) throws IOException {
 
-        response.setHeader("Authorization", "Bearer " + delegateAccessToken(user));
-        response.setHeader("Refresh", delegateRefreshToken(username));
+        String accessToken = delegateAccessToken(user);
+        String refreshToken = delegateRefreshToken(username);
+
+        response.setHeader("Authorization", "Bearer " + accessToken);
+        response.setHeader("Refresh", refreshToken);
+        refreshTokenService.saveRefreshToken(refreshToken, user.getId());
 
         String uri = createURI().toString();
         getRedirectStrategy().sendRedirect(request, response, uri);
@@ -58,8 +59,8 @@ public class Oauth2UserAuthenticationSuccessHandler extends SimpleUrlAuthenticat
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId());
         claims.put("username", user.getEmail());
+        claims.put("displayName", user.getDisplayName());
         claims.put("role", "USER");
-        setAuthToContextHolder(claims);
 
         return jwtTokenizer.createAccessToken(claims, user.getEmail());
     }
@@ -74,17 +75,8 @@ public class Oauth2UserAuthenticationSuccessHandler extends SimpleUrlAuthenticat
                 .scheme("http")
                 .host("ec2-3-35-204-189.ap-northeast-2.compute.amazonaws.com")
                 .port(8080)
-                .path("/api/login/google")
+                .path("/auth/login/google")
                 .build()
                 .toUri();
-    }
-
-    private void setAuthToContextHolder(final Map<String, Object> claims) {
-        String username = (String) claims.get("username");
-        List<GrantedAuthority> authorities = customAuthorityUtils.createAuthorities((String) claims.get("role"));
-
-        Authentication authentication
-                = new UsernamePasswordAuthenticationToken(username, null, authorities);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

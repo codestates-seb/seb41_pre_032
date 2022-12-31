@@ -45,7 +45,6 @@ public class JwtAuthFiler extends UsernamePasswordAuthenticationFilter {
                                             final Authentication authResult) throws IOException, ServletException {
 
         User user = (User) authResult.getPrincipal();
-
         response.setHeader("Authorization", "Bearer " + delegateAccessToken(user));
         response.setHeader("Refresh", delegateRefreshToken(user));
 
@@ -56,7 +55,7 @@ public class JwtAuthFiler extends UsernamePasswordAuthenticationFilter {
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId());
         claims.put("username", user.getEmail());
-        claims.put("displayName", user.getUsername());
+        claims.put("displayName", user.getDisplayName());
         claims.put("role", user.getRole().getValue());
 
         return jwtTokenizer.createAccessToken(claims, user.getEmail());
