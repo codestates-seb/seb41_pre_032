@@ -51,13 +51,15 @@ public class User extends BaseEntity {
     private List<Question> questions = new ArrayList<>();
 
     @Builder
-    public User(final String username,
+    public User(final Long userId,
+                final String username,
                 final String password,
                 final String email,
                 final String profileUrl,
                 final int reputation,
                 final String location,
                 final Role role) {
+        this.id = userId;
         this.username = username;
         this.password = password;
         this.email = email;

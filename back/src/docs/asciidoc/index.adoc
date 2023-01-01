@@ -1,0 +1,92 @@
+= 스택 오버 플로우 클론 코딩
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: prettify
+
+Pre-Project-32팀
+
+v1.0.0, 2022.01.02
+
+***
+== UserController
+=== 회원 등록
+.curl-request
+include::{snippets}/join-user/http-request.adoc[]
+
+.request-fields
+include::{snippets}/join-user/request-fields.adoc[]
+
+.http-response
+include::{snippets}/join-user/http-response.adoc[]
+
+.response-fields
+include::{snippets}/join-user/response-fields.adoc[]
+
+
+=== 회원 수정
+.curl-request
+include::{snippets}/update-user/curl-request.adoc[]
+
+.http-request
+include::{snippets}/update-user/http-request.adoc[]
+
+.request-fields
+include::{snippets}/update-user/request-fields.adoc[]
+
+.path-parameters
+include::{snippets}/update-user/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/update-user/http-response.adoc[]
+
+.response-fields
+include::{snippets}/update-user/response-fields.adoc[]
+
+=== 회원 정보 조회
+.curl-request
+include::{snippets}/get-user/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-user/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/get-user/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-user/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-user/response-fields.adoc[]
+
+
+=== 회원 목록 조회
+.curl-request
+include::{snippets}/get-users/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-users/http-request.adoc[]
+
+.request-parameters
+include::{snippets}/get-users/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-users/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-users/response-fields.adoc[]
+
+
+=== 회원 탈퇴
+.curl-request
+include::{snippets}/delete-user/curl-request.adoc[]
+
+.http-request
+include::{snippets}/delete-user/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/delete-user/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/delete-user/http-response.adoc[]

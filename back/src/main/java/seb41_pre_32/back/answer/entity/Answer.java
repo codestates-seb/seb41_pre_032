@@ -38,11 +38,13 @@ public class Answer extends BaseEntity {
     }
 
     @Builder
-    public Answer(final String contents,
+    public Answer(final Long id,
+                  final String contents,
                   final int likeCount,
                   final int disLikeCount,
                   final User user,
                   final Question question) {
+        this.answerId = id;
         this.contents = contents;
         this.likeCount = likeCount;
         this.disLikeCount = disLikeCount;
