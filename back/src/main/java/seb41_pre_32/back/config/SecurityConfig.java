@@ -18,6 +18,7 @@ import seb41_pre_32.back.auth.presentation.*;
 import seb41_pre_32.back.auth.presentation.filter.JwtAuthFiler;
 import seb41_pre_32.back.auth.presentation.filter.JwtVerifyFilter;
 import seb41_pre_32.back.auth.service.RefreshTokenService;
+import seb41_pre_32.back.auth.utils.CustomAuthorityUtils;
 import seb41_pre_32.back.auth.utils.JwtTokenizer;
 
 import java.util.List;
@@ -27,6 +28,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtTokenizer jwtTokenizer;
+    private final CustomAuthorityUtils authorityUtils;
     private final Oauth2UserAuthenticationSuccessHandler oauth2UserAuthenticationSuccessHandler;
     private final RefreshTokenService refreshTokenService;
 
@@ -93,7 +95,7 @@ public class SecurityConfig {
             jwtAuthFiler.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler(refreshTokenService));
             jwtAuthFiler.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
 
-            JwtVerifyFilter jwtVerifyFilter = new JwtVerifyFilter(jwtTokenizer);
+            JwtVerifyFilter jwtVerifyFilter = new JwtVerifyFilter(jwtTokenizer, authorityUtils);
 
             builder.addFilter(jwtAuthFiler)
                     .addFilterAfter(jwtVerifyFilter, JwtAuthFiler.class)
