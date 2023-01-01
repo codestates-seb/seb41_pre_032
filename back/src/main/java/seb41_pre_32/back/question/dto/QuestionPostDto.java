@@ -1,5 +1,6 @@
 package seb41_pre_32.back.question.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import seb41_pre_32.back.question.entity.Question;
 
@@ -14,6 +15,17 @@ public class QuestionPostDto {
     private String contents;
     private String attempt;
     private List<String> taglist;
+
+    @Builder
+    public QuestionPostDto(final String title,
+                           final String contents,
+                           final String attempt,
+                           final List<String> taglist) {
+        this.title = title;
+        this.contents = contents;
+        this.attempt = attempt;
+        this.taglist = taglist;
+    }
 
     public Question toQuestion() {
         return Question.builder()
