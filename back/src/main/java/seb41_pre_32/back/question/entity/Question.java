@@ -45,7 +45,11 @@ public class Question extends BaseEntity {
     private List<QuestionTag> tags = new ArrayList<>();
 
     @Builder
-    public Question(final String title, final String contents, final String attempt) {
+    public Question(final Long id,
+                    final String title,
+                    final String contents,
+                    final String attempt) {
+        this.questionId = id;
         this.title = title;
         this.contents = contents;
         this.attempt = attempt;
