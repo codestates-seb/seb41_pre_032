@@ -90,3 +90,86 @@ include::{snippets}/delete-user/path-parameters.adoc[]
 
 .http-response
 include::{snippets}/delete-user/http-response.adoc[]
+
+
+***
+== QuestionController
+=== 질문 등록
+.curl-request
+include::{snippets}/create-questions/http-request.adoc[]
+
+.request-fields
+include::{snippets}/create-questions/request-fields.adoc[]
+
+.http-response
+include::{snippets}/create-questions/http-response.adoc[]
+
+.response-fields
+include::{snippets}/create-questions/response-fields.adoc[]
+
+
+=== 질문 수정
+.curl-request
+include::{snippets}/edit-questions/curl-request.adoc[]
+
+.http-request
+include::{snippets}/edit-questions/http-request.adoc[]
+
+.request-fields
+include::{snippets}/edit-questions/request-fields.adoc[]
+
+.path-parameters
+include::{snippets}/edit-questions/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/edit-questions/http-response.adoc[]
+
+.response-fields
+include::{snippets}/edit-questions/response-fields.adoc[]
+
+=== 질문 정보 조회
+.curl-request
+include::{snippets}/get-question/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-question/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/get-question/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-question/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-question/response-fields.adoc[]
+
+
+=== 질문 목록 조회
+.curl-request
+include::{snippets}/get-questions/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-questions/http-request.adoc[]
+
+.request-parameters
+include::{snippets}/get-questions/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-questions/http-response.adoc[]
+
+.response-fields
+include::{snippets}/get-questions/response-fields.adoc[]
+
+
+=== 질문 삭제
+.curl-request
+include::{snippets}/delete-question/curl-request.adoc[]
+
+.http-request
+include::{snippets}/delete-question/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/delete-question/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/delete-question/http-response.adoc[]

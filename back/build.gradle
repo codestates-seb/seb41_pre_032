@@ -58,17 +58,27 @@ tasks.named('test') {
     useJUnitPlatform()
 }
 
-tasks.named('asciidoctor') {
-    configurations "asciidoctorExtensions"
+asciidoctor {
+    configurations 'asciidoctorExtensions'
+    sources{
+        include("**/index.adoc")
+    }
+    baseDirFollowsSourceFile()
     inputs.dir snippetsDir
+
     dependsOn test
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
 }
 
 task copyDocument(type: Copy) {
     dependsOn asciidoctor
-    from file("${asciidoctor.outputDir}")
+    from file("build/docs/asciidoc")
     into file("src/main/resources/static/docs")
 }
+
 
 build {
     dependsOn copyDocument

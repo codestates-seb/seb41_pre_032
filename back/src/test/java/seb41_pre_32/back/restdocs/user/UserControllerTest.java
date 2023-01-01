@@ -346,7 +346,7 @@ public class UserControllerTest {
 
         List<User> users = List.of(user1, user2);
         PageImpl<User> userPage = new PageImpl<>(users,
-                PageRequest.of(0, 10, Sort.by("Id")), 2);
+                PageRequest.of(0, 10, Sort.by("id")), 2);
 
         given(userService.findUsers(Mockito.anyInt(), Mockito.anyInt())).willReturn(userPage);
 
