@@ -1,4 +1,4 @@
-package seb41_pre_32.back.auth.presentation.controller;
+package seb41_pre_32.back.auth.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
