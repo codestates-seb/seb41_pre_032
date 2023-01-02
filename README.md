@@ -1,11 +1,16 @@
-## 📌 Introduction
+# 📌 Introduction
+<br/>
+<h3>StackOverflow 클론코딩(개발자 질의응답 커뮤니티)</h3> 
+<br/>
 
-#### 미니 프로젝트 주제 
-StackOverflow 클론코딩(개발자 질의응답 커뮤니티) 
+![image](https://user-images.githubusercontent.com/110760593/210284271-2bfc0374-ffdb-41b7-8eaa-c19fb55009b8.png)
 
-#### 프로젝트 기간  
-2022.12.15(목) - 2023.01.02(월)
+<br/>
+<br/>
 
+## ⏰ 프로젝트 기간  
+<br/>
+<h3>2022.12.15(목) - 2023.01.02(월)</h3>
 <br/>
 
 ## 👩‍👧‍👦 Team
@@ -20,20 +25,13 @@ StackOverflow 클론코딩(개발자 질의응답 커뮤니티)
 
 ### Front-end
 
-<img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black">
-<img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"><img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white"><img src="https://img.shields.io/badge/Redex-764ABC?style=for-the-badge&logo=Redux&logoColor=white">  
-<img src="https://img.shields.io/badge/Axios-181717?style=for-the-badge&logo=Axios&logoColor=white">
-<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
+<img src="https://img.shields.io/badge/Javascript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=black"><br/><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"><img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white"><br/><img src="https://img.shields.io/badge/Redex-764ABC?style=for-the-badge&logo=Redux&logoColor=white"><img src="https://img.shields.io/badge/Axios-181717?style=for-the-badge&logo=Axios&logoColor=white"><br/><img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 
 ### Back-end
-<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
-<img src="https://img.shields.io/badge/spring boot-6DB33F?style=for-the-badge&logo=spring boot&logoColor=white"><img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=spring security&logoColor=white"><img src="https://img.shields.io/badge/SPRING DATA JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
-<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"><img src="https://img.shields.io/badge/H2-0000bb?style=for-the-badge&logoColor=black">
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white"><br/><img src="https://img.shields.io/badge/spring boot-6DB33F?style=for-the-badge&logo=spring boot&logoColor=white"><img src="https://img.shields.io/badge/spring security-6DB33F?style=for-the-badge&logo=spring security&logoColor=white"><img src="https://img.shields.io/badge/SPRING DATA JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white"><br/><img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"><img src="https://img.shields.io/badge/H2-0000bb?style=for-the-badge&logoColor=black">
 
 ### ETC
-<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white">
-<img src="https://img.shields.io/badge/github Actions-F05032?style=for-the-badge&logo=github&logoColor=white">
-<img src="https://img.shields.io/badge/amazon ec2-FF9900?style=for-the-badge&logo=amazon ec2&logoColor=white"><img src="https://img.shields.io/badge/amazon s3-569A31?style=for-the-badge&logo=amazon s3&logoColor=white"><img src="https://img.shields.io/badge/amazon rds-527FFF?style=for-the-badge&logo=amazon rds&logoColor=white"> 
+<img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white"><img src="https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white"><br/><img src="https://img.shields.io/badge/github Actions-F05032?style=for-the-badge&logo=github&logoColor=white"><br/><img src="https://img.shields.io/badge/amazon ec2-FF9900?style=for-the-badge&logo=amazon ec2&logoColor=white"><img src="https://img.shields.io/badge/amazon s3-569A31?style=for-the-badge&logo=amazon s3&logoColor=white"><img src="https://img.shields.io/badge/amazon rds-527FFF?style=for-the-badge&logo=amazon rds&logoColor=white"> 
 
  
 ## 🖥️ Features
