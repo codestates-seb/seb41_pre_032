@@ -16,7 +16,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Long> {
     @Query("select a from Answer a left join fetch a.user where a.answerId =:id")
     Optional<Answer> findById(Long id);
 
-    @Query("select a from Answer a where a.user.id =:userId")
+    @Query("select distinct a from Answer a where a.user.id =:userId")
     List<Answer> findAnswersByUserId(Long userId);
 
     @Query("select a from Answer a where a.question.questionId =:questionId")

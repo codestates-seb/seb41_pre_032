@@ -9,6 +9,9 @@ public class UserPatchRequest {
     private String profileUrl;
     private String location;
 
+    private UserPatchRequest() {
+    }
+
     @Builder
     public UserPatchRequest(final String displayName,
                             final String profileUrl,

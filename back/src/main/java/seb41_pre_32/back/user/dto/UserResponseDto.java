@@ -27,10 +27,14 @@ public class UserResponseDto {
     }
 
     @Builder
-    public UserResponseDto(final Long id, final String displayName,
-                           final String email, final String profileUrl,
-                           final int reputation, final String location,
-                           final Role role, final List<AnswerResponseDto> answers,
+    public UserResponseDto(final Long id,
+                           final String displayName,
+                           final String email,
+                           final String profileUrl,
+                           final int reputation,
+                           final String location,
+                           final Role role,
+                           final List<AnswerResponseDto> answers,
                            final List<QuestionResponseDto> questions) {
         this.id = id;
         this.displayName = displayName;
@@ -43,7 +47,7 @@ public class UserResponseDto {
         this.questions = questions;
     }
 
-    public static UserResponseDto toGetResponse(final User user) {
+    public static UserResponseDto transToGetResponseDto(final User user) {
         List<AnswerResponseDto> answers = user.getAnswers().stream()
                 .map(answer -> AnswerResponseDto.of(answer))
                 .collect(Collectors.toList());
@@ -66,6 +70,7 @@ public class UserResponseDto {
                 .questions(questions)
                 .build();
     }
+
     public static UserResponseDto of(final User user) {
         return UserResponseDto.builder()
                 .id(user.getId())

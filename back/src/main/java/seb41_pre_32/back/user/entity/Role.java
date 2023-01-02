@@ -3,9 +3,9 @@ package seb41_pre_32.back.user.entity;
 import lombok.Getter;
 
 public enum Role {
-    GUEST("GUEST"),
     USER("USER"),
     ADMIN("ADMIN");
+
     @Getter
     private String value;
 

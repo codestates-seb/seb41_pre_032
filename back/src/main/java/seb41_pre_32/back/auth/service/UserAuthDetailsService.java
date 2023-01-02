@@ -28,7 +28,7 @@ public class UserAuthDetailsService implements UserDetailsService {
 
     private final class CustomUserDetails extends User implements UserDetails {
         CustomUserDetails(final User user) {
-            this.setCustomUserServiceVal(user.getId(),
+            this.setSecurityUserServiceVal(user.getId(),
                     user.getEmail(),
                     user.getPassword(),
                     user.getUsername(),
