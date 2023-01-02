@@ -2,15 +2,14 @@ import Sidebar from '../Components/Sidebar';
 import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
 import Footer from '../Components/Footer';
+import { useEffect, useState } from 'react';
+import useAxios from '../util/useAxios';
+import useAuth from '../util/useAuth';
 
 const BodyWrap = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
-import { useEffect, useState } from 'react';
-import useAxios from '../util/useAxios';
-import useAuth from '../util/useAuth';
 const HomeWrap = styled.div`
   width: 100%;
   max-width: 1264px;
