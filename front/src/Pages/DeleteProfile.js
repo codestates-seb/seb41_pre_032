@@ -353,10 +353,10 @@ const DeleteProfile = () => {
                 <div className='editbar-sidebar-title'>
                   PERSONAL INFORMATION
                 </div>
-                <Link to='/userinfo/edit'>
+                <Link to='/users/edit/:id'>
                   <div className='setting-non'>Edit profile</div>
                 </Link>
-                <Link to='/userinfo/delete'>
+                <Link to='/users/delete/:id'>
                   <div className='setting-click'>Delete profile</div>
                 </Link>
               </div>
@@ -401,7 +401,8 @@ const DeleteProfile = () => {
                       />
                       <label
                         htmlFor='deletecheck'
-                        className='deletecheck-label'>
+                        className='deletecheck-label'
+                      >
                         I have read the information stated above and understand
                         the implications of having my profile deleted. I wish to
                         proceed with the deletion of my profile.

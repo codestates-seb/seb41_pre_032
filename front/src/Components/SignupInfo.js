@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useState } from 'react';
-import axios from '../util/axios';
+import { axiosInstance } from '../util/axios';
 
 const SignupInfoWrap = styled.div`
   width: 32rem;
@@ -153,7 +153,7 @@ const SignupInfo = () => {
 
     onSubmit: async (values) => {
       try {
-        await axios.post(REGISTER_URL, JSON.stringify(values), {
+        await axiosInstance.post(REGISTER_URL, JSON.stringify(values), {
           headers: { 'Content-Type': 'application/json' },
         });
 
@@ -161,7 +161,7 @@ const SignupInfo = () => {
       } catch (error) {
         if (!error.response) {
           console.log('no server response');
-        } else setErrMsg(error.response.data.message);
+        } else setErrMsg(error.response.data);
       }
     },
   });

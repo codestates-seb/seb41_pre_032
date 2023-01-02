@@ -1,5 +1,10 @@
 import Sidebar from '../Components/Sidebar';
 import styled from 'styled-components';
+import { Link, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import Post from '../Components/Post';
+import useAxios from '../util/useAxios';
+import useAuth from '../util/useAuth';
 import { Link } from 'react-router-dom';
 import Footer from '../Components/Footer';
 
@@ -130,7 +135,6 @@ const HomeWrap = styled.div`
   }
 
   .main-content-container {
-    /* justify-content: space-between; */
   }
 
   .main-content {
@@ -187,41 +191,52 @@ const HomeWrap = styled.div`
     margin: 0px 0px 8px;
   }
 
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
   .about-container {
     padding-bottom: 24px;
   }
 
-  .posts-lists {
+  .posts-list {
     border: 1px solid hsl(210, 8%, 85%);
     border-radius: 3px;
-    > .each-post {
-      display: flex;
-      justify-content: space-between;
-      padding: 12px;
-      border-bottom: 1px solid hsl(210, 8%, 85%);
-    }
-    > .each-post-last {
-      display: flex;
-      justify-content: space-between;
-      padding: 12px;
-    }
-  }
-
-  .each-post-title {
-    padding-right: 12px;
-    margin: 0px 6px;
-    font-size: 15px;
-    color: #0074cc;
-  }
-
-  .each-post-date {
-    margin-right: 6px;
-    font-size: 13px;
-    color: #6a737c;
   }
 `;
 
 const UserInfo = () => {
+  const { id } = useParams();
+  const [user, setUser] = useState({});
+  const { auth } = useAuth();
+  const axiosPrivate = useAxios();
+
+  useEffect(() => {
+    const getUser = async () => {
+      const res = await axiosPrivate.get(`/api/users/${id}`, {
+        headers: {
+          Authorization: auth?.accessToken,
+          Refresh: auth?.refreshToken,
+        },
+      });
+
+      try {
+        setUser(res.data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    };
+
+    getUser();
+  }, [id, auth, axiosPrivate]);
+
+  const a = user?.answers;
+  const q = user?.questions;
+
+  const qas = q?.concat(a);
+
   return (
     <BodyWrap>
       <HomeWrap>
@@ -231,49 +246,25 @@ const UserInfo = () => {
             <div className='top-relative'>
               <div className='top-container'>
                 <img
-                  src='../images/578b036954e5dbaa.jpeg'
-                  alt='shibainu'
+                  src={`${user?.profileUrl}`}
+                  alt='avatar'
                   className='top-avatar'
                 />
                 <div className='top-info'>
                   <div className='top-idbox'>
-                    <div className='top-id'>SungJin</div>
+                    <h1 className='top-id'>{user?.displayName}</h1>
                   </div>
-                  <ul className='member-logrecord-box'>
-                    <li className='member-logrecord'>
-                      <div className='logrecord'>
-                        <img
-                          src='../images/cupcake.png'
-                          className='birthicon'
-                          alt='bithday-icon'
-                        />
-                        <div>Member for 5 years, 1 month</div>
-                      </div>
-                    </li>
-                    <li className='member-logrecord'>
-                      <div className='logrecord'>
-                        <img
-                          src='../images/clock.png'
-                          className='birthicon'
-                          alt='logtime-icon'
-                        />
-                        <div className='log-data'>Last seen this week</div>
-                      </div>
-                    </li>
-                  </ul>
                 </div>
               </div>
-              <div className='absolute-container'>
-                {/* <button className='absolute-button'>Profiles</button> */}
-              </div>
+              <div className='absolute-container'></div>
             </div>
           </div>
           <div className='setting-container'>
             <ul className='setting-box'>
-              <li className='setting-click'>Profile</li>
-
-              <Link to='/userinfo/edit'>
-                {' '}
+              <Link to={`/users/${user?.id}`}>
+                <li className='setting-click'>Profile</li>
+              </Link>{' '}
+              <Link to={`/users/edit/${user?.id}`}>
                 <li className='setting-non'>Settings</li>
               </Link>
             </ul>
@@ -283,61 +274,56 @@ const UserInfo = () => {
               <div className='left-content-container'>
                 <div className='left-content'>
                   <div className='stats-box'>
-                    <div className='stats-title'>Stats</div>
+                    <h3 className='stats-title'>Stats</h3>
                     <div className='stats-content-container'>
                       <div className='stats-content-box'>
                         <div className='stats-content'>
-                          <div className='stats-content-data'>10,003</div>
-                          <p>reputation</p>
+                          <div className='stats-content-data'>
+                            {user?.reputation}
+                          </div>
+                          reputation
                         </div>
                         <div className='stats-content'>
                           <div className='stats-content-data'>2.6m</div>
-                          <p>reached</p>
+                          reached
                         </div>
                         <div className='stats-content'>
-                          <div className='stats-content-data'>184</div>
-                          <p> answers</p>
+                          <div className='stats-content-data'>
+                            {user?.answers?.length}
+                          </div>
+                          answers
                         </div>
                         <div className='stats-content'>
-                          <div className='stats-content-data'>4</div>
-                          <p> questions</p>
+                          <div className='stats-content-data'>
+                            {user?.questions?.length}
+                          </div>
+                          questions
                         </div>
                       </div>
                     </div>
                   </div>
-                  {/* <div className="communities-container">
-                    <dlv className="communities-title-box">
-                        <div className="communities-title">Communities</div>
-                        <div className="title-link">view all</div>
-                    </dlv>
-                    <div className="communities-top5-container"></div>
-                    
-                </div> */}
                 </div>
               </div>
               <div className='right-content-container'>
                 <div className='about-container'>
-                  <div className='about-title'>About</div>
+                  <h3 className='about-title'>About</h3>
                   <div className='about-content'>
-                    자기소개를 임의로 써봅니다. 자기소개를 임의로 써봅니다.
-                    자기소개를 임의로 써봅니다.{' '}
+                    <span>email: {user?.email}</span>
+                    <span>location: {user?.location}</span>
                   </div>
                 </div>
                 <div className='posts-container'>
-                  <div className='about-title'>Posts</div>
-                  <div className='posts-lists'>
-                    <div className='each-post'>
-                      <div className='each-post-title'>질문 목록 1</div>
-                      <div className='each-post-date'>Jun 12, 2013</div>
-                    </div>
-                    <div className='each-post'>
-                      <div className='each-post-title'>질문 목록 2</div>
-                      <div className='each-post-date'>Jun 12, 2013</div>
-                    </div>
-                    <div className='each-post-last'>
-                      <div className='each-post-title'>질문 목록 3</div>
-                      <div className='each-post-date'>Jun 12, 2013</div>
-                    </div>
+                  <h3 className='about-title'>Newest posts</h3>
+                  <div className='posts-list'>
+                    {qas
+                      ?.sort(
+                        (a, b) =>
+                          new Date(b.updatedDate).getTime() -
+                          new Date(a.updatedDate).getTime()
+                      )
+                      .map((qa, idx) => (
+                        <Post key={idx} qa={qa} />
+                      ))}
                   </div>
                 </div>
               </div>

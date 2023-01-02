@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components"
+import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
 :root {
@@ -12,7 +12,6 @@ const GlobalStyle = createGlobalStyle`
   }
   body {
       margin : 0;
-      padding : 50px 0 0;
       font-size:1.6rem; 
       color:var(--font-color);
   }
@@ -46,5 +45,5 @@ const GlobalStyle = createGlobalStyle`
     position: relative;
     outline: none;
   }
-`
+`;
 export default GlobalStyle;

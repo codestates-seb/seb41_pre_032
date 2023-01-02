@@ -25,13 +25,16 @@ const Loginwrap = styled.div`
   }
 `;
 
-const Login = () => {
+const Login = ({ setAccessToken, setRefreshToken }) => {
   return (
     <Loginwrap>
       <div className='loginContainer'>
         <div className='login-form'>
           <img src='../images/64px-Stack_Overflow_icon.png' alt='logo_image' />
-          <LoginInfo />
+          <LoginInfo
+            setAccessToken={setAccessToken}
+            setRefreshToken={setRefreshToken}
+          />
           {/* 아이디와 비밀번호를 입력하는 컴포넌트 */}
         </div>
       </div>

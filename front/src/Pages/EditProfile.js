@@ -1,6 +1,6 @@
 import Sidebar from '../Components/Sidebar';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Footer from '../Components/Footer';
 
 const BodyWrap = styled.div`
@@ -8,6 +8,9 @@ const BodyWrap = styled.div`
   flex-direction: column;
 `;
 
+import { useEffect, useState } from 'react';
+import useAxios from '../util/useAxios';
+import useAuth from '../util/useAuth';
 const HomeWrap = styled.div`
   width: 100%;
   max-width: 1264px;
@@ -369,6 +372,33 @@ const HomeWrap = styled.div`
 `;
 
 const EditProfile = () => {
+  const { auth } = useAuth();
+
+  const { id } = useParams();
+
+  const [user, setUser] = useState({});
+
+  const axiosPrivate = useAxios();
+
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const res = await axiosPrivate.get(`api/users/${id}`, {
+          headers: {
+            Authorization: auth?.accessToken,
+            Refresh: auth?.refreshToken,
+          },
+        });
+
+        setUser(res.data);
+      } catch (error) {
+        console.log(error.response.data);
+      }
+    };
+
+    getProfile();
+  }, [auth, id, axiosPrivate]);
+
   return (
     <BodyWrap>
       <HomeWrap>
@@ -378,13 +408,13 @@ const EditProfile = () => {
             <div className='top-relative'>
               <div className='top-container'>
                 <img
-                  src='../images/578b036954e5dbaa.jpeg'
-                  alt='shibainu'
+                  src={user?.profileUrl}
+                  alt='avatar'
                   className='top-avatar'
                 />
                 <div className='top-info'>
                   <div className='top-idbox'>
-                    <div className='top-id'>SungJin</div>
+                    <div className='top-id'>{}</div>
                   </div>
                   <ul className='member-logrecord-box'>
                     <li className='member-logrecord'>
@@ -410,17 +440,17 @@ const EditProfile = () => {
                   </ul>
                 </div>
               </div>
-              <div className='absolute-container'>
-                {/* <button className='absolute-button'>Edit profile</button> */}
-              </div>
             </div>
           </div>
           <div className='setting-container'>
             <ul className='setting-box'>
-              <Link to='/userinfo'>
-                <li className='setting-non'>Profile</li>
-              </Link>
-              <li className='setting-click'>Settings</li>
+              <li>
+                <Link className='setting-non'>Profile</Link>
+              </li>
+
+              <li>
+                <Link className='setting-click'>Settings</Link>
+              </li>
             </ul>
           </div>
 
@@ -430,10 +460,10 @@ const EditProfile = () => {
                 <div className='editbar-sidebar-title'>
                   PERSONAL INFORMATION
                 </div>
-                <Link to='/userinfo/edit'>
+                <Link to='/users/edit/:id'>
                   <div className='setting-click'>Edit profile</div>
                 </Link>
-                <Link to='/userinfo/delete'>
+                <Link to='/users/delete/:id'>
                   {' '}
                   <div className='setting-non'>Delete profile</div>
                 </Link>
@@ -451,7 +481,7 @@ const EditProfile = () => {
                       <div className='profile-image-title'>Profile image</div>
                       <div className='image-wrapper'>
                         <img
-                          src='../images/578b036954e5dbaa.jpeg'
+                          src={user?.profileUrl}
                           className='profile-img-file'
                           alt='profileimage'
                         />
@@ -466,13 +496,19 @@ const EditProfile = () => {
                         type='text'
                         className='edit-input'
                         id='displayname'
+                        defaultValue={user?.displayName}
                       />
                     </div>
                     <div className='edit-input-container'>
                       <label htmlFor='location' className='edit-input-title'>
                         Location
                       </label>
-                      <input type='text' className='edit-input' id='location' />
+                      <input
+                        type='text'
+                        className='edit-input'
+                        id='location'
+                        defaultValue={user?.location}
+                      />
                     </div>
                     <div className='edit-input-container'>
                       <label htmlFor='title' className='edit-input-title'>

@@ -180,7 +180,8 @@ const Users = () => {
               <button
                 className='btn prevBtn'
                 onClick={prevPage}
-                disabled={isPreviousData || page === 1}>
+                disabled={isPreviousData || page === 1}
+              >
                 Prev
               </button>
               {pagesArray.map((pg) => (
@@ -191,7 +192,8 @@ const Users = () => {
                 onClick={nextPage}
                 disabled={
                   isPreviousData || page === allUsers?.pageInfo?.totalPages
-                }>
+                }
+              >
                 Next
               </button>
             </nav>
