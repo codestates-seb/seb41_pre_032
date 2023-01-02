@@ -111,7 +111,12 @@ public class AnswerControllerTest {
                 .andExpect(jsonPath("$.likeCount").value(answer.getLikeCount()))
                 .andExpect(jsonPath("$.dislikeCount").value(answer.getDisLikeCount()))
                 .andExpect(jsonPath("$.user.id").value(user.getId()))
+                .andExpect(jsonPath("$.user.displayName").value(user.getDisplayName()))
                 .andExpect(jsonPath("$.user.email").value(user.getEmail()))
+                .andExpect(jsonPath("$.user.profileUrl").value("basic.url"))
+                .andExpect(jsonPath("$.user.reputation").value(0))
+                .andExpect(jsonPath("$.user.location").value("서울"))
+                .andExpect(jsonPath("$.user.role").value(user.getRole().getValue()))
                 .andDo(document("create-answer",
                         Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                         Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
@@ -183,7 +188,6 @@ public class AnswerControllerTest {
 
         // when
         Long answerId = answer.getAnswerId();
-
         ResultActions actions = mockMvc.perform(patch("/api/answers/{answerId}", answerId)
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -198,7 +202,12 @@ public class AnswerControllerTest {
                 .andExpect(jsonPath("$.likeCount").value(answer.getLikeCount()))
                 .andExpect(jsonPath("$.dislikeCount").value(answer.getDisLikeCount()))
                 .andExpect(jsonPath("$.user.id").value(user.getId()))
+                .andExpect(jsonPath("$.user.displayName").value(user.getDisplayName()))
                 .andExpect(jsonPath("$.user.email").value(user.getEmail()))
+                .andExpect(jsonPath("$.user.profileUrl").value("basic.url"))
+                .andExpect(jsonPath("$.user.reputation").value(0))
+                .andExpect(jsonPath("$.user.location").value("서울"))
+                .andExpect(jsonPath("$.user.role").value(user.getRole().getValue()))
                 .andDo(document("update-answer",
                         Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                         Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
@@ -257,7 +266,6 @@ public class AnswerControllerTest {
                 .likeCount(3)
                 .disLikeCount(4)
                 .build();
-
         answer.addUser(user);
 
         given(answerService.getAnswer(Mockito.anyLong())).willReturn(answer);
@@ -276,7 +284,12 @@ public class AnswerControllerTest {
                 .andExpect(jsonPath("$.likeCount").value(answer.getLikeCount()))
                 .andExpect(jsonPath("$.dislikeCount").value(answer.getDisLikeCount()))
                 .andExpect(jsonPath("$.user.id").value(user.getId()))
+                .andExpect(jsonPath("$.user.displayName").value(user.getDisplayName()))
                 .andExpect(jsonPath("$.user.email").value(user.getEmail()))
+                .andExpect(jsonPath("$.user.profileUrl").value("basic.url"))
+                .andExpect(jsonPath("$.user.reputation").value(0))
+                .andExpect(jsonPath("$.user.location").value("서울"))
+                .andExpect(jsonPath("$.user.role").value(user.getRole().getValue()))
                 .andDo(document("get-answer",
                         Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                         Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
@@ -364,7 +377,7 @@ public class AnswerControllerTest {
 
         List<Answer> answers = List.of(answer1, answer2);
         PageImpl<Answer> answerPage = new PageImpl<>(answers,
-                PageRequest.of(0, 5, Sort.by("answerId")), 2);
+                PageRequest.of(0, 5, Sort.by("updatedDate")), 2);
 
         given(answerService.getAnswers(Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt())).willReturn(answerPage);
 
@@ -381,7 +394,12 @@ public class AnswerControllerTest {
                 .andExpect(jsonPath("$.data[0].likeCount").value(answer1.getLikeCount()))
                 .andExpect(jsonPath("$.data[0].dislikeCount").value(answer1.getDisLikeCount()))
                 .andExpect(jsonPath("$.data[0].user.id").value(user1.getId()))
+                .andExpect(jsonPath("$.data[0].user.displayName").value(user1.getDisplayName()))
                 .andExpect(jsonPath("$.data[0].user.email").value(user1.getEmail()))
+                .andExpect(jsonPath("$.data[0].user.profileUrl").value("basic.url"))
+                .andExpect(jsonPath("$.data[0].user.reputation").value(0))
+                .andExpect(jsonPath("$.data[0].user.location").value("서울"))
+                .andExpect(jsonPath("$.data[0].user.role").value(user1.getRole().getValue()))
                 .andExpect(jsonPath("$.pageInfo.page").value(answerPage.getNumber() + 1))
                 .andExpect(jsonPath("$.pageInfo.size").value(answerPage.getSize()))
                 .andExpect(jsonPath("$.pageInfo.totalElements").value(answerPage.getTotalElements()))
@@ -399,22 +417,22 @@ public class AnswerControllerTest {
                         responseFields(
                                 List.of(
                                         fieldWithPath("data").type(JsonFieldType.ARRAY).description("답변 리스트"),
-                                        fieldWithPath("data[0].id").type(JsonFieldType.NUMBER).description("답변 식별자"),
-                                        fieldWithPath("data[0].contents").type(JsonFieldType.STRING).description("답변 내용"),
-                                        fieldWithPath("data[0].likeCount").type(JsonFieldType.NUMBER).description("답변 좋아요 수"),
-                                        fieldWithPath("data[0].dislikeCount").type(JsonFieldType.NUMBER).description("답변 싫어요 수"),
-                                        fieldWithPath("data[0].createdDate").type(JsonFieldType.NULL).description("답변 작성일"),
-                                        fieldWithPath("data[0].updatedDate").type(JsonFieldType.NULL).description("답변 수정일"),
-                                        fieldWithPath("data[0].user").type(JsonFieldType.OBJECT).description("답변한 회원"),
-                                        fieldWithPath("data[0].user.id").type(JsonFieldType.NUMBER).description("회원 식별자"),
-                                        fieldWithPath("data[0].user.displayName").type(JsonFieldType.STRING).description("회원 이름"),
-                                        fieldWithPath("data[0].user.email").type(JsonFieldType.STRING).description("회원 이메일"),
-                                        fieldWithPath("data[0].user.profileUrl").type(JsonFieldType.STRING).description("회원 프로필 이미지 주소"),
-                                        fieldWithPath("data[0].user.reputation").type(JsonFieldType.NUMBER).description("회원 명성"),
-                                        fieldWithPath("data[0].user.location").type(JsonFieldType.STRING).description("회원 지역"),
-                                        fieldWithPath("data[0].user.role").type(JsonFieldType.STRING).description("회원 등급"),
-                                        fieldWithPath("data[0].user.answers").type(JsonFieldType.NULL).description("회원 답변 리스트"),
-                                        fieldWithPath("data[0].user.questions").type(JsonFieldType.NULL).description("회원 질문 리스트"),
+                                        fieldWithPath("data[].id").type(JsonFieldType.NUMBER).description("답변 식별자"),
+                                        fieldWithPath("data[].contents").type(JsonFieldType.STRING).description("답변 내용"),
+                                        fieldWithPath("data[].likeCount").type(JsonFieldType.NUMBER).description("답변 좋아요 수"),
+                                        fieldWithPath("data[].dislikeCount").type(JsonFieldType.NUMBER).description("답변 싫어요 수"),
+                                        fieldWithPath("data[].createdDate").type(JsonFieldType.NULL).description("답변 작성일"),
+                                        fieldWithPath("data[].updatedDate").type(JsonFieldType.NULL).description("답변 수정일"),
+                                        fieldWithPath("data[].user").type(JsonFieldType.OBJECT).description("답변한 회원"),
+                                        fieldWithPath("data[].user.id").type(JsonFieldType.NUMBER).description("회원 식별자"),
+                                        fieldWithPath("data[].user.displayName").type(JsonFieldType.STRING).description("회원 이름"),
+                                        fieldWithPath("data[].user.email").type(JsonFieldType.STRING).description("회원 이메일"),
+                                        fieldWithPath("data[].user.profileUrl").type(JsonFieldType.STRING).description("회원 프로필 이미지 주소"),
+                                        fieldWithPath("data[].user.reputation").type(JsonFieldType.NUMBER).description("회원 명성"),
+                                        fieldWithPath("data[].user.location").type(JsonFieldType.STRING).description("회원 지역"),
+                                        fieldWithPath("data[].user.role").type(JsonFieldType.STRING).description("회원 등급"),
+                                        fieldWithPath("data[].user.answers").type(JsonFieldType.NULL).description("회원 답변 리스트"),
+                                        fieldWithPath("data[].user.questions").type(JsonFieldType.NULL).description("회원 질문 리스트"),
                                         fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("현재 페이지"),
                                         fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("요청 페이지 사이즈"),
                                         fieldWithPath("pageInfo.totalElements").type(JsonFieldType.NUMBER).description("전체 개체수"),
@@ -443,6 +461,178 @@ public class AnswerControllerTest {
                         Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
                         pathParameters(
                                 parameterWithName("answerId").description("답변 식별자")
+                        )
+                ));
+    }
+
+    @Test
+    @WithMockUser
+    public void likeTest() throws Exception {
+        // given
+        Long answerId = 1L;
+
+        User user = User.builder()
+                .userId(1L)
+                .password("1111")
+                .username("userA")
+                .email("userA@gmail.com")
+                .profileUrl("basic.url")
+                .reputation(0)
+                .location("서울")
+                .role(Role.USER)
+                .build();
+
+        Question question = Question.builder()
+                .id(1L)
+                .title("짐문")
+                .contents("질문 내용")
+                .attempt("질문 시도한 내용")
+                .build();
+
+        Answer answer = Answer.builder()
+                .id(1L)
+                .contents("답변 내용")
+                .likeCount(0)
+                .disLikeCount(0)
+                .build();
+
+        answer.addUser(user);
+        answer.addQuestion(question);
+        answer.updateLikeCount();
+
+        given(answerService.likeAnswer(Mockito.anyLong())).willReturn(answer);
+
+        // when
+        ResultActions actions = mockMvc.perform(patch("/api/answers/{answerId}/likes", answerId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(SecurityMockMvcRequestPostProcessors.csrf())
+        );
+
+        // then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(answer.getAnswerId()))
+                .andExpect(jsonPath("$.contents").value(answer.getContents()))
+                .andExpect(jsonPath("$.likeCount").value(answer.getLikeCount()))
+                .andExpect(jsonPath("$.dislikeCount").value(answer.getDisLikeCount()))
+                .andExpect(jsonPath("$.user.id").value(user.getId()))
+                .andExpect(jsonPath("$.user.displayName").value(user.getDisplayName()))
+                .andExpect(jsonPath("$.user.email").value(user.getEmail()))
+                .andExpect(jsonPath("$.user.profileUrl").value("basic.url"))
+                .andExpect(jsonPath("$.user.reputation").value(0))
+                .andExpect(jsonPath("$.user.location").value("서울"))
+                .andExpect(jsonPath("$.user.role").value(user.getRole().getValue()))
+                .andDo(document("like-answer",
+                        Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+                        Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+                        pathParameters(
+                                parameterWithName("answerId").description("답변 식별자")
+                        ),
+                        responseFields(
+                                List.of(
+                                        fieldWithPath("id").type(JsonFieldType.NUMBER).description("답변 식별자"),
+                                        fieldWithPath("contents").type(JsonFieldType.STRING).description("답변 수정 내용"),
+                                        fieldWithPath("likeCount").type(JsonFieldType.NUMBER).description("답변 좋아요 수"),
+                                        fieldWithPath("dislikeCount").type(JsonFieldType.NUMBER).description("답변 싫어요 수"),
+                                        fieldWithPath("createdDate").type(JsonFieldType.NULL).description("답변 작성일"),
+                                        fieldWithPath("updatedDate").type(JsonFieldType.NULL).description("답변 수정일"),
+                                        fieldWithPath("user").type(JsonFieldType.OBJECT).description("답변한 회원"),
+                                        fieldWithPath("user.id").type(JsonFieldType.NUMBER).description("회원 식별자"),
+                                        fieldWithPath("user.displayName").type(JsonFieldType.STRING).description("회원 이름"),
+                                        fieldWithPath("user.email").type(JsonFieldType.STRING).description("회원 이메일"),
+                                        fieldWithPath("user.profileUrl").type(JsonFieldType.STRING).description("회원 프로필 이미지 주소"),
+                                        fieldWithPath("user.reputation").type(JsonFieldType.NUMBER).description("회원 명성"),
+                                        fieldWithPath("user.location").type(JsonFieldType.STRING).description("회원 지역"),
+                                        fieldWithPath("user.role").type(JsonFieldType.STRING).description("회원 등급"),
+                                        fieldWithPath("user.answers").type(JsonFieldType.NULL).description("회원 답변 리스트"),
+                                        fieldWithPath("user.questions").type(JsonFieldType.NULL).description("회원 질문 리스트")
+                                )
+                        )
+                ));
+    }
+
+    @Test
+    @WithMockUser
+    public void dislikeTest() throws Exception {
+        // given
+        Long answerId = 1L;
+
+        User user = User.builder()
+                .userId(1L)
+                .password("1111")
+                .username("userA")
+                .email("userA@gmail.com")
+                .profileUrl("basic.url")
+                .reputation(0)
+                .location("서울")
+                .role(Role.USER)
+                .build();
+
+        Question question = Question.builder()
+                .id(1L)
+                .title("짐문")
+                .contents("질문 내용")
+                .attempt("질문 시도한 내용")
+                .build();
+
+        Answer answer = Answer.builder()
+                .id(1L)
+                .contents("답변 내용")
+                .likeCount(0)
+                .disLikeCount(0)
+                .build();
+
+        answer.addUser(user);
+        answer.addQuestion(question);
+        answer.updateDisLikeCount();
+
+        given(answerService.dislikeAnswer(Mockito.anyLong())).willReturn(answer);
+
+        // when
+        ResultActions actions = mockMvc.perform(patch("/api/answers/{answerId}/dislikes", answerId)
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(SecurityMockMvcRequestPostProcessors.csrf())
+        );
+
+        // then
+        actions.andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(answer.getAnswerId()))
+                .andExpect(jsonPath("$.contents").value(answer.getContents()))
+                .andExpect(jsonPath("$.likeCount").value(answer.getLikeCount()))
+                .andExpect(jsonPath("$.dislikeCount").value(answer.getDisLikeCount()))
+                .andExpect(jsonPath("$.user.id").value(user.getId()))
+                .andExpect(jsonPath("$.user.displayName").value(user.getDisplayName()))
+                .andExpect(jsonPath("$.user.email").value(user.getEmail()))
+                .andExpect(jsonPath("$.user.profileUrl").value("basic.url"))
+                .andExpect(jsonPath("$.user.reputation").value(0))
+                .andExpect(jsonPath("$.user.location").value("서울"))
+                .andExpect(jsonPath("$.user.role").value(user.getRole().getValue()))
+                .andDo(document("dislike-answer",
+                        Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
+                        Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
+                        pathParameters(
+                                parameterWithName("answerId").description("답변 식별자")
+                        ),
+                        responseFields(
+                                List.of(
+                                        fieldWithPath("id").type(JsonFieldType.NUMBER).description("답변 식별자"),
+                                        fieldWithPath("contents").type(JsonFieldType.STRING).description("답변 수정 내용"),
+                                        fieldWithPath("likeCount").type(JsonFieldType.NUMBER).description("답변 좋아요 수"),
+                                        fieldWithPath("dislikeCount").type(JsonFieldType.NUMBER).description("답변 싫어요 수"),
+                                        fieldWithPath("createdDate").type(JsonFieldType.NULL).description("답변 작성일"),
+                                        fieldWithPath("updatedDate").type(JsonFieldType.NULL).description("답변 수정일"),
+                                        fieldWithPath("user").type(JsonFieldType.OBJECT).description("답변한 회원"),
+                                        fieldWithPath("user.id").type(JsonFieldType.NUMBER).description("회원 식별자"),
+                                        fieldWithPath("user.displayName").type(JsonFieldType.STRING).description("회원 이름"),
+                                        fieldWithPath("user.email").type(JsonFieldType.STRING).description("회원 이메일"),
+                                        fieldWithPath("user.profileUrl").type(JsonFieldType.STRING).description("회원 프로필 이미지 주소"),
+                                        fieldWithPath("user.reputation").type(JsonFieldType.NUMBER).description("회원 명성"),
+                                        fieldWithPath("user.location").type(JsonFieldType.STRING).description("회원 지역"),
+                                        fieldWithPath("user.role").type(JsonFieldType.STRING).description("회원 등급"),
+                                        fieldWithPath("user.answers").type(JsonFieldType.NULL).description("회원 답변 리스트"),
+                                        fieldWithPath("user.questions").type(JsonFieldType.NULL).description("회원 질문 리스트")
+                                )
                         )
                 ));
     }

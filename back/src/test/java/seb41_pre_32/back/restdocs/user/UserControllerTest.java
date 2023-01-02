@@ -59,7 +59,7 @@ public class UserControllerTest {
 
     @Test
     @WithMockUser
-    public void joinTest() throws Exception {
+    public void createTest() throws Exception {
         // given
         UserPostRequest userPostRequest = UserPostRequest
                 .builder()
@@ -222,7 +222,6 @@ public class UserControllerTest {
                 .build();
         List<Answer> answers = List.of(answer);
 
-
         Question question = Question.builder()
                 .id(1L)
                 .title("질문제목")
@@ -238,7 +237,6 @@ public class UserControllerTest {
                 .build();
         List<QuestionTag> tags = List.of(questionTag);
         question.addTags(tags);
-
         List<Question> questions = List.of(question);
 
         User user = User.builder()
@@ -292,27 +290,27 @@ public class UserControllerTest {
                                         fieldWithPath("location").type(JsonFieldType.STRING).description("회원 지역"),
                                         fieldWithPath("role").type(JsonFieldType.STRING).description("회원 등급"),
                                         fieldWithPath("answers").type(JsonFieldType.ARRAY).description("회원 답변 리스트"),
-                                        fieldWithPath("answers[0].id").type(JsonFieldType.NUMBER).description("회원 답변 식별자"),
-                                        fieldWithPath("answers[0].contents").type(JsonFieldType.STRING).description("회원 답변 내용"),
-                                        fieldWithPath("answers[0].likeCount").type(JsonFieldType.NUMBER).description("회원 답변 좋아요 수"),
-                                        fieldWithPath("answers[0].dislikeCount").type(JsonFieldType.NUMBER).description("회원 답변 싫어요 수"),
-                                        fieldWithPath("answers[0].createdDate").type(JsonFieldType.NULL).description("회원 답변 생성일"),
-                                        fieldWithPath("answers[0].updatedDate").type(JsonFieldType.NULL).description("회원 답변 수정일"),
-                                        fieldWithPath("answers[0].user").type(JsonFieldType.NULL).description("답변 회원 정보"),
+                                        fieldWithPath("answers[].id").type(JsonFieldType.NUMBER).description("회원 답변 식별자"),
+                                        fieldWithPath("answers[].contents").type(JsonFieldType.STRING).description("회원 답변 내용"),
+                                        fieldWithPath("answers[].likeCount").type(JsonFieldType.NUMBER).description("회원 답변 좋아요 수"),
+                                        fieldWithPath("answers[].dislikeCount").type(JsonFieldType.NUMBER).description("회원 답변 싫어요 수"),
+                                        fieldWithPath("answers[].createdDate").type(JsonFieldType.NULL).description("회원 답변 생성일"),
+                                        fieldWithPath("answers[].updatedDate").type(JsonFieldType.NULL).description("회원 답변 수정일"),
+                                        fieldWithPath("answers[].user").type(JsonFieldType.NULL).description("답변 회원 정보"),
                                         fieldWithPath("questions").type(JsonFieldType.ARRAY).description("회원 질문 리스트"),
-                                        fieldWithPath("questions[0].id").type(JsonFieldType.NUMBER).description("회원 질문 식별자"),
-                                        fieldWithPath("questions[0].title").type(JsonFieldType.STRING).description("회원 질문 제목"),
-                                        fieldWithPath("questions[0].contents").type(JsonFieldType.STRING).description("회원 질문 내용"),
-                                        fieldWithPath("questions[0].attempt").type(JsonFieldType.STRING).description("회원 질문 시도내용"),
-                                        fieldWithPath("questions[0].likeCount").type(JsonFieldType.NUMBER).description("회원 질문 좋아요 수"),
-                                        fieldWithPath("questions[0].dislikeCount").type(JsonFieldType.NUMBER).description("회원 질문 싫어요 수"),
-                                        fieldWithPath("questions[0].reputation").type(JsonFieldType.NUMBER).description("회원 질문 명성"),
-                                        fieldWithPath("questions[0].answerCount").type(JsonFieldType.NUMBER).description("회원 질문 답변 수"),
-                                        fieldWithPath("questions[0].tags").type(JsonFieldType.ARRAY).description("회원 질문 태그 리스트"),
-                                        fieldWithPath("questions[0].tags[0].tagName").type(JsonFieldType.STRING).description("회원 태그명"),
-                                        fieldWithPath("questions[0].user").type(JsonFieldType.NULL).description("질문 회원 정보"),
-                                        fieldWithPath("questions[0].createdDate").type(JsonFieldType.NULL).description("회원 질문 생성일"),
-                                        fieldWithPath("questions[0].updatedDate").type(JsonFieldType.NULL).description("회원 질문 수정일")
+                                        fieldWithPath("questions[].id").type(JsonFieldType.NUMBER).description("회원 질문 식별자"),
+                                        fieldWithPath("questions[].title").type(JsonFieldType.STRING).description("회원 질문 제목"),
+                                        fieldWithPath("questions[].contents").type(JsonFieldType.STRING).description("회원 질문 내용"),
+                                        fieldWithPath("questions[].attempt").type(JsonFieldType.STRING).description("회원 질문 시도내용"),
+                                        fieldWithPath("questions[].likeCount").type(JsonFieldType.NUMBER).description("회원 질문 좋아요 수"),
+                                        fieldWithPath("questions[].dislikeCount").type(JsonFieldType.NUMBER).description("회원 질문 싫어요 수"),
+                                        fieldWithPath("questions[].reputation").type(JsonFieldType.NUMBER).description("회원 질문 명성"),
+                                        fieldWithPath("questions[].answerCount").type(JsonFieldType.NUMBER).description("회원 질문 답변 수"),
+                                        fieldWithPath("questions[].tags").type(JsonFieldType.ARRAY).description("회원 질문 태그 리스트"),
+                                        fieldWithPath("questions[].tags[0].tagName").type(JsonFieldType.STRING).description("회원 태그명"),
+                                        fieldWithPath("questions[].user").type(JsonFieldType.NULL).description("질문 회원 정보"),
+                                        fieldWithPath("questions[].createdDate").type(JsonFieldType.NULL).description("회원 질문 생성일"),
+                                        fieldWithPath("questions[].updatedDate").type(JsonFieldType.NULL).description("회원 질문 수정일")
                                 )
                         )
                 ));
@@ -359,11 +357,23 @@ public class UserControllerTest {
         // then
         actions.andExpect(status().isOk())
                 .andExpect(jsonPath("$.data[0].id").value(user1.getId()))
-                .andExpect(jsonPath("$.data[0].email").value(user1.getEmail()))
                 .andExpect(jsonPath("$.data[1].id").value(user2.getId()))
+                .andExpect(jsonPath("$.data[0].displayName").value(user1.getDisplayName()))
+                .andExpect(jsonPath("$.data[1].displayName").value(user2.getDisplayName()))
+                .andExpect(jsonPath("$.data[0].email").value(user1.getEmail()))
                 .andExpect(jsonPath("$.data[1].email").value(user2.getEmail()))
-                .andExpect(jsonPath("$.pageInfo.page").value(1))
-                .andExpect(jsonPath("$.pageInfo.size").value(10))
+                .andExpect(jsonPath("$.data[0].profileUrl").value(user1.getProfileUrl()))
+                .andExpect(jsonPath("$.data[1].profileUrl").value(user2.getProfileUrl()))
+                .andExpect(jsonPath("$.data[0].reputation").value(0))
+                .andExpect(jsonPath("$.data[1].reputation").value(0))
+                .andExpect(jsonPath("$.data[0].location").value(user1.getLocation()))
+                .andExpect(jsonPath("$.data[1].location").value(user2.getLocation()))
+                .andExpect(jsonPath("$.data[0].role").value(user1.getRole().getValue()))
+                .andExpect(jsonPath("$.data[1].role").value(user2.getRole().getValue()))
+                .andExpect(jsonPath("$.pageInfo.page").value(userPage.getNumber()+1))
+                .andExpect(jsonPath("$.pageInfo.size").value(userPage.getSize()))
+                .andExpect(jsonPath("$.pageInfo.totalElements").value(userPage.getTotalElements()))
+                .andExpect(jsonPath("$.pageInfo.totalPages").value(userPage.getTotalPages()))
                 .andDo(document("get-users",
                         Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                         Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
@@ -374,15 +384,15 @@ public class UserControllerTest {
                         responseFields(
                                 List.of(
                                         fieldWithPath("data").type(JsonFieldType.ARRAY).description("결과데이터"),
-                                        fieldWithPath("data[0].id").type(JsonFieldType.NUMBER).description("회원 식별자"),
-                                        fieldWithPath("data[0].displayName").type(JsonFieldType.STRING).description("유저 이름"),
-                                        fieldWithPath("data[0].email").type(JsonFieldType.STRING).description("이메일"),
-                                        fieldWithPath("data[0].profileUrl").type(JsonFieldType.STRING).description("프로필 이미지 주소"),
-                                        fieldWithPath("data[0].reputation").type(JsonFieldType.NUMBER).description("명성"),
-                                        fieldWithPath("data[0].location").type(JsonFieldType.STRING).description("회원 지역"),
-                                        fieldWithPath("data[0].role").type(JsonFieldType.STRING).description("회원 등급"),
-                                        fieldWithPath("data[0].answers").type(JsonFieldType.NULL).description("회원 답변 리스트"),
-                                        fieldWithPath("data[0].questions").type(JsonFieldType.NULL).description("회원 질문 리스트"),
+                                        fieldWithPath("data[].id").type(JsonFieldType.NUMBER).description("회원 식별자"),
+                                        fieldWithPath("data[].displayName").type(JsonFieldType.STRING).description("유저 이름"),
+                                        fieldWithPath("data[].email").type(JsonFieldType.STRING).description("이메일"),
+                                        fieldWithPath("data[].profileUrl").type(JsonFieldType.STRING).description("프로필 이미지 주소"),
+                                        fieldWithPath("data[].reputation").type(JsonFieldType.NUMBER).description("명성"),
+                                        fieldWithPath("data[].location").type(JsonFieldType.STRING).description("회원 지역"),
+                                        fieldWithPath("data[].role").type(JsonFieldType.STRING).description("회원 등급"),
+                                        fieldWithPath("data[].answers").type(JsonFieldType.NULL).description("회원 답변 리스트"),
+                                        fieldWithPath("data[].questions").type(JsonFieldType.NULL).description("회원 질문 리스트"),
                                         fieldWithPath("pageInfo").type(JsonFieldType.OBJECT).description("페이지 정보"),
                                         fieldWithPath("pageInfo.page").type(JsonFieldType.NUMBER).description("현재 페이지"),
                                         fieldWithPath("pageInfo.size").type(JsonFieldType.NUMBER).description("요청 페이지 사이즈"),
