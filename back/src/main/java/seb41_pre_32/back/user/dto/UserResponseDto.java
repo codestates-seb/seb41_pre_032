@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 @Getter
 public class UserResponseDto {
-
     private Long id;
     private String displayName;
     private String email;
@@ -28,9 +27,15 @@ public class UserResponseDto {
     }
 
     @Builder
-    public UserResponseDto(final Long id, final String displayName, final String email,
-                           final String profileUrl, final int reputation, final String location,
-                           final Role role, final List<AnswerResponseDto> answers, final List<QuestionResponseDto> questions) {
+    public UserResponseDto(final Long id,
+                           final String displayName,
+                           final String email,
+                           final String profileUrl,
+                           final int reputation,
+                           final String location,
+                           final Role role,
+                           final List<AnswerResponseDto> answers,
+                           final List<QuestionResponseDto> questions) {
         this.id = id;
         this.displayName = displayName;
         this.email = email;
@@ -42,8 +47,7 @@ public class UserResponseDto {
         this.questions = questions;
     }
 
-    @Builder
-    public static UserResponseDto toGetResponse(final User user) {
+    public static UserResponseDto transToGetResponseDto(final User user) {
         List<AnswerResponseDto> answers = user.getAnswers().stream()
                 .map(answer -> AnswerResponseDto.of(answer))
                 .collect(Collectors.toList());
@@ -67,7 +71,6 @@ public class UserResponseDto {
                 .build();
     }
 
-    @Builder
     public static UserResponseDto of(final User user) {
         return UserResponseDto.builder()
                 .id(user.getId())

@@ -5,6 +5,13 @@ import { useEffect, useState } from 'react';
 import Post from '../Components/Post';
 import useAxios from '../util/useAxios';
 import useAuth from '../util/useAuth';
+import { Link } from 'react-router-dom';
+import Footer from '../Components/Footer';
+
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const HomeWrap = styled.div`
   width: 100%;
@@ -143,6 +150,7 @@ const HomeWrap = styled.div`
 
   .left-content {
     display: grid;
+    width: 234.75px;
   }
 
   .stats-title {
@@ -164,6 +172,10 @@ const HomeWrap = styled.div`
 
   .stats-content {
     margin: 8px;
+    > p {
+      font-size: 13px;
+      color: #6a737c;
+    }
   }
 
   .stats-content-data {
@@ -226,120 +238,101 @@ const UserInfo = () => {
   const qas = q?.concat(a);
 
   return (
-    <HomeWrap>
-      <Sidebar />
-      <div className='userinfo-container'>
-        <div className='mainbar_full'>
-          <div className='top-relative'>
-            <div className='top-container'>
-              <img
-                src={`${user?.profileUrl}`}
-                alt='avatar'
-                className='top-avatar'
-              />
-              <div className='top-info'>
-                <div className='top-idbox'>
-                  <h1 className='top-id'>{user?.displayName}</h1>
+    <BodyWrap>
+      <HomeWrap>
+        <Sidebar />
+        <div className='userinfo-container'>
+          <div className='mainbar_full'>
+            <div className='top-relative'>
+              <div className='top-container'>
+                <img
+                  src={`${user?.profileUrl}`}
+                  alt='avatar'
+                  className='top-avatar'
+                />
+                <div className='top-info'>
+                  <div className='top-idbox'>
+                    <h1 className='top-id'>{user?.displayName}</h1>
+                  </div>
                 </div>
-                <ul className='member-logrecord-box'>
-                  <li className='member-logrecord'>
-                    <div className='logrecord'>
-                      <img
-                        src='../images/cupcake.png'
-                        className='birthicon'
-                        alt='bithday-icon'
-                      />
-                      <div>Member for 5 years, 1 month</div>
-                    </div>
-                  </li>
-                  <li className='member-logrecord'>
-                    <div className='logrecord'>
-                      <img
-                        src='../images/clock.png'
-                        className='birthicon'
-                        alt='logtime-icon'
-                      />
-                      <div className='log-data'>Last seen this week</div>
-                    </div>
-                  </li>
-                </ul>
               </div>
+              <div className='absolute-container'></div>
             </div>
-            <div className='absolute-container'></div>
           </div>
-        </div>
-        <div className='setting-container'>
-          <ul className='setting-box'>
-            <Link to={`/users/${user?.id}`}>
-              <li className='setting-click'>Profile</li>
-            </Link>{' '}
-            <Link to={`/users/edit/${user?.id}`}>
-              <li className='setting-non'>Settings</li>
-            </Link>
-          </ul>
-        </div>
-        <div className='main-content-container'>
-          <div className='main-content'>
-            <div className='left-content-container'>
-              <div className='left-content'>
-                <div className='stats-box'>
-                  <h3 className='stats-title'>Stats</h3>
-                  <div className='stats-content-container'>
-                    <div className='stats-content-box'>
-                      <div className='stats-content'>
-                        <div className='stats-content-data'>
-                          {user?.reputation}
+          <div className='setting-container'>
+            <ul className='setting-box'>
+              <Link to={`/users/${user?.id}`}>
+                <li className='setting-click'>Profile</li>
+              </Link>{' '}
+              <Link to={`/users/edit/${user?.id}`}>
+                <li className='setting-non'>Settings</li>
+              </Link>
+            </ul>
+          </div>
+          <div className='main-content-container'>
+            <div className='main-content'>
+              <div className='left-content-container'>
+                <div className='left-content'>
+                  <div className='stats-box'>
+                    <h3 className='stats-title'>Stats</h3>
+                    <div className='stats-content-container'>
+                      <div className='stats-content-box'>
+                        <div className='stats-content'>
+                          <div className='stats-content-data'>
+                            {user?.reputation}
+                          </div>
+                          reputation
                         </div>
-                        reputation
-                      </div>
-                      <div className='stats-content'>
-                        <div className='stats-content-data'>2.6m</div>
-                        reached
-                      </div>
-                      <div className='stats-content'>
-                        <div className='stats-content-data'>
-                          {user?.answers?.length}
+                        <div className='stats-content'>
+                          <div className='stats-content-data'>2.6m</div>
+                          reached
                         </div>
-                        answers
-                      </div>
-                      <div className='stats-content'>
-                        <div className='stats-content-data'>
-                          {user?.questions?.length}
+                        <div className='stats-content'>
+                          <div className='stats-content-data'>
+                            {user?.answers?.length}
+                          </div>
+                          answers
                         </div>
-                        questions
+                        <div className='stats-content'>
+                          <div className='stats-content-data'>
+                            {user?.questions?.length}
+                          </div>
+                          questions
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className='right-content-container'>
-              <div className='about-container'>
-                <h3 className='about-title'>About</h3>
-                <div className='about-content'>
-                  <span>email: {user?.email}</span>
-                  <span>location: {user?.location}</span>
+              <div className='right-content-container'>
+                <div className='about-container'>
+                  <h3 className='about-title'>About</h3>
+                  <div className='about-content'>
+                    <span>email: {user?.email}</span>
+                    <span>location: {user?.location}</span>
+                  </div>
                 </div>
-              </div>
-              <div className='posts-container'>
-                <h3 className='about-title'>Newest posts</h3>
-                <div className='posts-list'>
-                  {qas
-                    ?.sort(
-                      (a, b) =>
-                        new Date(b.updatedDate).getTime() -
-                        new Date(a.updatedDate).getTime()
-                    )
-                    .map((qa, idx) => (
-                      <Post key={idx} qa={qa} />
-                    ))}
+                <div className='posts-container'>
+                  <h3 className='about-title'>Newest posts</h3>
+                  <div className='posts-list'>
+                    {qas
+                      ?.sort(
+                        (a, b) =>
+                          new Date(b.updatedDate).getTime() -
+                          new Date(a.updatedDate).getTime()
+                      )
+                      .map((qa, idx) => (
+                        <Post key={idx} qa={qa} />
+                      ))}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </HomeWrap>
+      </HomeWrap>
+      <Footer />
+    </BodyWrap>
   );
 };
 

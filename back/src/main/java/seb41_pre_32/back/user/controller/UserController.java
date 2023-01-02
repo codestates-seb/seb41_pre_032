@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import seb41_pre_32.back.auth.dto.AuthInfo;
-import seb41_pre_32.back.auth.utils.LoginUser;
+import seb41_pre_32.back.auth.presentation.dto.AuthInfo;
+import seb41_pre_32.back.auth.presentation.LoginUser;
 import seb41_pre_32.back.common.dto.MultiResponse;
 import seb41_pre_32.back.user.entity.User;
 import seb41_pre_32.back.user.dto.*;
@@ -23,33 +23,31 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity join(@RequestBody @Valid final UserPostRequest userPostRequest) {
+    public ResponseEntity postUser(@RequestBody @Valid final UserPostRequest userPostRequest) {
         return new ResponseEntity<>(
                 UserResponseDto.of(userService.createUser(userPostRequest)),
                 HttpStatus.CREATED);
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity update(@PathVariable("userId") final Long userId,
-                                 @LoginUser AuthInfo authInfo,
-                                 @RequestBody @Valid final UserPatchRequest userPatchRequest) {
+    public ResponseEntity patchUser(@PathVariable("userId") final Long userId,
+                                    @LoginUser final AuthInfo authInfo,
+                                    @RequestBody @Valid final UserPatchRequest userPatchRequest) {
         return new ResponseEntity<>(
                 UserResponseDto.of(userService.updateUser(userId, userPatchRequest, authInfo)),
                 HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity getUser(@PathVariable("userId") Long userId,
-                                  @LoginUser AuthInfo authInfo) {
+    public ResponseEntity getUser(@PathVariable("userId") final Long userId) {
         return new ResponseEntity<>(
-                UserResponseDto.toGetResponse(userService.findUser(userId, authInfo)),
+                UserResponseDto.transToGetResponseDto(userService.findUser(userId)),
                 HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<MultiResponse> getUsers(@RequestParam("page") int page,
-                                                  @RequestParam("size") int size) {
-
+    public ResponseEntity<MultiResponse> getUsers(@RequestParam("page") final int page,
+                                                  @RequestParam("size") final int size) {
         Page<User> users = userService.findUsers(page - 1, size);
         List<UserResponseDto> userResponseDtos = users.getContent()
                 .stream()
@@ -60,7 +58,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> delete(@PathVariable("userId") final Long userId, @LoginUser AuthInfo authInfo) {
+    public ResponseEntity<Void> deleteUser(@PathVariable("userId") final Long userId,
+                                           @LoginUser final AuthInfo authInfo) {
         userService.deleteUser(userId, authInfo);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

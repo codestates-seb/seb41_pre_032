@@ -117,6 +117,22 @@ const Headercss = styled.div`
     font-weight: normal;
     color: hsl(206, 100%, 40%);
   }
+
+  .filter-container {
+    width: 721.27px;
+    height: 36.78px;
+    -webkit-appearance: none;
+    margin: 0;
+    padding: 1px 2px 1px 32px;
+    border: 1px solid hsl(210, 8%, 75%);
+    border-radius: 3px;
+    padding: 7.8px 9.1px 7.8px 32px;
+    background-image: url(../images/glass.png);
+    background-repeat: no-repeat;
+    background-size: 18px;
+    background-position: 8px center;
+    color: hsl(210, 8%, 55%);
+  }
 `;
 
 const Header = () => {

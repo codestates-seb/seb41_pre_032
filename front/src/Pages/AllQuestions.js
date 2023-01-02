@@ -5,6 +5,12 @@ import { useState } from 'react';
 import { useQuery } from 'react-query';
 import PageButton from '../Components/PageButton';
 import Loading from '../Components/Loading';
+import Footer from '../Components/Footer';
+
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../util/useAuth';
 import useAxios from '../util/useAxios';
@@ -93,35 +99,38 @@ const AllQuestions = () => {
     .map((_, index) => index + 1);
 
   return (
-    <HomeWrap>
-      <Sidebar />
-      <QuestionList title='All Questions' data={allQuestions}>
-        {isLoading && <Loading />}
-        {isFetching && <Loading />}
-        {isError && <p>Error: {error.message}</p>}
-        <nav className='btns'>
-          <button
-            className='btn prevBtn'
-            onClick={prevPage}
-            disabled={isPreviousData || page === 1}
-          >
-            Prev
-          </button>
-          {pagesArray.map((pg) => (
-            <PageButton key={pg} pg={pg} setPage={setPage} />
-          ))}
-          <button
-            className='btn nextBtn'
-            onClick={nextPage}
-            disabled={
-              isPreviousData || page === allQuestions?.pageInfo?.totalPages
-            }
-          >
-            Next
-          </button>
-        </nav>
-      </QuestionList>
-    </HomeWrap>
+    <BodyWrap>
+      <HomeWrap>
+        <Sidebar />
+        <QuestionList title='All Questions' data={allQuestions}>
+          {isLoading && <Loading />}
+          {isFetching && <Loading />}
+          {isError && <p>Error: {error.message}</p>}
+          <nav className='btns'>
+            <button
+              className='btn prevBtn'
+              onClick={prevPage}
+              disabled={isPreviousData || page === 1}
+            >
+              Prev
+            </button>
+            {pagesArray.map((pg) => (
+              <PageButton key={pg} pg={pg} setPage={setPage} />
+            ))}
+            <button
+              className='btn nextBtn'
+              onClick={nextPage}
+              disabled={
+                isPreviousData || page === allQuestions?.pageInfo?.totalPages
+              }
+            >
+              Next
+            </button>
+          </nav>
+        </QuestionList>
+      </HomeWrap>
+      <Footer />
+    </BodyWrap>
   );
 };
 

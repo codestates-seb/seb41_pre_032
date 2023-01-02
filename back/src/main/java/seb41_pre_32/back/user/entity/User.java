@@ -1,9 +1,7 @@
 package seb41_pre_32.back.user.entity;
 
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import seb41_pre_32.back.answer.entity.Answer;
 import seb41_pre_32.back.audit.BaseEntity;
 import seb41_pre_32.back.question.entity.Question;
@@ -14,7 +12,6 @@ import java.util.List;
 
 @Getter
 @Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "users")
 public class User extends BaseEntity {
     @Id
@@ -50,10 +47,19 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user")
     private List<Question> questions = new ArrayList<>();
 
+    protected User() {
+    }
+
     @Builder
-    public User(final String username, final String password,
-                final String email, final String profileUrl, final int reputation,
-                final String location, final Role role) {
+    public User(final Long userId,
+                final String username,
+                final String password,
+                final String email,
+                final String profileUrl,
+                final int reputation,
+                final String location,
+                final Role role) {
+        this.id = userId;
         this.username = username;
         this.password = password;
         this.email = email;
@@ -63,11 +69,11 @@ public class User extends BaseEntity {
         this.role = role;
     }
 
-    public void setCustomUserServiceVal(final Long userId,
-                                        final String email,
-                                        final String password,
-                                        final String username,
-                                        final Role role) {
+    public void setSecurityUserServiceVal(final Long userId,
+                                          final String email,
+                                          final String password,
+                                          final String username,
+                                          final Role role) {
         this.id = userId;
         this.email = email;
         this.password = password;
@@ -75,12 +81,17 @@ public class User extends BaseEntity {
         this.role = role;
     }
 
-    public void addQuestions(final List<Question> questions) {
-        this.questions = questions;
+    public static User transToGoogleUser(final String email) {
+        return User.builder()
+                .email(email)
+                .username(email.substring(0, email.indexOf("@")))
+                .build();
     }
 
-    public void addAnswers(final List<Answer> answers) {
+    public void setUserAnswersAndQuestions(final List<Answer> answers,
+                                           final List<Question> questions) {
         this.answers = answers;
+        this.questions = questions;
     }
 
     public void changeUsername(final String username) {
@@ -97,5 +108,13 @@ public class User extends BaseEntity {
 
     public void changePassword(final String password) {
         this.password = password;
+    }
+
+    public void changeRole(final Role role) {
+        this.role = role;
+    }
+
+    public String getDisplayName() {
+        return username;
     }
 }

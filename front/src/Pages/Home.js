@@ -2,8 +2,14 @@ import Sidebar from '../Components/Sidebar';
 import QuestionList from '../Components/QuestionList';
 import styled from 'styled-components';
 import useFetch from '../util/useFetch';
+import Footer from '../Components/Footer';
 
 // 새로운 페이지에 아래 스타일 컴포넌트를 최상단에 깔아줘야함
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 const HomeWrap = styled.div`
   width: 100%;
   max-width: 1264px;
@@ -19,16 +25,19 @@ function Home() {
   );
 
   return (
-    <HomeWrap>
-      <Sidebar />
+    <BodyWrap>
+      <HomeWrap>
+        <Sidebar />
 
-      <QuestionList
-        title='Top Questions'
-        data={data}
-        isPending={isPending}
-        error={error}
-      />
-    </HomeWrap>
+        <QuestionList
+          title='Top Questions'
+          data={data}
+          isPending={isPending}
+          error={error}
+        />
+      </HomeWrap>
+      <Footer />
+    </BodyWrap>
   );
 }
 

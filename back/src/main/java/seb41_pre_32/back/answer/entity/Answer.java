@@ -38,16 +38,14 @@ public class Answer extends BaseEntity {
     }
 
     @Builder
-    public Answer(final String contents,
+    public Answer(final Long id,
+                  final String contents,
                   final int likeCount,
-                  final int disLikeCount,
-                  final User user,
-                  final Question question) {
+                  final int disLikeCount) {
+        this.answerId = id;
         this.contents = contents;
         this.likeCount = likeCount;
         this.disLikeCount = disLikeCount;
-        this.user = user;
-        this.question = question;
     }
 
     public void addUser(final User user) {
@@ -55,17 +53,20 @@ public class Answer extends BaseEntity {
         user.getAnswers().add(this);
     }
 
+    public void addQuestion(final Question question) {
+        this.question = question;
+        question.getAnswerList().add(this);
+    }
+
     public void changeContents(final String contents) {
         this.contents = contents;
     }
 
-    public void changeAnswerUser(final User user) {
-        this.user = user;
-        user.getAnswers().add(this);
+    public void updateLikeCount() {
+        this.likeCount++;
     }
 
-    public void changeAnswerQuestion(final Question question) {
-        this.question = question;
-        question.getAnswerList().add(this);
+    public void updateDisLikeCount() {
+        this.disLikeCount++;
     }
 }

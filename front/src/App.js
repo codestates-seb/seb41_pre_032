@@ -17,8 +17,8 @@ import DeleteProfile from './Pages/DeleteProfile';
 import RequireAuth from './Components/RequireAuth';
 import Missing from './Components/Missing';
 import QuestionModified from './Pages/QuestionModified';
-import Footer from './Components/Footer';
-import RequireUnauth from './Components/RequireUnauth';
+import AnswerModified from './Pages/AnswerModified';
+import TaggedQuestion from './Pages/TaggedQuestion';
 
 const queryClient = new QueryClient();
 
@@ -31,6 +31,7 @@ function App() {
         <Routes>
           {/* public routes */}
           <Route path='/tags' element={<Tags />} />
+          <Route path='/tags/tagged' element={<TaggedQuestion />} />
           <Route path='/companies' element={<Companies />} />
 
           {/* login하면 '/'으로 리다이렉트 */}
@@ -48,6 +49,7 @@ function App() {
               path='/question/modified/:id'
               element={<QuestionModified />}
             />
+            <Route path='/answer/modified/:id' element={<AnswerModified />} />
             <Route
               path='/questions'
               element={

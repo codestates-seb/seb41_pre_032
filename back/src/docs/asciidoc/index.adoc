@@ -1,0 +1,78 @@
+= StackOverFlow 클론코딩 API 명세서
+:toc-title: Table of Contents
+:toc: left
+:toclevels: 2
+:source-highlighter: prettify
+:sectlinks:
+
+[[introduction]]
+== 소개
+프리 프로젝트 32팀 스택오버플로우 클론코딩 API 명세서 입니다.
+
+== 로그인 관련 API
+=== 리프레시 토큰 재발급
+operation::refresh-token/[snippets='curl-request,http-request,request-headers,http-response,response-headers']
+
+=== 로그 아웃
+operation::user-logout/[snippets='curl-request,http-request,request-headers,http-response']
+
+== 회원 API
+=== 회원 등록
+operation::create-user/[snippets='curl-request,http-request,request-fields,http-response,response-fields']
+
+=== 회원 수정
+operation::update-user/[snippets='curl-request,http-request,request-fields,path-parameters,http-response,response-fields']
+
+=== 회원 정보 조회
+operation::get-user/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
+=== 회원 목록 조회
+operation::get-users/[snippets='curl-request,http-request,request-parameters,http-response,response-fields']
+
+=== 회원 탈퇴
+operation::delete-user/[snippets='curl-request,http-request,path-parameters,http-response']
+
+== 질문 API
+=== 질문 등록
+operation::create-question/[snippets='curl-request,http-request,request-fields,http-response,response-fields']
+
+=== 질문 수정
+operation::update-question/[snippets='curl-request,http-request,request-fields,path-parameters,http-response,response-fields']
+
+=== 질문 정보 조회
+operation::get-question/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
+=== 질문 목록 조회
+operation::get-questions/[snippets='curl-request,http-request,request-parameters,http-response,response-fields']
+
+=== 질문 삭제
+operation::delete-question/[snippets='curl-request,http-request,path-parameters,http-response']
+
+=== 질문 좋아요
+operation::like-question/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
+=== 질문 싫어요
+operation::dislike-question/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
+== 답변 API
+=== 답변 등록
+operation::create-answer/[snippets='http-request,request-fields,http-response,response-fields']
+
+=== 답변 수정
+operation::update-answer/[snippets='curl-request,http-request,request-fields,path-parameters,http-response,response-fields']
+
+=== 답변 정보 조회
+operation::get-answer/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
+=== 답변 목록 조회
+operation::get-answers/[snippets='curl-request,http-request,request-parameters,http-response,response-fields']
+
+=== 답변 삭제
+operation::delete-answer/[snippets='curl-request,http-request,path-parameters,http-response']
+
+=== 답변 좋아요
+operation::like-answer/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
+=== 답변 싫어요
+operation::dislike-answer/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+

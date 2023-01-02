@@ -38,9 +38,9 @@ public class LogAspect {
         }
     }
 
-    private Map<String, Object> extractParameters(JoinPoint joinPoint, CodeSignature signature) {
+    private Map<String, Object> extractParameters(final JoinPoint joinPoint,
+                                                  final CodeSignature signature) {
         String[] parameterNames = signature.getParameterNames();
-
         Map<String, Object> paramMap = new HashMap<>();
 
         int i = 0;

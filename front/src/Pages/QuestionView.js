@@ -1,11 +1,18 @@
-import Sidebar from "../Components/Sidebar";
-import styled from "styled-components";
-import useFetch from "../util/useFetch";
-import { Link, useParams } from "react-router-dom";
-import Loading from "../Components/Loading";
-import { fetchDelete } from "../util/api";
-import { useState } from "react";
-import PostCell from "../Components/QuestionView/PostCell";
+import Sidebar from '../Components/Sidebar';
+import styled from 'styled-components';
+import useFetch from '../util/useFetch';
+import { Link, useParams } from 'react-router-dom';
+import Loading from '../Components/Loading';
+import { fetchDelete } from '../util/api';
+import { useState } from 'react';
+import PostCell from '../Components/QuestionView/PostCell';
+import AnswersCell from '../Components/QuestionView/AnswersCell';
+import Footer from '../Components/Footer';
+
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const ViewWrap = styled.div`
   width: 100%;
@@ -61,7 +68,7 @@ const QuestionView = () => {
   const [data, isPending, error] = useFetch(
     `${process.env.REACT_APP_API_URL}/api/questions/${id}`
   );
-  console.log(data);
+
   let createdDate;
   let updatedDate;
   if (data) {
@@ -76,6 +83,7 @@ const QuestionView = () => {
   const handleDelete = () => {
     fetchDelete(`${process.env.REACT_APP_API_URL}/api/questions/`, id);
   };
+
   const handleUpVote = (e) => {
     upVote === 0 ? setUpVote(1) : setUpVote(0);
   };
@@ -83,52 +91,50 @@ const QuestionView = () => {
     downVote === 0 ? setDownVote(1) : setDownVote(0);
   };
   return (
-    <ViewWrap>
-      <Sidebar />
-      <Content>
-        {isPending && <Loading />}
-        {error && <div>{error}</div>}
-        {data && (
-          <>
-            <div className="question-header">
-              <h2>{data.title}</h2>
-              <Link to="/question/create" className="button-ask-question">
-                Ask Question
-              </Link>
-            </div>
-            <div className="fw-wrap">
-              <div className="fw-item">
-                <span>Asked</span>
-                <time>{createdDate}</time>
+    <BodyWrap>
+      <ViewWrap>
+        <Sidebar />
+        <Content>
+          {isPending && <Loading />}
+          {error && <div>{error}</div>}
+          {data && (
+            <>
+              <div className='question-header'>
+                <h2>{data.title}</h2>
+                <Link to='/question/create' className='button-ask-question'>
+                  Ask Question
+                </Link>
               </div>
-              <div className="fw-item">
-                <span>Modified</span>
-                <time>{updatedDate}</time>
+              <div className='fw-wrap'>
+                <div className='fw-item'>
+                  <span>Asked</span>
+                  <time>{createdDate}</time>
+                </div>
+                <div className='fw-item'>
+                  <span>Modified</span>
+                  <time>{updatedDate}</time>
+                </div>
+                <div className='fw-item'>
+                  <span> Answers</span>
+                  <span>{data.answerCount}</span>
+                </div>
               </div>
-              <div className="fw-item">
-                <span>Viewed</span>
-                <span>{`${0} times`}</span>
-              </div>
-            </div>
-            <PostCell
-              data={data}
-              createdDate={createdDate}
-              upVote={upVote}
-              downVote={downVote}
-              handleDelete={handleDelete}
-              handleUpVote={handleUpVote}
-              handleDownVote={handleDownVote}
-            />
-            <article className="answers-layout">
-              <h2 className="answers-notice">
-                Know someone who can answer? Share a link to this question via
-                email, Twitter, or Facebook.
-              </h2>
-            </article>
-          </>
-        )}
-      </Content>
-    </ViewWrap>
+              <PostCell
+                data={data}
+                createdDate={createdDate}
+                upVote={upVote}
+                downVote={downVote}
+                handleDelete={handleDelete}
+                handleUpVote={handleUpVote}
+                handleDownVote={handleDownVote}
+              />
+              <AnswersCell id={id} />
+            </>
+          )}
+        </Content>
+      </ViewWrap>
+      <Footer />
+    </BodyWrap>
   );
 };
 

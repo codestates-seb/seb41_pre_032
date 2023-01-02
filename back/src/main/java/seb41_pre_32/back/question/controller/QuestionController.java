@@ -5,8 +5,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import seb41_pre_32.back.auth.dto.AuthInfo;
-import seb41_pre_32.back.auth.utils.LoginUser;
+import seb41_pre_32.back.auth.presentation.dto.AuthInfo;
+import seb41_pre_32.back.auth.presentation.LoginUser;
 import seb41_pre_32.back.common.dto.MultiResponse;
 import seb41_pre_32.back.question.dto.QuestionPatchDto;
 import seb41_pre_32.back.question.dto.QuestionPostDto;
@@ -34,11 +34,11 @@ public class QuestionController {
     }
 
     @PatchMapping("/{questionId}")
-    public ResponseEntity editQuestion(@PathVariable("questionId") Long questionId,
-                                       @RequestBody @Valid QuestionPatchDto questionPatchDto,
-                                       @LoginUser AuthInfo authInfo) {
+    public ResponseEntity patchQuestion(@PathVariable("questionId") Long questionId,
+                                        @RequestBody @Valid QuestionPatchDto questionPatchDto,
+                                        @LoginUser AuthInfo authInfo) {
         return new ResponseEntity<>(
-                QuestionResponseDto.of(questionService.editQuestion(questionPatchDto, questionId, authInfo)),
+                QuestionResponseDto.of(questionService.updateQuestion(questionPatchDto, questionId, authInfo)),
                 HttpStatus.OK);
     }
 
@@ -52,7 +52,6 @@ public class QuestionController {
     @GetMapping
     public ResponseEntity<MultiResponse> getQuestions(@RequestParam("page") int page,
                                                       @RequestParam("size") int size) {
-
         Page<Question> questions = questionService.findQuestions(page - 1, size);
         List<QuestionResponseDto> response =
                 questions.getContent().stream()
@@ -66,7 +65,30 @@ public class QuestionController {
     public ResponseEntity deleteQuestion(@PathVariable("questionId") Long questionId,
                                          @LoginUser AuthInfo authInfo) {
         questionService.deleteQuestion(questionId, authInfo);
-
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping("/{questionId}/likes")
+    public ResponseEntity updateQuestionLikes(@PathVariable("questionId") Long questionId) {
+        return new ResponseEntity<>(
+                QuestionResponseDto.of(questionService.likeQuestion(questionId)), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{questionId}/dislikes")
+    public ResponseEntity updateQuestionDislikes(@PathVariable("questionId") Long questionId) {
+        return new ResponseEntity<>(
+                QuestionResponseDto.of(questionService.dislikeQuestion(questionId)), HttpStatus.OK);
+    }
+
+    @GetMapping("/reputation")
+    public ResponseEntity<MultiResponse> getQuestionsByLikes(@RequestParam("page") int page,
+                                                             @RequestParam("size") int size) {
+        Page<Question> questions = questionService.findQuestionsByLikes(page - 1, size);
+        List<QuestionResponseDto> response =
+                questions.getContent().stream()
+                        .map(question -> QuestionResponseDto.of(question))
+                        .collect(Collectors.toList());
+
+        return new ResponseEntity<>(new MultiResponse<>(response, questions), HttpStatus.OK);
     }
 }

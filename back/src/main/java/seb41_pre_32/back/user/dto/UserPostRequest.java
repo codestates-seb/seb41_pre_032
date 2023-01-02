@@ -7,15 +7,14 @@ import seb41_pre_32.back.user.entity.User;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Getter
 public class UserPostRequest {
     @NotBlank(message = "사용자 이름을 입력해 주세요.")
     private String displayName;
 
-    @NotNull(message = "이메일을 입력해 주세요.")
     @Email
+    @NotBlank(message = "이메일을 입력해 주세요.")
     private String email;
 
     @NotBlank(message = "비밀번호를 입력해 주세요.")

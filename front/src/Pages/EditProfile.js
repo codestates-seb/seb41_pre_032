@@ -1,6 +1,13 @@
 import Sidebar from '../Components/Sidebar';
 import styled from 'styled-components';
 import { Link, useParams } from 'react-router-dom';
+import Footer from '../Components/Footer';
+
+const BodyWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
 import { useEffect, useState } from 'react';
 import useAxios from '../util/useAxios';
 import useAuth from '../util/useAuth';
@@ -393,140 +400,149 @@ const EditProfile = () => {
   }, [auth, id, axiosPrivate]);
 
   return (
-    <HomeWrap>
-      <Sidebar />
-      <div className='userinfo-container'>
-        <div className='mainbar_full'>
-          <div className='top-relative'>
-            <div className='top-container'>
-              <img src={user?.profileUrl} alt='avatar' className='top-avatar' />
-              <div className='top-info'>
-                <div className='top-idbox'>
-                  <div className='top-id'>{}</div>
-                </div>
-                <ul className='member-logrecord-box'>
-                  <li className='member-logrecord'>
-                    <div className='logrecord'>
-                      <img
-                        src='../images/cupcake.png'
-                        className='birthicon'
-                        alt='bithday-icon'
-                      />
-                      <div>Member for 5 years, 1 month</div>
-                    </div>
-                  </li>
-                  <li className='member-logrecord'>
-                    <div className='logrecord'>
-                      <img
-                        src='../images/clock.png'
-                        className='birthicon'
-                        alt='logtime-icon'
-                      />
-                      <div className='log-data'>Last seen this week</div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className='setting-container'>
-          <ul className='setting-box'>
-            <li>
-              <Link className='setting-non'>Profile</Link>
-            </li>
-
-            <li>
-              <Link className='setting-click'>Settings</Link>
-            </li>
-          </ul>
-        </div>
-
-        <div className='editbar-container'>
-          <div className='editbar-sidebar-container'>
-            <div className='editbar-sidebar-box'>
-              <div className='editbar-sidebar-title'>PERSONAL INFORMATION</div>
-              <Link to='/users/edit/:id'>
-                <div className='setting-click'>Edit profile</div>
-              </Link>
-              <Link to='/users/delete/:id'>
-                {' '}
-                <div className='setting-non'>Delete profile</div>
-              </Link>
-            </div>
-          </div>
-          <div className='editprofile-container'>
-            <div className='editprofile-title-container'>
-              <h1>Edit your profile</h1>
-            </div>
-            <form className='user-edit-form-container'>
-              <div className='public-information'>Public information</div>
-              <div className='edit-info-container'>
-                <div className='edit-info-box'>
-                  <div className='profile-image-box'>
-                    <div className='profile-image-title'>Profile image</div>
-                    <div className='image-wrapper'>
-                      <img
-                        src={user?.profileUrl}
-                        className='profile-img-file'
-                        alt='profileimage'
-                      />
-                      <div className='image-toggle'>Change picture</div>
-                    </div>
+    <BodyWrap>
+      <HomeWrap>
+        <Sidebar />
+        <div className='userinfo-container'>
+          <div className='mainbar_full'>
+            <div className='top-relative'>
+              <div className='top-container'>
+                <img
+                  src={user?.profileUrl}
+                  alt='avatar'
+                  className='top-avatar'
+                />
+                <div className='top-info'>
+                  <div className='top-idbox'>
+                    <div className='top-id'>{}</div>
                   </div>
-                  <div className='edit-input-container'>
-                    <label htmlFor='displayname' className='edit-input-title'>
-                      Display name
-                    </label>
-                    <input
-                      type='text'
-                      className='edit-input'
-                      id='displayname'
-                      defaultValue={user?.displayName}
-                    />
-                  </div>
-                  <div className='edit-input-container'>
-                    <label htmlFor='location' className='edit-input-title'>
-                      Location
-                    </label>
-                    <input
-                      type='text'
-                      className='edit-input'
-                      id='location'
-                      defaultValue={user?.location}
-                    />
-                  </div>
-                  <div className='edit-input-container'>
-                    <label htmlFor='title' className='edit-input-title'>
-                      Title
-                    </label>
-                    <input
-                      type='text'
-                      className='edit-input'
-                      id='title'
-                      placeholder='No title has been set'
-                    />
-                  </div>
-                  <div className='edit-input-container'>
-                    <label htmlFor='intro' className='edit-input-title'>
-                      About me
-                    </label>
-                    <textarea className='textarea-intro' id='intro' />
-                  </div>
+                  <ul className='member-logrecord-box'>
+                    <li className='member-logrecord'>
+                      <div className='logrecord'>
+                        <img
+                          src='../images/cupcake.png'
+                          className='birthicon'
+                          alt='bithday-icon'
+                        />
+                        <div>Member for 5 years, 1 month</div>
+                      </div>
+                    </li>
+                    <li className='member-logrecord'>
+                      <div className='logrecord'>
+                        <img
+                          src='../images/clock.png'
+                          className='birthicon'
+                          alt='logtime-icon'
+                        />
+                        <div className='log-data'>Last seen this week</div>
+                      </div>
+                    </li>
+                  </ul>
                 </div>
               </div>
-            </form>
+            </div>
+          </div>
+          <div className='setting-container'>
+            <ul className='setting-box'>
+              <li>
+                <Link className='setting-non'>Profile</Link>
+              </li>
 
-            <div className='saveprofile-container'>
-              <div className='saveprofile-box'>
-                <button className='submit-button'>Save profile</button>
-                <div className='cancel'>Cancel</div>
+              <li>
+                <Link className='setting-click'>Settings</Link>
+              </li>
+            </ul>
+          </div>
+
+          <div className='editbar-container'>
+            <div className='editbar-sidebar-container'>
+              <div className='editbar-sidebar-box'>
+                <div className='editbar-sidebar-title'>
+                  PERSONAL INFORMATION
+                </div>
+                <Link to='/users/edit/:id'>
+                  <div className='setting-click'>Edit profile</div>
+                </Link>
+                <Link to='/users/delete/:id'>
+                  {' '}
+                  <div className='setting-non'>Delete profile</div>
+                </Link>
+              </div>
+            </div>
+            <div className='editprofile-container'>
+              <div className='editprofile-title-container'>
+                <h1>Edit your profile</h1>
+              </div>
+              <form className='user-edit-form-container'>
+                <div className='public-information'>Public information</div>
+                <div className='edit-info-container'>
+                  <div className='edit-info-box'>
+                    <div className='profile-image-box'>
+                      <div className='profile-image-title'>Profile image</div>
+                      <div className='image-wrapper'>
+                        <img
+                          src={user?.profileUrl}
+                          className='profile-img-file'
+                          alt='profileimage'
+                        />
+                        <div className='image-toggle'>Change picture</div>
+                      </div>
+                    </div>
+                    <div className='edit-input-container'>
+                      <label htmlFor='displayname' className='edit-input-title'>
+                        Display name
+                      </label>
+                      <input
+                        type='text'
+                        className='edit-input'
+                        id='displayname'
+                        defaultValue={user?.displayName}
+                      />
+                    </div>
+                    <div className='edit-input-container'>
+                      <label htmlFor='location' className='edit-input-title'>
+                        Location
+                      </label>
+                      <input
+                        type='text'
+                        className='edit-input'
+                        id='location'
+                        defaultValue={user?.location}
+                      />
+                    </div>
+                    <div className='edit-input-container'>
+                      <label htmlFor='title' className='edit-input-title'>
+                        Title
+                      </label>
+                      <input
+                        type='text'
+                        className='edit-input'
+                        id='title'
+                        placeholder='No title has been set'
+                      />
+                    </div>
+                    <div className='edit-input-container'>
+                      <label htmlFor='intro' className='edit-input-title'>
+                        About me
+                      </label>
+                      <textarea className='textarea-intro' id='intro' />
+                    </div>
+                  </div>
+                </div>
+              </form>
+
+              <div className='saveprofile-container'>
+                <div className='saveprofile-box'>
+                  <button className='submit-button'>Save profile</button>
+                  <div className='cancel'>Cancel</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </HomeWrap>
+      </HomeWrap>
+      <Footer />
+    </BodyWrap>
   );
 };
 

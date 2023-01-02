@@ -2,7 +2,6 @@ package seb41_pre_32.back.question.entity;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import seb41_pre_32.back.answer.entity.Answer;
 import seb41_pre_32.back.audit.BaseEntity;
 import seb41_pre_32.back.tag.entity.QuestionTag;
@@ -12,26 +11,30 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@NoArgsConstructor
 @Getter
 @Entity
 @Table(name = "questions")
 public class Question extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "question_id")
     private Long questionId;
 
-    @Column(nullable = false)
+    @Column(name = "title", nullable = false)
     private String title;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
+    @Column(name = "contents", nullable = false, columnDefinition = "TEXT")
     private String contents;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "attempt", columnDefinition = "TEXT")
     private String attempt;
 
-    private int likeCount = 0;
-    private int disLikeCount = 0;
+    @Column(name = "like_count")
+    private int likeCount;
+    @Column(name = "dis_like_count")
+    private int disLikeCount;
+    @Column(name = "reputation")
+    private int reputation;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -43,8 +46,15 @@ public class Question extends BaseEntity {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<QuestionTag> tags = new ArrayList<>();
 
+    protected Question() {
+    }
+
     @Builder
-    public Question(final String title, final String contents, final String attempt) {
+    public Question(final Long id,
+                    final String title,
+                    final String contents,
+                    final String attempt) {
+        this.questionId = id;
         this.title = title;
         this.contents = contents;
         this.attempt = attempt;
@@ -72,5 +82,15 @@ public class Question extends BaseEntity {
         this.attempt = attempt;
     }
 
+    public void updateLikeCount() {
+        this.likeCount++;
+    }
 
+    public void updateDisLikeCount() {
+        this.disLikeCount++;
+    }
+
+    public void updateReputation() {
+        this.reputation = this.likeCount - this.disLikeCount;
+    }
 }
