@@ -6,12 +6,6 @@ StackOverflow 클론코딩(개발자 질의응답 커뮤니티)
 #### 프로젝트 기간  
 2022.12.15(목) - 2023.01.02(월)
 
-#### 프론트 배포 서버
-클릭 시 이동 [▶️](http://pre-project-32-front.s3-website.ap-northeast-2.amazonaws.com/login)
-
-#### API 명세서
-클릭 시 이동 [▶️](http://ec2-3-35-204-189.ap-northeast-2.compute.amazonaws.com:8080/docs/index.html)
-
 <br/>
 
 ## 👩‍👧‍👦 Team
