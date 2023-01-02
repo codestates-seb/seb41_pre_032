@@ -9,6 +9,13 @@
 == 소개
 프리 프로젝트 32팀 스택오버플로우 클론코딩 API 명세서 입니다.
 
+== 로그인 관련 API
+=== 리프레시 토큰 재발급
+operation::refresh-token/[snippets='curl-request,http-request,request-headers,http-response,response-headers']
+
+=== 로그 아웃
+operation::user-logout/[snippets='curl-request,http-request,request-headers,http-response']
+
 == 회원 API
 === 회원 등록
 operation::create-user/[snippets='curl-request,http-request,request-fields,http-response,response-fields']
@@ -41,6 +48,12 @@ operation::get-questions/[snippets='curl-request,http-request,request-parameters
 === 질문 삭제
 operation::delete-question/[snippets='curl-request,http-request,path-parameters,http-response']
 
+=== 질문 좋아요
+operation::like-question/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
+=== 질문 싫어요
+operation::dislike-question/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
 == 답변 API
 === 답변 등록
 operation::create-answer/[snippets='http-request,request-fields,http-response,response-fields']
@@ -56,4 +69,10 @@ operation::get-answers/[snippets='curl-request,http-request,request-parameters,h
 
 === 답변 삭제
 operation::delete-answer/[snippets='curl-request,http-request,path-parameters,http-response']
+
+=== 답변 좋아요
+operation::like-answer/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
+
+=== 질문 싫어요
+operation::dislike-answer/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
 
