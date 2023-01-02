@@ -1,11 +1,12 @@
 import Sidebar from '../Components/Sidebar';
 import styled from 'styled-components';
 import { useState } from 'react';
-import axios from '../util/axios';
 import { useQuery } from 'react-query';
 import Loading from '../Components/Loading';
 import User from '../Components/User';
 import PageButton from '../Components/PageButton';
+import useAuth from '../util/useAuth';
+import useAxios from '../util/useAxios';
 
 // 새로운 페이지에 아래 스타일 컴포넌트를 최상단에 깔아줘야함
 const HomeWrap = styled.div`
@@ -104,15 +105,26 @@ const HomeWrap = styled.div`
 const Users = () => {
   const [page, setPage] = useState(1);
 
-  const getAllUsers = async (pageParam = 1) => {
-    const res = await axios.get(`/api/users?page=${pageParam}&size=16`, {
-      headers: {
-        Authorization: process.env.REACT_APP_AUTHORIZATION,
-        Refresh: process.env.REACT_APP_REFRESH,
-      },
-    });
+  const { auth } = useAuth();
 
-    return res.data;
+  const axiosPrivate = useAxios();
+
+  const getAllUsers = async (pageParam = 1) => {
+    try {
+      const res = await axiosPrivate.get(
+        `/api/users?page=${pageParam}&size=16`,
+        {
+          headers: {
+            Authorization: auth?.accessToken,
+            Refresh: auth?.refreshToken,
+          },
+        }
+      );
+
+      return res.data;
+    } catch (error) {
+      console.log(error.response.data);
+    }
   };
 
   const {

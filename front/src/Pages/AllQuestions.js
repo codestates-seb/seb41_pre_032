@@ -2,10 +2,12 @@ import styled from 'styled-components';
 import Sidebar from '../Components/Sidebar';
 import QuestionList from '../Components/QuestionList';
 import { useState } from 'react';
-import axios from '../util/axios';
 import { useQuery } from 'react-query';
 import PageButton from '../Components/PageButton';
 import Loading from '../Components/Loading';
+import { useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../util/useAuth';
+import useAxios from '../util/useAxios';
 
 const HomeWrap = styled.div`
   width: 100%;
@@ -45,17 +47,31 @@ const HomeWrap = styled.div`
 `;
 
 const AllQuestions = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [page, setPage] = useState(1);
+  const axiosPrivate = useAxios();
+  const { auth } = useAuth();
 
   const getAllQuestions = async (pageParam = 1) => {
-    const res = await axios.get(`/api/questions?page=${pageParam}&size=15`, {
-      headers: {
-        Authorization: process.env.REACT_APP_AUTHORIZATION,
-        Refresh: process.env.REACT_APP_REFRESH,
-      },
-    });
+    try {
+      const res = await axiosPrivate.get(
+        `/api/questions?page=${pageParam}&size=15`,
+        {
+          headers: {
+            Authorization: auth?.accessToken,
+            Refresh: auth?.refreshToken,
+          },
+        }
+      );
 
-    return res.data;
+      return res.data;
+    } catch (error) {
+      console.log(error.response.data);
+
+      navigate('/login', { state: { from: location }, replace: true });
+    }
   };
 
   const {

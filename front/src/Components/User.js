@@ -58,7 +58,7 @@ const UserWrap = styled.div`
 const User = ({ user }) => {
   return (
     <UserWrap className='user-container'>
-      <Link>
+      <Link to={`${user.id}`}>
         <img
           src={user?.profileUrl}
           alt='avatar'
@@ -67,7 +67,7 @@ const User = ({ user }) => {
       </Link>
 
       <div className='user-profile-detail'>
-        <Link to='/userinfo' className='to-userinfo-link'>
+        <Link to={`${user.id}`} className='to-userinfo-link'>
           {user?.displayName}
         </Link>
         <span>{user?.location}</span>

@@ -1,6 +1,6 @@
-import Sidebar from "../Components/Sidebar";
-import PageListButton from "../Components/PageListButton";
-import styled from "styled-components";
+import Sidebar from '../Components/Sidebar';
+import PageListButton from '../Components/PageListButton';
+import styled from 'styled-components';
 
 const HomeWrap = styled.div`
   width: 100%;
@@ -201,287 +201,287 @@ const Companies = () => {
     <HomeWrap>
       <Sidebar />
 
-      <div className="companies-page-container">
-        <h1 className="companies-headline">Companies</h1>
-        <p className="companies-intro">
+      <div className='companies-page-container'>
+        <h1 className='companies-headline'>Companies</h1>
+        <p className='companies-intro'>
           learn about what it's like to work at companies
         </p>
-        <div className="companies-mainbar">
-          <form className="companies-searchform">
-            <div className="companies-inputform">
-              <div className="input-filter">
+        <div className='companies-mainbar'>
+          <form className='companies-searchform'>
+            <div className='companies-inputform'>
+              <div className='input-filter'>
                 <input
-                  type="text"
-                  placeholder="Search all companies"
-                  className="companies-filter"
+                  type='text'
+                  placeholder='Search all companies'
+                  className='companies-filter'
                 />
               </div>
-              <div className="input-filter2">
-                <input type="text" placeholder="Search company by location" />
+              <div className='input-filter2'>
+                <input type='text' placeholder='Search company by location' />
               </div>
               <div>
-                <button className="search-button">
-                  <div className="font">Search</div>
+                <button className='search-button'>
+                  <div className='font'>Search</div>
                 </button>
               </div>
-              <div className="line"></div>
-              <div className="bundle-filter-container">
+              <div className='line'></div>
+              <div className='bundle-filter-container'>
                 <button>
                   <span>Filter by tag</span>
                 </button>
               </div>
             </div>
-            <div className="all-companies-count">
+            <div className='all-companies-count'>
               <div>142 companies</div>
             </div>
           </form>
 
-          <div className="companies-list-container">
-            <ul className="companies-list">
-              <li className="eachcompanies">
+          <div className='companies-list-container'>
+            <ul className='companies-list'>
+              <li className='eachcompanies'>
                 <img
-                  src="../logo192.png"
-                  alt="company_logo"
-                  className="companies-photo"
+                  src='../logo192.png'
+                  alt='company_logo'
+                  className='companies-photo'
                 />
-                <div className="company-detail">
-                  <h2 className="compaines-name">React</h2>
-                  <div className="companies-lnfo-box">
-                    <div className="companies-location-box">
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                <div className='company-detail'>
+                  <h2 className='compaines-name'>React</h2>
+                  <div className='companies-lnfo-box'>
+                    <div className='companies-location-box'>
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
                     </div>
-                    <p className="companies-introduce">
+                    <p className='companies-introduce'>
                       Ockam is a fully-distributed high performance team. We are
                       Open Source and build in Rust and Elixir.Join the Ockam
                       Team!
                     </p>
-                    <div className="companies-uselanguage-box">
-                      <div className="companies-uselanguage">rust</div>
-                      <div className="companies-uselanguage">open-source</div>
+                    <div className='companies-uselanguage-box'>
+                      <div className='companies-uselanguage'>rust</div>
+                      <div className='companies-uselanguage'>open-source</div>
                     </div>
                   </div>
                 </div>
               </li>
-              <li className="eachcompanies">
+              <li className='eachcompanies'>
                 <img
-                  src="../logo192.png"
-                  alt="company_logo"
-                  className="companies-photo"
+                  src='../logo192.png'
+                  alt='company_logo'
+                  className='companies-photo'
                 />
-                <div className="company-detail">
-                  <h2 className="compaines-name">React</h2>
-                  <div className="companies-lnfo-box">
-                    <div className="companies-location-box">
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                <div className='company-detail'>
+                  <h2 className='compaines-name'>React</h2>
+                  <div className='companies-lnfo-box'>
+                    <div className='companies-location-box'>
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
                     </div>
-                    <p className="companies-introduce">
+                    <p className='companies-introduce'>
                       Ockam is a fully-distributed high performance team. We are
                       Open Source and build in Rust and Elixir.Join the Ockam
                       Team!
                     </p>
-                    <div className="companies-uselanguage-box">
-                      <div className="companies-uselanguage">rust</div>
-                      <div className="companies-uselanguage">open-source</div>
+                    <div className='companies-uselanguage-box'>
+                      <div className='companies-uselanguage'>rust</div>
+                      <div className='companies-uselanguage'>open-source</div>
                     </div>
                   </div>
                 </div>
               </li>
-              <li className="eachcompanies">
+              <li className='eachcompanies'>
                 <img
-                  src="../logo192.png"
-                  alt="company_logo"
-                  className="companies-photo"
+                  src='../logo192.png'
+                  alt='company_logo'
+                  className='companies-photo'
                 />
-                <div className="company-detail">
-                  <h2 className="compaines-name">React</h2>
-                  <div className="companies-lnfo-box">
-                    <div className="companies-location-box">
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                <div className='company-detail'>
+                  <h2 className='compaines-name'>React</h2>
+                  <div className='companies-lnfo-box'>
+                    <div className='companies-location-box'>
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
                     </div>
-                    <p className="companies-introduce">
+                    <p className='companies-introduce'>
                       Ockam is a fully-distributed high performance team. We are
                       Open Source and build in Rust and Elixir.Join the Ockam
                       Team!
                     </p>
-                    <div className="companies-uselanguage-box">
-                      <div className="companies-uselanguage">rust</div>
-                      <div className="companies-uselanguage">open-source</div>
+                    <div className='companies-uselanguage-box'>
+                      <div className='companies-uselanguage'>rust</div>
+                      <div className='companies-uselanguage'>open-source</div>
                     </div>
                   </div>
                 </div>
               </li>
-              <li className="eachcompanies">
+              <li className='eachcompanies'>
                 <img
-                  src="../logo192.png"
-                  alt="company_logo"
-                  className="companies-photo"
+                  src='../logo192.png'
+                  alt='company_logo'
+                  className='companies-photo'
                 />
-                <div className="company-detail">
-                  <h2 className="compaines-name">React</h2>
-                  <div className="companies-lnfo-box">
-                    <div className="companies-location-box">
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                <div className='company-detail'>
+                  <h2 className='compaines-name'>React</h2>
+                  <div className='companies-lnfo-box'>
+                    <div className='companies-location-box'>
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
                     </div>
-                    <p className="companies-introduce">
+                    <p className='companies-introduce'>
                       Ockam is a fully-distributed high performance team. We are
                       Open Source and build in Rust and Elixir.Join the Ockam
                       Team!
                     </p>
-                    <div className="companies-uselanguage-box">
-                      <div className="companies-uselanguage">rust</div>
-                      <div className="companies-uselanguage">open-source</div>
+                    <div className='companies-uselanguage-box'>
+                      <div className='companies-uselanguage'>rust</div>
+                      <div className='companies-uselanguage'>open-source</div>
                     </div>
                   </div>
                 </div>
               </li>
-              <li className="eachcompanies">
+              <li className='eachcompanies'>
                 <img
-                  src="../logo192.png"
-                  alt="company_logo"
-                  className="companies-photo"
+                  src='../logo192.png'
+                  alt='company_logo'
+                  className='companies-photo'
                 />
-                <div className="company-detail">
-                  <h2 className="compaines-name">React</h2>
-                  <div className="companies-lnfo-box">
-                    <div className="companies-location-box">
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                <div className='company-detail'>
+                  <h2 className='compaines-name'>React</h2>
+                  <div className='companies-lnfo-box'>
+                    <div className='companies-location-box'>
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
                     </div>
-                    <p className="companies-introduce">
+                    <p className='companies-introduce'>
                       Ockam is a fully-distributed high performance team. We are
                       Open Source and build in Rust and Elixir.Join the Ockam
                       Team!
                     </p>
-                    <div className="companies-uselanguage-box">
-                      <div className="companies-uselanguage">rust</div>
-                      <div className="companies-uselanguage">open-source</div>
+                    <div className='companies-uselanguage-box'>
+                      <div className='companies-uselanguage'>rust</div>
+                      <div className='companies-uselanguage'>open-source</div>
                     </div>
                   </div>
                 </div>
               </li>
-              <li className="eachcompanies">
+              <li className='eachcompanies'>
                 <img
-                  src="../logo192.png"
-                  alt="company_logo"
-                  className="companies-photo"
+                  src='../logo192.png'
+                  alt='company_logo'
+                  className='companies-photo'
                 />
-                <div className="company-detail">
-                  <h2 className="compaines-name">React</h2>
-                  <div className="companies-lnfo-box">
-                    <div className="companies-location-box">
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                <div className='company-detail'>
+                  <h2 className='compaines-name'>React</h2>
+                  <div className='companies-lnfo-box'>
+                    <div className='companies-location-box'>
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
                     </div>
-                    <p className="companies-introduce">
+                    <p className='companies-introduce'>
                       Ockam is a fully-distributed high performance team. We are
                       Open Source and build in Rust and Elixir.Join the Ockam
                       Team!
                     </p>
-                    <div className="companies-uselanguage-box">
-                      <div className="companies-uselanguage">rust</div>
-                      <div className="companies-uselanguage">open-source</div>
+                    <div className='companies-uselanguage-box'>
+                      <div className='companies-uselanguage'>rust</div>
+                      <div className='companies-uselanguage'>open-source</div>
                     </div>
                   </div>
                 </div>
               </li>
-              <li className="eachcompanies">
+              <li className='eachcompanies'>
                 <img
-                  src="../logo192.png"
-                  alt="company_logo"
-                  className="companies-photo"
+                  src='../logo192.png'
+                  alt='company_logo'
+                  className='companies-photo'
                 />
-                <div className="company-detail">
-                  <h2 className="compaines-name">React</h2>
-                  <div className="companies-lnfo-box">
-                    <div className="companies-location-box">
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                <div className='company-detail'>
+                  <h2 className='compaines-name'>React</h2>
+                  <div className='companies-lnfo-box'>
+                    <div className='companies-location-box'>
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
                     </div>
-                    <p className="companies-introduce">
+                    <p className='companies-introduce'>
                       Ockam is a fully-distributed high performance team. We are
                       Open Source and build in Rust and Elixir.Join the Ockam
                       Team!
                     </p>
-                    <div className="companies-uselanguage-box">
-                      <div className="companies-uselanguage">rust</div>
-                      <div className="companies-uselanguage">open-source</div>
+                    <div className='companies-uselanguage-box'>
+                      <div className='companies-uselanguage'>rust</div>
+                      <div className='companies-uselanguage'>open-source</div>
                     </div>
                   </div>
                 </div>
               </li>
-              <li className="eachcompanies">
+              <li className='eachcompanies'>
                 <img
-                  src="../logo192.png"
-                  alt="company_logo"
-                  className="companies-photo"
+                  src='../logo192.png'
+                  alt='company_logo'
+                  className='companies-photo'
                 />
-                <div className="company-detail">
-                  <h2 className="compaines-name">React</h2>
-                  <div className="companies-lnfo-box">
-                    <div className="companies-location-box">
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                <div className='company-detail'>
+                  <h2 className='compaines-name'>React</h2>
+                  <div className='companies-lnfo-box'>
+                    <div className='companies-location-box'>
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
-                      <div className="companies-location">
-                        <img src="../logo192.png" alt="location_logo" />
+                      <div className='companies-location'>
+                        <img src='../logo192.png' alt='location_logo' />
                         <p>No office location</p>
                       </div>
                     </div>
-                    <p className="companies-introduce">
+                    <p className='companies-introduce'>
                       Ockam is a fully-distributed high performance team. We are
                       Open Source and build in Rust and Elixir.Join the Ockam
                       Team!
                     </p>
-                    <div className="companies-uselanguage-box">
-                      <div className="companies-uselanguage">rust</div>
-                      <div className="companies-uselanguage">open-source</div>
+                    <div className='companies-uselanguage-box'>
+                      <div className='companies-uselanguage'>rust</div>
+                      <div className='companies-uselanguage'>open-source</div>
                     </div>
                   </div>
                 </div>

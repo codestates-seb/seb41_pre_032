@@ -339,10 +339,10 @@ const DeleteProfile = () => {
           <div className='editbar-sidebar-container'>
             <div className='editbar-sidebar-box'>
               <div className='editbar-sidebar-title'>PERSONAL INFORMATION</div>
-              <Link to='/userinfo/edit'>
+              <Link to='/users/edit/:id'>
                 <div className='setting-non'>Edit profile</div>
               </Link>
-              <Link to='/userinfo/delete'>
+              <Link to='/users/delete/:id'>
                 <div className='setting-click'>Delete profile</div>
               </Link>
             </div>

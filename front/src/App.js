@@ -12,12 +12,13 @@ import Tags from './Pages/Tags';
 import Users from './Pages/Users';
 import Companies from './Pages/Companies';
 import UserInfo from './Pages/UserInfo';
-import Footer from './Components/footer';
 import EditProfile from './Pages/EditProfile';
 import DeleteProfile from './Pages/DeleteProfile';
 import RequireAuth from './Components/RequireAuth';
 import Missing from './Components/Missing';
 import QuestionModified from './Pages/QuestionModified';
+import Footer from './Components/Footer';
+import RequireUnauth from './Components/RequireUnauth';
 
 const queryClient = new QueryClient();
 
@@ -29,17 +30,24 @@ function App() {
         <Header />
         <Routes>
           {/* public routes */}
-          <Route path='/login' element={<Login />} />
-          <Route path='/signup' element={<SignUp />} />
           <Route path='/tags' element={<Tags />} />
           <Route path='/companies' element={<Companies />} />
+
+          {/* login하면 '/'으로 리다이렉트 */}
+          <Route element={<RequireUnauth />}>
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<SignUp />} />
+          </Route>
 
           {/* private routes */}
           <Route element={<RequireAuth />}>
             <Route path='/' element={<Home />} />
             <Route path='/question/:id' element={<QuestionView />} />
             <Route path='/question/create' element={<QuestionCreate />} />
-            <Route path='/question/modified/:id' element={<QuestionModified />} />
+            <Route
+              path='/question/modified/:id'
+              element={<QuestionModified />}
+            />
             <Route
               path='/questions'
               element={
@@ -56,16 +64,18 @@ function App() {
                 </QueryClientProvider>
               }
             />
-            <Route path='/userinfo' element={<UserInfo />} />
-            <Route path='/userinfo/edit' element={<EditProfile />} />
-            <Route path='/userinfo/delete' element={<DeleteProfile />} />
+            <Route path='/users/:id' element={<UserInfo />} />
+
+            <Route path='/users/edit/:id' element={<EditProfile />} />
+
+            <Route path='/users/delete/:id' element={<DeleteProfile />} />
           </Route>
 
           {/* catch all */}
           <Route path='*' element={<Missing />} />
         </Routes>
-        <Footer />
       </BrowserRouter>
+      <Footer />
     </div>
   );
 }

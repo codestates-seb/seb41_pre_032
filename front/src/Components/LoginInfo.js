@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import axios from '../util/axios';
-import useAuth from '../util/useAuth';
 import { useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../util/useAuth';
+import jwtDecode from 'jwt-decode';
+import { axiosInstance } from '../util/axios';
 
 const Logininfowrap = styled.div`
   .login-container {
@@ -87,7 +88,8 @@ const Logininfowrap = styled.div`
     cursor: pointer;
   }
 
-  .googlelogin-button {
+  .googleLogin-button {
+    cursor: pointer;
     background-color: white;
     margin-left: 0;
     margin-right: 0;
@@ -126,7 +128,17 @@ const Logininfowrap = styled.div`
 const LOGIN_URL = '/api/login';
 
 const LoginInfo = () => {
-  const { setAuth } = useAuth();
+  const loginWithGoogle = () => {
+    try {
+      const res = axiosInstance.get('/oauth2/authorization/google');
+
+      console.log(res.data);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+
+  const { setAuth, setUser, setLoggedin } = useAuth();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -146,32 +158,42 @@ const LoginInfo = () => {
 
     onSubmit: async (values) => {
       try {
-        const res = await axios.post(LOGIN_URL, JSON.stringify(values), {
-          headers: { 'Content-Type': 'application/json' },
-        });
+        const res = await axiosInstance.post(
+          LOGIN_URL,
+          JSON.stringify(values),
+          {
+            headers: { 'Content-Type': 'application/json' },
+          }
+        );
 
-        const accessToken = res.headers.authorization;
-        const refreshToken = res.headers.refresh;
+        const authTokens = {
+          accessToken: res.headers.authorization,
+          refreshToken: res.headers.refresh,
+        };
 
-        setAuth({ accessToken, refreshToken });
+        setAuth(authTokens);
+        setUser(jwtDecode(authTokens?.accessToken));
+        setLoggedin(true)
+        
+        localStorage.setItem('auth', JSON.stringify(authTokens));
 
-        navigate(from, { replace: true });
+        navigate('/', { state: from, replace: true });
       } catch (error) {
-        console.log(error.response);
+        console.log(error.response.data);
       }
     },
   });
 
   return (
     <Logininfowrap>
-      <a className='googlelogin-button' href='/oauth2/authorization/google'>
+      <button className='googleLogin-button' onClick={loginWithGoogle}>
         <img
           alt='google logo'
           src='../images/googlebutton.png'
           className='googleLogo'
         />
         Log in with Google
-      </a>
+      </button>
 
       <div className='form-wrap'>
         <form className='form-container' onSubmit={formik.handleSubmit}>
