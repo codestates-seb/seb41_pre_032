@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchDelete } from "../../util/api";
+import useAuth from '../../util/useAuth';
+
 const AnswerLayout = styled.article`
   display: flex;
   flex-direction: row;
@@ -122,6 +124,7 @@ const AnswerLayout = styled.article`
 `;
 
 const Answer = ({ answer }) => {
+  const { auth } = useAuth();
   const [upVote, setUpVote] = useState(0);
   const [downVote, setDownVote] = useState(0);
   const handleUpVote = (e) => {
@@ -131,7 +134,7 @@ const Answer = ({ answer }) => {
     downVote === 0 ? setDownVote(1) : setDownVote(0);
   };
   const handleDelete = () => {
-    fetchDelete(`${process.env.REACT_APP_API_URL}/api/answers/`, answer.id);
+    fetchDelete(`${process.env.REACT_APP_API_URL}/api/answers/`, answer.id, auth.accessToken, auth.refreshToken);
   };
 
   let updatedDate;

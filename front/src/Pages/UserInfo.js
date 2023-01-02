@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 import Post from '../Components/Post';
 import useAxios from '../util/useAxios';
 import useAuth from '../util/useAuth';
-import { Link } from 'react-router-dom';
 import Footer from '../Components/Footer';
 
 const BodyWrap = styled.div`

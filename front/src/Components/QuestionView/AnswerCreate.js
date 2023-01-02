@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { fetchCreate } from "../../util/api";
 import useInput from "../../util/useInput";
+import useAuth from '../../util/useAuth';
 
 const AnswerCreateWrap = styled.form`
   > h2 {
@@ -39,12 +40,13 @@ const PostBtn = styled.button`
   background-color:${props => props.activebtn > 0 ? '#0a95ff' : '#aaa'};
 `
 const AnswerCreate = ({ id }) => {
+  const { auth } = useAuth();
   // eslint-disable-next-line no-unused-vars
   const [contents, contentsBind, contentsReset] = useInput("");
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { questionId: id, contents };
-    fetchCreate(`${process.env.REACT_APP_API_URL}/api/answers`, data);
+    fetchCreate(`${process.env.REACT_APP_API_URL}/api/answers`, data, auth.accessToken, auth.refreshToken);
   };
   return (
     <AnswerCreateWrap>

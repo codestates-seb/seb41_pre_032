@@ -6,14 +6,14 @@ import { useQuery } from 'react-query';
 import PageButton from '../Components/PageButton';
 import Loading from '../Components/Loading';
 import Footer from '../Components/Footer';
+import { useLocation, useNavigate } from 'react-router-dom';
+import useAuth from '../util/useAuth';
+import useAxios from '../util/useAxios';
 
 const BodyWrap = styled.div`
   display: flex;
   flex-direction: column;
 `;
-import { useLocation, useNavigate } from 'react-router-dom';
-import useAuth from '../util/useAuth';
-import useAxios from '../util/useAxios';
 
 const HomeWrap = styled.div`
   width: 100%;

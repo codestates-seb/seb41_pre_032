@@ -1,12 +1,13 @@
 import Sidebar from '../Components/Sidebar';
 import styled from 'styled-components';
 import { useState } from 'react';
-import axios from '../util/axios';
+import {axiosInstance} from '../util/axios';
 import { useQuery } from 'react-query';
 import Loading from '../Components/Loading';
 import User from '../Components/User';
 import PageButton from '../Components/PageButton';
 import Footer from '../Components/Footer';
+import useAuth from '../util/useAuth';
 
 const BodyWrap = styled.div`
   display: flex;
@@ -107,13 +108,14 @@ const HomeWrap = styled.div`
 `;
 
 const Users = () => {
+  const { auth } = useAuth();
   const [page, setPage] = useState(1);
 
   const getAllUsers = async (pageParam = 1) => {
-    const res = await axios.get(`/api/users?page=${pageParam}&size=16`, {
+    const res = await axiosInstance.get(`/api/users?page=${pageParam}&size=16`, {
       headers: {
-        Authorization: process.env.REACT_APP_AUTHORIZATION,
-        Refresh: process.env.REACT_APP_REFRESH,
+        Authorization: auth?.accessToken,
+        Refresh: auth?.refreshToken,
       },
     });
 

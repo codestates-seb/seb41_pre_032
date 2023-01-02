@@ -8,6 +8,7 @@ import { useState } from 'react';
 import PostCell from '../Components/QuestionView/PostCell';
 import AnswersCell from '../Components/QuestionView/AnswersCell';
 import Footer from '../Components/Footer';
+import useAuth from '../util/useAuth';
 
 const BodyWrap = styled.div`
   display: flex;
@@ -62,6 +63,7 @@ const Content = styled.section`
   }
 `;
 const QuestionView = () => {
+  const { auth } = useAuth();
   const [upVote, setUpVote] = useState(0);
   const [downVote, setDownVote] = useState(0);
   const { id } = useParams();
@@ -81,7 +83,7 @@ const QuestionView = () => {
   }
 
   const handleDelete = () => {
-    fetchDelete(`${process.env.REACT_APP_API_URL}/api/questions/`, id);
+    fetchDelete(`${process.env.REACT_APP_API_URL}/api/questions/`, id, auth.accessToken, auth.refreshToken);
   };
 
   const handleUpVote = (e) => {

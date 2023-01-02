@@ -4,13 +4,13 @@ const BASE_URL =
 const QUESTION_URL =
   'http://pre-project-32-front.s3-website.ap-northeast-2.amazonaws.com/question/';
 
-export const fetchCreate = (url, data) => {
+export const fetchCreate = (url, data, authorization, refresh) => {
   fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: process.env.REACT_APP_AUTHORIZATION,
-      Refresh: process.env.REACT_APP_REFRESH,
+      Authorization: authorization,
+      Refresh: refresh,
     },
     body: JSON.stringify(data),
   })
@@ -22,12 +22,12 @@ export const fetchCreate = (url, data) => {
     });
 };
 
-export const fetchDelete = (url, id) => {
+export const fetchDelete = (url, id, authorization, refresh) => {
   fetch(`${url}${id}`, {
     method: 'DELETE',
     headers: {
-      Authorization: process.env.REACT_APP_AUTHORIZATION,
-      Refresh: process.env.REACT_APP_REFRESH,
+      Authorization: authorization,
+      Refresh: refresh,
     },
   })
     .then(() => {
@@ -38,13 +38,13 @@ export const fetchDelete = (url, id) => {
     });
 };
 
-export const fetchPatch = (url, id, data) => {
+export const fetchPatch = (url, id, data, authorization, refresh) => {
   fetch(`${url}${id}`, {
     method: 'PATCH',
     headers: {
       'Content-Type': 'Application/json',
-      Authorization: process.env.REACT_APP_AUTHORIZATION,
-      Refresh: process.env.REACT_APP_REFRESH,
+      Authorization: authorization,
+      Refresh: refresh,
     },
     body: JSON.stringify(data),
   })
