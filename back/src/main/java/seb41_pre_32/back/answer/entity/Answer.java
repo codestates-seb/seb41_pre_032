@@ -53,12 +53,20 @@ public class Answer extends BaseEntity {
         user.getAnswers().add(this);
     }
 
+    public void addQuestion(final Question question) {
+        this.question = question;
+        question.getAnswerList().add(this);
+    }
+
     public void changeContents(final String contents) {
         this.contents = contents;
     }
 
-    public void addQuestion(Question question) {
-        this.question = question;
-        question.getAnswerList().add(this);
+    public void updateLikeCount() {
+        this.likeCount++;
+    }
+
+    public void updateDisLikeCount() {
+        this.disLikeCount++;
     }
 }

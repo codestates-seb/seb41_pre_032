@@ -55,32 +55,34 @@ public class UserService {
         User user;
 
         if (isFirstLogin(email)) {
-            user = User.of(email);
+            user = User.transToGoogleUser(email);
             String encryptedPassword = passwordEncoder.encode(UUID.randomUUID().toString());
             user.changePassword(encryptedPassword);
             user.changeRole(Role.USER);
             user.changeLocation("서울");
             user.changeProfile("http://file3.instiz.net/data/file3/2021/05/31/7/0/9/7091080ae49c76e54021c3c3e42c7469.png");
+            userRepository.save(user);
         } else {
             user = userRepository.findByEmail(email).get();
         }
 
-        return userRepository.save(user);
+        return user;
     }
 
-    private boolean isFirstLogin(String email) {
+    private boolean isFirstLogin(final String email) {
         return !userRepository.existsUserByEmail(email);
     }
 
     private void checkEmailDuplicate(final String email) {
-        boolean isEmailDuplicated = userRepository.existsUserByEmail(email);
-        if (isEmailDuplicated) {
+        if (userRepository.existsUserByEmail(email)) {
             throw new DuplicateUserEmailException();
         }
     }
 
     @Transactional
-    public User updateUser(final Long userId, final UserPatchRequest userPatchRequest, final AuthInfo authInfo) {
+    public User updateUser(final Long userId,
+                           final UserPatchRequest userPatchRequest,
+                           final AuthInfo authInfo) {
         User findUser = findValidUser(userId);
         validateOwnInfo(findUser.getEmail(), authInfo);
 
@@ -116,12 +118,9 @@ public class UserService {
 
     public User findUser(final Long userId) {
         User findUser = findValidUser(userId);
-
-        findUserAnswers(userId).forEach(
-                answer -> answer.addUser(findUser));
-        findUserQuestions(userId).forEach(
-                question -> question.addUser(findUser)
-        );
+        List<Answer> userAnswers = findUserAnswers(userId);
+        List<Question> userQuestions = findUserQuestions(userId);
+        findUser.setUserAnswersAndQuestions(userAnswers, userQuestions);
 
         return findUser;
     }

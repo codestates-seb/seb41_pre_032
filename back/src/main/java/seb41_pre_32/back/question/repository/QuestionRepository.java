@@ -20,6 +20,6 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
     @Query("select q from Question q left join fetch q.user left join fetch q.tags where q.questionId =:id")
     Optional<Question> findById(Long id);
 
-    @Query("select q from Question q where q.user.id =:userId")
+    @Query("select distinct q from Question q where q.user.id =:userId")
     List<Question> findQuestionsByUserId(Long userId);
 }

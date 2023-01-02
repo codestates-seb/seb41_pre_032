@@ -23,16 +23,16 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity join(@RequestBody @Valid final UserPostRequest userPostRequest) {
+    public ResponseEntity postUser(@RequestBody @Valid final UserPostRequest userPostRequest) {
         return new ResponseEntity<>(
                 UserResponseDto.of(userService.createUser(userPostRequest)),
                 HttpStatus.CREATED);
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity update(@PathVariable("userId") final Long userId,
-                                 @LoginUser final AuthInfo authInfo,
-                                 @RequestBody @Valid final UserPatchRequest userPatchRequest) {
+    public ResponseEntity patchUser(@PathVariable("userId") final Long userId,
+                                    @LoginUser final AuthInfo authInfo,
+                                    @RequestBody @Valid final UserPatchRequest userPatchRequest) {
         return new ResponseEntity<>(
                 UserResponseDto.of(userService.updateUser(userId, userPatchRequest, authInfo)),
                 HttpStatus.OK);
@@ -41,7 +41,7 @@ public class UserController {
     @GetMapping("/{userId}")
     public ResponseEntity getUser(@PathVariable("userId") final Long userId) {
         return new ResponseEntity<>(
-                UserResponseDto.toGetResponse(userService.findUser(userId)),
+                UserResponseDto.transToGetResponseDto(userService.findUser(userId)),
                 HttpStatus.OK);
     }
 
@@ -58,8 +58,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> delete(@PathVariable("userId") final Long userId,
-                                       @LoginUser final AuthInfo authInfo) {
+    public ResponseEntity<Void> deleteUser(@PathVariable("userId") final Long userId,
+                                           @LoginUser final AuthInfo authInfo) {
         userService.deleteUser(userId, authInfo);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

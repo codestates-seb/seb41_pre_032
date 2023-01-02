@@ -260,7 +260,7 @@ public class AnswerControllerTest {
 
         answer.addUser(user);
 
-        given(answerService.getAnswer(Mockito.anyLong(), Mockito.any(AuthInfo.class))).willReturn(answer);
+        given(answerService.getAnswer(Mockito.anyLong())).willReturn(answer);
 
         // when
         ResultActions actions = mockMvc.perform(get("/api/answers/{answerId}", answerId)

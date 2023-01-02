@@ -24,7 +24,6 @@ import seb41_pre_32.back.user.repository.UserRepository;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class AnswerService {
-
     private final AnswerRepository answerRepository;
     private final UserRepository userRepository;
     private final QuestionRepository questionRepository;
@@ -32,9 +31,8 @@ public class AnswerService {
     @Transactional
     public Answer createAnswer(final AnswerPostDto answerPostDto,
                                final AuthInfo authInfo) {
-
-        User user = findUser(authInfo.getUserId());
-        Question question = findQuestion(Long.parseLong(answerPostDto.getQuestionId()));
+        User user = findValidateUser(authInfo.getUserId());
+        Question question = findValidateQuestion(Long.parseLong(answerPostDto.getQuestionId()));
 
         Answer answer = Answer.builder()
                 .contents(answerPostDto.getContents())
@@ -48,12 +46,12 @@ public class AnswerService {
         return answerRepository.save(answer);
     }
 
-    private User findUser(final Long userId) {
+    private User findValidateUser(final Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException());
     }
 
-    private Question findQuestion(final Long questionId) {
+    private Question findValidateQuestion(final Long questionId) {
         return questionRepository.findById(questionId)
                 .orElseThrow(() -> new QuestionNotFoundException());
     }
@@ -62,39 +60,53 @@ public class AnswerService {
     public Answer updateAnswer(final Long answerId,
                                final AuthInfo authInfo,
                                final AnswerPatchDto answerPatchDto) {
-        Answer answer = findAnswer(answerId);
+        Answer answer = findValidateAnswer(answerId);
         checkValidateUser(authInfo.getEmail(), answer.getUser().getEmail());
         answer.changeContents(answerPatchDto.getContents());
-
         return answer;
     }
 
-    private Answer findAnswer(final Long answerId) {
+    private Answer findValidateAnswer(final Long answerId) {
         return answerRepository.findById(answerId)
                 .orElseThrow(() -> new AnswerNotFoundException());
     }
 
-    private void checkValidateUser(final String userEmail, final String answerUserEmail) {
-        if (!userEmail.equals(answerUserEmail)) {
+    private void checkValidateUser(final String authUserEmail,
+                                   final String answerUserEmail) {
+        if (!authUserEmail.equals(answerUserEmail)) {
             throw new NotAuthorizedUserAccessException();
         }
     }
 
-    public Answer getAnswer(final Long answerId, final AuthInfo authInfo) {
-        Answer answer = findAnswer(answerId);
-        checkValidateUser(authInfo.getEmail(), answer.getUser().getEmail());
-        return answer;
+    public Answer getAnswer(final Long answerId) {
+        return findValidateAnswer(answerId);
     }
 
     @Transactional
     public void deleteAnswer(final Long answerId, final AuthInfo authInfo) {
-        Answer answer = findAnswer(answerId);
+        Answer answer = findValidateAnswer(answerId);
         checkValidateUser(authInfo.getEmail(), answer.getUser().getEmail());
         answerRepository.deleteById(answerId);
     }
 
-    public Page<Answer> getAnswers(Long questionId, int page, int size) {
+    public Page<Answer> getAnswers(final Long questionId,
+                                   final int page,
+                                   final int size) {
         return answerRepository.findAnswersByQuestion(questionId,
                 PageRequest.of(page, size, Sort.by("createdDate").descending()));
+    }
+
+    @Transactional
+    public Answer likeAnswer(final Long answerId) {
+        Answer answer = findValidateAnswer(answerId);
+        answer.updateLikeCount();
+        return answer;
+    }
+
+    @Transactional
+    public Answer dislikeAnswer(final Long answerId) {
+        Answer answer = findValidateAnswer(answerId);
+        answer.updateDisLikeCount();
+        return answer;
     }
 }

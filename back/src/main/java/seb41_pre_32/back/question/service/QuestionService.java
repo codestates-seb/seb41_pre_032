@@ -39,8 +39,7 @@ public class QuestionService {
     public Question createQuestion(final QuestionPostDto questionPostDto,
                                    final AuthInfo authInfo) {
 
-        User user = findUser(authInfo.getUserId());
-
+        User user = findValidateUser(authInfo.getUserId());
         List<Tag> tags = questionPostDto.getTaglist().stream()
                 .map(s -> new Tag(s))
                 .collect(Collectors.toList());
@@ -53,24 +52,22 @@ public class QuestionService {
         List<QuestionTag> question_tags = tags.stream()
                 .map(tag -> new QuestionTag(question, tag))
                 .collect(Collectors.toList());
-
         question.addTags(question_tags);
 
         return questionRepository.save(question);
     }
 
-    private User findUser(final Long userId) {
+    private User findValidateUser(final Long userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException());
     }
 
     @Transactional
-    public Question editQuestion(final QuestionPatchDto questionPatchDto,
-                                 final Long questionId,
-                                 final AuthInfo authInfo) {
-
-        Question findQuestion = findVerifiedQuestion(questionId);
-        checkValidateUser(authInfo.getUserId(), findQuestion.getUser().getId());
+    public Question updateQuestion(final QuestionPatchDto questionPatchDto,
+                                   final Long questionId,
+                                   final AuthInfo authInfo) {
+        Question findQuestion = findValidateQuestion(questionId);
+        checkValidateUser(authInfo.getEmail(), findQuestion.getUser().getEmail());
 
         Optional.ofNullable(questionPatchDto.getTitle())
                 .ifPresent(title -> findQuestion.changeTitle(title));
@@ -82,15 +79,16 @@ public class QuestionService {
         return findQuestion;
     }
 
-    private void checkValidateUser(final Long authId, final Long savedId) {
-        if (authId != savedId) {
+    private void checkValidateUser(final String authUserEmail,
+                                   final String userEmail) {
+        if (!userEmail.equals(authUserEmail)) {
             throw new NotAuthorizedUserAccessException();
         }
     }
 
-    public Question findQuestion(Long questionId) {
-        Question question = findVerifiedQuestion(questionId);
-        List<Answer> answers = answerRepository.findAnswersByQuestionId(questionId);
+    public Question findQuestion(final Long questionId) {
+        Question question = findValidateQuestion(questionId);
+        List<Answer> answers = answerRepository.findAnswersByQuestion(questionId);
         answers.forEach(answer -> answer.addQuestion(question));
 
         return question;
@@ -102,19 +100,19 @@ public class QuestionService {
 
     @Transactional
     public void deleteQuestion(final Long questionId, final AuthInfo authInfo) {
-        Question findQuestion = findVerifiedQuestion(questionId);
-        checkValidateUser(authInfo.getUserId(), findQuestion.getUser().getId());
+        Question findQuestion = findValidateQuestion(questionId);
+        checkValidateUser(authInfo.getEmail(), findQuestion.getUser().getEmail());
         questionRepository.deleteById(questionId);
     }
 
-    public Question findVerifiedQuestion(final Long questionId) {
+    public Question findValidateQuestion(final Long questionId) {
         return questionRepository.findById(questionId)
                 .orElseThrow(() -> new QuestionNotFoundException());
     }
 
     @Transactional
     public Question likeQuestion(final Long questionId) {
-        Question question = findVerifiedQuestion(questionId);
+        Question question = findValidateQuestion(questionId);
         question.updateLikeCount();
         question.updateReputation();
         return question;
@@ -122,7 +120,7 @@ public class QuestionService {
 
     @Transactional
     public Question dislikeQuestion(final Long questionId) {
-        Question question = findVerifiedQuestion(questionId);
+        Question question = findValidateQuestion(questionId);
         question.updateDisLikeCount();
         question.updateReputation();
         return question;

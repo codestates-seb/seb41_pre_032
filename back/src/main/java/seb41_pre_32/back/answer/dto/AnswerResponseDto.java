@@ -49,7 +49,7 @@ public class AnswerResponseDto {
                 .build();
     }
 
-    public void removeUser(){
+    public void removeUser() {
         this.user = null;
     }
 }
