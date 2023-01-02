@@ -241,7 +241,7 @@ const Companies = () => {
               <ul className='companies-list'>
                 <li className='eachcompanies'>
                   <img
-                    src='../logo192.png'
+                    src='../images/co01.png'
                     alt='company_logo'
                     className='companies-photo'
                   />
@@ -288,12 +288,12 @@ const Companies = () => {
                 </li>
                 <li className='eachcompanies'>
                   <img
-                    src='../logo192.png'
+                    src='../images/co02.jpg'
                     alt='company_logo'
                     className='companies-photo'
                   />
                   <div className='company-detail'>
-                    <h2 className='compaines-name'>Nord Security</h2>
+                    <h2 className='compaines-name'>Inductive Automation</h2>
                     <div className='companies-lnfo-box'>
                       <div className='companies-location-box'>
                         <div className='companies-location'>
@@ -302,7 +302,8 @@ const Companies = () => {
                             alt='location_img'
                             className='img-box'
                           />
-                          <p>Vilnius; Kaunas; Poland</p>
+
+                          <p>Folsom</p>
                         </div>
                         <div className='companies-location'>
                           <img
@@ -310,22 +311,293 @@ const Companies = () => {
                             alt='building_logo'
                             className='img-box'
                           />
+
                           <p>
-                            Cybersecurity, Network Security, Software
-                            Development
+                            Industrial Automation, Software Development /
+                            Engineering, SCADA
                           </p>
                         </div>
                       </div>
                       <p className='companies-introduce'>
-                        Nord Security is one of the world’s leading digital
-                        security and privacy solutions providers. Used by
-                        millions of customers worldwide, our suite of products
-                        include: NordVPN - the fastest VPN on the planet, built
-                        to protect your online traffic and privacy with
-                        next-generation encryption. NordLayer
+                        The Software Engineering Team works to design, develop
+                        and constantly improve the functionality and value of
+                        our software products. They are responsible for
+                        Ignition’s continual success in the industry.
+                      </p>
+                      <div className='companies-uselanguage-box'>
+                        <div className='companies-uselanguage'>jajva</div>
+                        <div className='companies-uselanguage'>python</div>
+                        <div className='companies-uselanguage'>sql</div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className='eachcompanies'>
+                  <img
+                    src='../images/co03.png'
+                    alt='company_logo'
+                    className='companies-photo'
+                  />
+                  <div className='company-detail'>
+                    <h2 className='compaines-name'>Novo Nordisk A/S</h2>
+                    <div className='companies-lnfo-box'>
+                      <div className='companies-location-box'>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/location-dot-solid.svg'
+                            alt='location_img'
+                            className='img-box'
+                          />
+
+                          <p>Bengaluru; Denmark; Plainsboro Township</p>
+                        </div>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/building-solid.svg'
+                            alt='building_logo'
+                            className='img-box'
+                          />
+
+                          <p>Manufacturing, Pharmaceuticals</p>
+                        </div>
+                      </div>
+                      <p className='companies-introduce'>
+                        At Novo Nordisk, our focus is on defeating diabetes and
+                        other serious chronic diseases that affect the lives of
+                        hundreds of millions of people. By combining our
+                        innovation and commercial excellence, we draw upon
+                        insights from patients and partners to transform bold
+                        ideas into life-saving and preventive medicines.
+                      </p>
+                      <div className='companies-uselanguage-box'>
+                        <div className='companies-uselanguage'>javascript</div>{' '}
+                        <div className='companies-uselanguage'>html</div>
+                        <div className='companies-uselanguage'>css</div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className='eachcompanies'>
+                  <img
+                    src='../images/co04.png'
+                    alt='company_logo'
+                    className='companies-photo'
+                  />
+                  <div className='company-detail'>
+                    <h2 className='compaines-name'>FINN</h2>
+                    <div className='companies-lnfo-box'>
+                      <div className='companies-location-box'>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/location-dot-solid.svg'
+                            alt='location_img'
+                            className='img-box'
+                          />
+
+                          <p>München</p>
+                        </div>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/building-solid.svg'
+                            alt='building_logo'
+                            className='img-box'
+                          />
+
+                          <p>
+                            Agile Software Development, Automotive, Mobility
+                          </p>
+                        </div>
+                      </div>
+                      <p className='companies-introduce'>
+                        At FINN we create software that will manage thousands of
+                        vehicles and customers on a daily basis. You have the
+                        chance to join this team early on and work independently
+                        on our product. If your coding skills are known around
+                        the globe, and you love to contribute your ideas and
+                        engineering skills to a growing company in the heart of
+                        Munich then apply now.
+                      </p>
+                      <div className='companies-uselanguage-box'>
+                        <div className='companies-uselanguage'>reactjs</div>{' '}
+                        <div className='companies-uselanguage'>yarn</div>
+                        <div className='companies-uselanguage'>webpack</div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className='eachcompanies'>
+                  <img
+                    src='../images/co05.jpg'
+                    alt='company_logo'
+                    className='companies-photo'
+                  />
+                  <div className='company-detail'>
+                    <h2 className='compaines-name'>Udemy</h2>
+                    <div className='companies-lnfo-box'>
+                      <div className='companies-location-box'>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/location-dot-solid.svg'
+                            alt='location_img'
+                            className='img-box'
+                          />
+
+                          <p>Melbourne; Ankara; İstanbul</p>
+                        </div>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/building-solid.svg'
+                            alt='building_logo'
+                            className='img-box'
+                          />
+
+                          <p>Education Technology, SaaS</p>
+                        </div>
+                      </div>
+                      <p className='companies-introduce'>
+                        At Udemy, our engineering teams embody this statement.
+                        They work in high-growth environments on new and
+                        engaging projects. Our teams have a high degree of
+                        autonomy to define their mission, vision, strategy to
+                        select and prioritize the projects to work on to deliver
+                        the business results to our customers.
+                      </p>
+                      <div className='companies-uselanguage-box'>
+                        <div className='companies-uselanguage'>python</div>
+                        <div className='companies-uselanguage'>hadoop</div>{' '}
+                        <div className='companies-uselanguage'>bigdata</div>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+                <li className='eachcompanies'>
+                  <img
+                    src='../images/co06.png'
+                    alt='company_logo'
+                    className='companies-photo'
+                  />
+                  <div className='company-detail'>
+                    <h2 className='compaines-name'>Justworks</h2>
+                    <div className='companies-lnfo-box'>
+                      <div className='companies-location-box'>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/location-dot-solid.svg'
+                            alt='location_img'
+                            className='img-box'
+                          />
+
+                          <p>New York</p>
+                        </div>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/building-solid.svg'
+                            alt='building_logo'
+                            className='img-box'
+                          />
+
+                          <p>HR Services, SaaS</p>
+                        </div>
+                      </div>
+                      <p className='companies-introduce'>
+                        Justworks is organized into clusters which are based on
+                        product domains and have missions or pods within them
+                        that can spin up or down based on needed outcomes:
+                      </p>
+                      <div className='companies-uselanguage-box'>
+                        <div className='companies-uselanguage'>amazon-s3</div>
+                        <div className='companies-uselanguage'>
+                          circleci
+                        </div>{' '}
+                        <div className='companies-uselanguage'>clonework</div>
+                      </div>
+                    </div>
+                  </div>
+                </li>{' '}
+                <li className='eachcompanies'>
+                  <img
+                    src='../images/co07.png'
+                    alt='company_logo'
+                    className='companies-photo'
+                  />
+                  <div className='company-detail'>
+                    <h2 className='compaines-name'>mBank S.A.</h2>
+                    <div className='companies-lnfo-box'>
+                      <div className='companies-location-box'>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/location-dot-solid.svg'
+                            alt='location_img'
+                            className='img-box'
+                          />
+
+                          <p>Warsaw; Łódź</p>
+                        </div>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/building-solid.svg'
+                            alt='building_logo'
+                            className='img-box'
+                          />
+
+                          <p>
+                            Banking, Financial Services, Financial Technology
+                          </p>
+                        </div>
+                      </div>
+                      <p className='companies-introduce'>
+                        Mamy unikalną kulturę organizacyjną, a wyróżniają nas
+                        ludzie! Tworzymy aplikacje webowe, mobilne i narzędzia
+                        technologiczne, z których skorzystało już ponad 5,5 mln
+                        naszych klientów. Cenimy poczucie stabilności i
+                        bezpieczeństwa, możliwości rozwoju oraz... swój czas – w
+                        pracy i po pracy.
+                      </p>
+                      <div className='companies-uselanguage-box'>
+                        <div className='companies-uselanguage'>c#</div>
+                        <div className='companies-uselanguage'>swift</div>{' '}
+                        <div className='companies-uselanguage'>java</div>
+                      </div>
+                    </div>
+                  </div>
+                </li>{' '}
+                <li className='eachcompanies'>
+                  <img
+                    src='../images/co08.png'
+                    alt='company_logo'
+                    className='companies-photo'
+                  />
+                  <div className='company-detail'>
+                    <h2 className='compaines-name'>Ockam</h2>
+                    <div className='companies-lnfo-box'>
+                      <div className='companies-location-box'>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/location-dot-solid.svg'
+                            alt='location_img'
+                            className='img-box'
+                          />
+
+                          <p>No office location</p>
+                        </div>
+                        <div className='companies-location'>
+                          <img
+                            src='../images/building-solid.svg'
+                            alt='building_logo'
+                            className='img-box'
+                          />
+
+                          <p>Cloud Services, Security, Software Development</p>
+                        </div>
+                      </div>
+                      <p className='companies-introduce'>
+                        Ockam is a fully-distributed high performance team. We
+                        are Open Source and build in Rust and Elixir.Join the
+                        Ockam Team!
                       </p>
                       <div className='companies-uselanguage-box'>
                         <div className='companies-uselanguage'>rust</div>
+                        <div className='companies-uselanguage'>elixir</div>{' '}
                         <div className='companies-uselanguage'>open-source</div>
                       </div>
                     </div>
@@ -333,12 +605,14 @@ const Companies = () => {
                 </li>{' '}
                 <li className='eachcompanies'>
                   <img
-                    src='../logo192.png'
+                    src='../images/co09.jpg'
                     alt='company_logo'
                     className='companies-photo'
                   />
                   <div className='company-detail'>
-                    <h2 className='compaines-name'>Nord Security</h2>
+                    <h2 className='compaines-name'>
+                      Jack Henry & Associates, Inc.
+                    </h2>
                     <div className='companies-lnfo-box'>
                       <div className='companies-location-box'>
                         <div className='companies-location'>
@@ -348,7 +622,7 @@ const Companies = () => {
                             className='img-box'
                           />
 
-                          <p>Vilnius; Kaunas; Poland</p>
+                          <p> San Diego; Allen; Overland Park</p>
                         </div>
                         <div className='companies-location'>
                           <img
@@ -358,34 +632,45 @@ const Companies = () => {
                           />
 
                           <p>
-                            Cybersecurity, Network Security, Software
-                            Development
+                            {' '}
+                            Banking, Financial Technology, Software Development
+                            / Engineering
                           </p>
                         </div>
                       </div>
                       <p className='companies-introduce'>
-                        Nord Security is one of the world’s leading digital
-                        security and privacy solutions providers. Used by
-                        millions of customers worldwide, our suite of products
-                        include: NordVPN - the fastest VPN on the planet, built
-                        to protect your online traffic and privacy with
-                        next-generation encryption. NordLayer
+                        According to the team at Jack Henry Digital, people have
+                        forgotten how personal banking was before society
+                        embraced the digital world. Born from the desire to
+                        reconnect institutions with their communities on a human
+                        level, the FinTech company developed a suite of digital
+                        banking solutions that provide the world-class service
+                        of the past in this new digital landscape. With this
+                        platform, financial institutions can offer a range of
+                        seamless, relational, and contextual mobile and online
+                        banking capabilities, along with personalized customer
+                        support. In addition, businesses gain access to
+                        marketing tools and more, which aid in their efforts to
+                        strengthen user-base, revenue, and community status.
                       </p>
                       <div className='companies-uselanguage-box'>
-                        <div className='companies-uselanguage'>rust</div>
-                        <div className='companies-uselanguage'>open-source</div>
+                        <div className='companies-uselanguage'>scala</div>
+                        <div className='companies-uselanguage'>go</div>{' '}
+                        <div className='companies-uselanguage'>
+                          ecmascript-harmony
+                        </div>
                       </div>
                     </div>
                   </div>
                 </li>{' '}
                 <li className='eachcompanies'>
                   <img
-                    src='../logo192.png'
+                    src='../images/co10.png'
                     alt='company_logo'
                     className='companies-photo'
                   />
                   <div className='company-detail'>
-                    <h2 className='compaines-name'>Nord Security</h2>
+                    <h2 className='compaines-name'>Endava</h2>
                     <div className='companies-lnfo-box'>
                       <div className='companies-location-box'>
                         <div className='companies-location'>
@@ -395,7 +680,7 @@ const Companies = () => {
                             className='img-box'
                           />
 
-                          <p>Vilnius; Kaunas; Poland</p>
+                          <p>Malaysia; Singapore; Australia</p>
                         </div>
                         <div className='companies-location'>
                           <img
@@ -404,70 +689,16 @@ const Companies = () => {
                             className='img-box'
                           />
 
-                          <p>
-                            Cybersecurity, Network Security, Software
-                            Development
-                          </p>
+                          <p>Information Technology</p>
                         </div>
                       </div>
-                      <p className='companies-introduce'>
-                        Nord Security is one of the world’s leading digital
-                        security and privacy solutions providers. Used by
-                        millions of customers worldwide, our suite of products
-                        include: NordVPN - the fastest VPN on the planet, built
-                        to protect your online traffic and privacy with
-                        next-generation encryption. NordLayer
-                      </p>
+                      <p className='companies-introduce'></p>
                       <div className='companies-uselanguage-box'>
-                        <div className='companies-uselanguage'>rust</div>
-                        <div className='companies-uselanguage'>open-source</div>
-                      </div>
-                    </div>
-                  </div>
-                </li>{' '}
-                <li className='eachcompanies'>
-                  <img
-                    src='../logo192.png'
-                    alt='company_logo'
-                    className='companies-photo'
-                  />
-                  <div className='company-detail'>
-                    <h2 className='compaines-name'>Nord Security</h2>
-                    <div className='companies-lnfo-box'>
-                      <div className='companies-location-box'>
-                        <div className='companies-location'>
-                          <img
-                            src='../images/location-dot-solid.svg'
-                            alt='location_img'
-                            className='img-box'
-                          />
-
-                          <p>Vilnius; Kaunas; Poland</p>
-                        </div>
-                        <div className='companies-location'>
-                          <img
-                            src='../images/building-solid.svg'
-                            alt='building_logo'
-                            className='img-box'
-                          />
-
-                          <p>
-                            Cybersecurity, Network Security, Software
-                            Development
-                          </p>
-                        </div>
-                      </div>
-                      <p className='companies-introduce'>
-                        Nord Security is one of the world’s leading digital
-                        security and privacy solutions providers. Used by
-                        millions of customers worldwide, our suite of products
-                        include: NordVPN - the fastest VPN on the planet, built
-                        to protect your online traffic and privacy with
-                        next-generation encryption. NordLayer
-                      </p>
-                      <div className='companies-uselanguage-box'>
-                        <div className='companies-uselanguage'>rust</div>
-                        <div className='companies-uselanguage'>open-source</div>
+                        <div className='companies-uselanguage'>reactjs</div>
+                        <div className='companies-uselanguage'>
+                          angular
+                        </div>{' '}
+                        <div className='companies-uselanguage'>typescript</div>
                       </div>
                     </div>
                   </div>
