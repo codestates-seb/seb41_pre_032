@@ -34,9 +34,9 @@ public class QuestionController {
     }
 
     @PatchMapping("/{questionId}")
-    public ResponseEntity editQuestion(@PathVariable("questionId") Long questionId,
-                                       @RequestBody @Valid QuestionPatchDto questionPatchDto,
-                                       @LoginUser AuthInfo authInfo) {
+    public ResponseEntity patchQuestion(@PathVariable("questionId") Long questionId,
+                                        @RequestBody @Valid QuestionPatchDto questionPatchDto,
+                                        @LoginUser AuthInfo authInfo) {
         return new ResponseEntity<>(
                 QuestionResponseDto.of(questionService.editQuestion(questionPatchDto, questionId, authInfo)),
                 HttpStatus.OK);

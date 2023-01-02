@@ -90,7 +90,7 @@ public class QuestionService {
 
     public Question findQuestion(Long questionId) {
         Question question = findVerifiedQuestion(questionId);
-        List<Answer> answers = answerRepository.findAnswersByQuestionId(questionId);
+        List<Answer> answers = answerRepository.findAnswersByQuestion(questionId);
         answers.forEach(answer -> answer.addQuestion(question));
 
         return question;
