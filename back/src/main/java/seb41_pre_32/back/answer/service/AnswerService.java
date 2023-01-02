@@ -40,9 +40,10 @@ public class AnswerService {
                 .contents(answerPostDto.getContents())
                 .likeCount(0)
                 .disLikeCount(0)
-                .user(user)
-                .question(question)
                 .build();
+
+        answer.addUser(user);
+        answer.addQuestion(question);
 
         return answerRepository.save(answer);
     }

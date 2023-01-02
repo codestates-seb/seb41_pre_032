@@ -41,15 +41,11 @@ public class Answer extends BaseEntity {
     public Answer(final Long id,
                   final String contents,
                   final int likeCount,
-                  final int disLikeCount,
-                  final User user,
-                  final Question question) {
+                  final int disLikeCount) {
         this.answerId = id;
         this.contents = contents;
         this.likeCount = likeCount;
         this.disLikeCount = disLikeCount;
-        this.user = user;
-        this.question = question;
     }
 
     public void addUser(final User user) {

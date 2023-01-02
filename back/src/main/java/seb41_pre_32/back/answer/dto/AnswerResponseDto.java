@@ -42,7 +42,7 @@ public class AnswerResponseDto {
                 .id(answer.getAnswerId())
                 .contents(answer.getContents())
                 .likeCount(answer.getLikeCount())
-                .dislikeCount(answer.getLikeCount())
+                .dislikeCount(answer.getDisLikeCount())
                 .createdDate(answer.getCreatedDate())
                 .updatedDate(answer.getModifiedDate())
                 .user(UserResponseDto.of(answer.getUser()))

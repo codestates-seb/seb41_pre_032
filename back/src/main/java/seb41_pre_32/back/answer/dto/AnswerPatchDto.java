@@ -8,4 +8,11 @@ import javax.validation.constraints.NotBlank;
 public class AnswerPatchDto {
     @NotBlank(message = "내용을 입력해 주세요.")
     private String contents;
+
+    private AnswerPatchDto() {
+    }
+
+    public AnswerPatchDto(final String contents) {
+        this.contents = contents;
+    }
 }

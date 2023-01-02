@@ -100,7 +100,7 @@ public class UserControllerTest {
                 .andExpect(jsonPath("$.reputation").value(0))
                 .andExpect(jsonPath("$.location").value("서울"))
                 .andExpect(jsonPath("$.role").value(savedUser.getRole().getValue()))
-                .andDo(document("join-user",
+                .andDo(document("create-user",
                         Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                         Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
                         requestFields(
