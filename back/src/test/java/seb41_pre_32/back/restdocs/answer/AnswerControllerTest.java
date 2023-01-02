@@ -608,7 +608,7 @@ public class AnswerControllerTest {
                 .andExpect(jsonPath("$.user.reputation").value(0))
                 .andExpect(jsonPath("$.user.location").value("서울"))
                 .andExpect(jsonPath("$.user.role").value(user.getRole().getValue()))
-                .andDo(document("like-answer",
+                .andDo(document("dislike-answer",
                         Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                         Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
                         pathParameters(

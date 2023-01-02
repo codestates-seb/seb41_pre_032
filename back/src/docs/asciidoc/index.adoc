@@ -73,6 +73,6 @@ operation::delete-answer/[snippets='curl-request,http-request,path-parameters,ht
 === 답변 좋아요
 operation::like-answer/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
 
-=== 질문 싫어요
+=== 답변 싫어요
 operation::dislike-answer/[snippets='curl-request,http-request,path-parameters,http-response,response-fields']
 
