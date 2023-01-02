@@ -2,10 +2,8 @@ package seb41_pre_32.back.question.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import java.util.List;
 
 @Getter
 public class QuestionPatchDto {
@@ -15,6 +13,8 @@ public class QuestionPatchDto {
     private String contents;
     private String attempt;
 
+    private QuestionPatchDto() {
+    }
 
     @Builder
     public QuestionPatchDto(final String title,

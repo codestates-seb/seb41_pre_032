@@ -212,7 +212,7 @@ public class QuestionControllerTest {
         question.addUser(user);
         answers.forEach(a -> a.addQuestion(question));
 
-        given(questionService.editQuestion(Mockito.any(QuestionPatchDto.class), Mockito.anyLong(), Mockito.any(AuthInfo.class))).willReturn(question);
+        given(questionService.updateQuestion(Mockito.any(QuestionPatchDto.class), Mockito.anyLong(), Mockito.any(AuthInfo.class))).willReturn(question);
 
         // when
         ResultActions actions = mockMvc.perform(patch("/api/questions/{questionId}", question.getQuestionId())

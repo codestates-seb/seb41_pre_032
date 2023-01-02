@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@Builder
 public class QuestionResponseDto {
     private Long id;
     private String title;
@@ -27,12 +26,19 @@ public class QuestionResponseDto {
     private int reputation;
     private int answerCount;
 
-    public QuestionResponseDto(final Long id, final String title,
-                               final String contents, final String attempt,
-                               final List<TagResponseDto> tags, final UserResponseDto user,
-                               final LocalDateTime createdDate, final LocalDateTime updatedDate,
-                               final int likeCount, final int dislikeCount,
-                               final int reputation, final int answerCount) {
+    @Builder
+    public QuestionResponseDto(final Long id,
+                               final String title,
+                               final String contents,
+                               final String attempt,
+                               final List<TagResponseDto> tags,
+                               final UserResponseDto user,
+                               final LocalDateTime createdDate,
+                               final LocalDateTime updatedDate,
+                               final int likeCount,
+                               final int dislikeCount,
+                               final int reputation,
+                               final int answerCount) {
         this.id = id;
         this.title = title;
         this.contents = contents;

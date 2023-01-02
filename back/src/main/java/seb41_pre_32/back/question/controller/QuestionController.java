@@ -38,7 +38,7 @@ public class QuestionController {
                                         @RequestBody @Valid QuestionPatchDto questionPatchDto,
                                         @LoginUser AuthInfo authInfo) {
         return new ResponseEntity<>(
-                QuestionResponseDto.of(questionService.editQuestion(questionPatchDto, questionId, authInfo)),
+                QuestionResponseDto.of(questionService.updateQuestion(questionPatchDto, questionId, authInfo)),
                 HttpStatus.OK);
     }
 
@@ -52,7 +52,6 @@ public class QuestionController {
     @GetMapping
     public ResponseEntity<MultiResponse> getQuestions(@RequestParam("page") int page,
                                                       @RequestParam("size") int size) {
-
         Page<Question> questions = questionService.findQuestions(page - 1, size);
         List<QuestionResponseDto> response =
                 questions.getContent().stream()
@@ -84,7 +83,6 @@ public class QuestionController {
     @GetMapping("/reputation")
     public ResponseEntity<MultiResponse> getQuestionsByLikes(@RequestParam("page") int page,
                                                              @RequestParam("size") int size) {
-
         Page<Question> questions = questionService.findQuestionsByLikes(page - 1, size);
         List<QuestionResponseDto> response =
                 questions.getContent().stream()

@@ -16,6 +16,9 @@ public class QuestionPostDto {
     private String attempt;
     private List<String> taglist;
 
+    private QuestionPostDto() {
+    }
+
     @Builder
     public QuestionPostDto(final String title,
                            final String contents,
