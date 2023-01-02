@@ -1,5 +1,6 @@
 package seb41_pre_32.back.answer.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.NotBlank;
@@ -11,4 +12,11 @@ public class AnswerPostDto {
 
     @NotBlank(message = "답변 내용은 공백이 아니어야 합니다.")
     private String contents;
+
+    @Builder
+    public AnswerPostDto(final String questionId,
+                         final String contents) {
+        this.questionId = questionId;
+        this.contents = contents;
+    }
 }

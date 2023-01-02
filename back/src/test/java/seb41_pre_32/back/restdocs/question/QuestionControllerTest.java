@@ -125,7 +125,7 @@ public class QuestionControllerTest {
                 .andExpect(jsonPath("$.tags[0].tagName").value(tag.getTagName()))
                 .andExpect(jsonPath("$.user.id").value(user.getId()))
                 .andExpect(jsonPath("$.answerCount").value(answers.size()))
-                .andDo(document("create-questions",
+                .andDo(document("create-question",
                         Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                         Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
                         requestFields(
@@ -231,7 +231,7 @@ public class QuestionControllerTest {
                 .andExpect(jsonPath("$.tags[0].tagName").value(tag.getTagName()))
                 .andExpect(jsonPath("$.user.id").value(user.getId()))
                 .andExpect(jsonPath("$.answerCount").value(answers.size()))
-                .andDo(document("edit-questions",
+                .andDo(document("update-question",
                         Preprocessors.preprocessRequest(Preprocessors.prettyPrint()),
                         Preprocessors.preprocessResponse(Preprocessors.prettyPrint()),
                         pathParameters(
