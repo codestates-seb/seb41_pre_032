@@ -9,6 +9,7 @@ import useInput from '../util/useInput';
 import useFetch from '../util/useFetch';
 import { useParams } from 'react-router-dom';
 import Footer from '../Components/Footer';
+import useAuth from '../util/useAuth';
 
 const BodyWrap = styled.div`
   display: flex;
@@ -71,6 +72,7 @@ const SubmitBtn = styled.button`
   background-color: ${(props) => (props.activebtn === 0 ? '#aaa' : '#0a95ff')};
 `;
 const QuestionModified = () => {
+  const { auth } = useAuth();
   const { id } = useParams();
   const [data, isPending, error] = useFetch(
     `${process.env.REACT_APP_API_URL}/api/questions/${id}`
@@ -108,7 +110,7 @@ const QuestionModified = () => {
 
   const handleSubmit = () => {
     const data = { title, contents, attempt };
-    fetchPatch(`${process.env.REACT_APP_API_URL}/api/questions/`, id, data);
+    fetchPatch(`${process.env.REACT_APP_API_URL}/api/questions/`, id, data, auth.accessToken, auth.refreshToken);
   };
   return (
     <BodyWrap>

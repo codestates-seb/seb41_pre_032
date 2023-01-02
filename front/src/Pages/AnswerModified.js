@@ -7,6 +7,7 @@ import Sidebar from '../Components/Sidebar';
 import { fetchPatch } from '../util/api';
 import useFetch from '../util/useFetch';
 import useInput from '../util/useInput';
+import useAuth from '../util/useAuth';
 
 const BodyWrap = styled.div`
   display: flex;
@@ -60,6 +61,7 @@ const PatchBtn = styled.button`
   background-color: ${(props) => (props.activebtn > 0 ? '#0a95ff' : '#aaa')};
 `;
 const AnswerModified = () => {
+  const { auth } = useAuth();
   const { id } = useParams();
   const [data, isPending, error] = useFetch(
     `${process.env.REACT_APP_API_URL}/api/answers/${id}`
@@ -69,7 +71,7 @@ const AnswerModified = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { contents };
-    fetchPatch(`${process.env.REACT_APP_API_URL}/api/answers/`, id, data);
+    fetchPatch(`${process.env.REACT_APP_API_URL}/api/answers/`, id, data, auth.accessToken, auth.refreshToken);
   };
 
   useEffect(() => {

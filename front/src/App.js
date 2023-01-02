@@ -15,6 +15,7 @@ import UserInfo from './Pages/UserInfo';
 import EditProfile from './Pages/EditProfile';
 import DeleteProfile from './Pages/DeleteProfile';
 import RequireAuth from './Components/RequireAuth';
+import RequireUnauth from './Components/RequireUnauth';
 import Missing from './Components/Missing';
 import QuestionModified from './Pages/QuestionModified';
 import AnswerModified from './Pages/AnswerModified';
@@ -77,7 +78,6 @@ function App() {
           <Route path='*' element={<Missing />} />
         </Routes>
       </BrowserRouter>
-      <Footer />
     </div>
   );
 }

@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { fetchCreate } from '../util/api';
 import useInput from '../util/useInput';
 import Footer from '../Components/Footer';
+import useAuth from '../util/useAuth';
 
 const BodyWrap = styled.div`
   display: flex;
@@ -61,6 +62,7 @@ const SubmitBtn = styled.button`
 `;
 
 const QuestionCreate = () => {
+  const { auth } = useAuth();
   const [isFocus, setIsFocus] = useState(0);
   const [title, titleBind, titleReset] = useInput('');
   const [contents, contentsBind, contentsReset] = useInput('');
@@ -79,7 +81,7 @@ const QuestionCreate = () => {
 
   const handleSubmit = () => {
     const data = { title, contents, attempt, taglist, vote: 0 };
-    fetchCreate(`${process.env.REACT_APP_API_URL}/api/questions`, data);
+    fetchCreate(`${process.env.REACT_APP_API_URL}/api/questions`, data, auth.accessToken, auth.refreshToken);
   };
 
   const handleOnChangeDiscard = () => {
